@@ -36,9 +36,9 @@ function drawRoundedRect(ctx, x, y, w, h, r) {
 export function InfiniteImageField({
   className,
   images = LINKEDIN_GROWTH_IMAGES,
-  imageWidth = 230,
-  imageHeight = 300,
-  gap = 22,
+  imageWidth = 260,
+  imageHeight = 340,
+  gap = 26,
   maxSpeed = 4,
   smoothing = 0.07,
   borderRadius = 18,
@@ -85,22 +85,21 @@ export function InfiniteImageField({
 
     const onMove = (e) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height,
-      };
+      if (rect.width > 0 && rect.height > 0) {
+        mouseRef.current = {
+          x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
+          y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height)),
+        };
+        isInsideRef.current = true;
+      }
     };
 
-    const onEnter = () => {
-      isInsideRef.current = true;
-    };
     const onLeave = () => {
       isInsideRef.current = false;
     };
 
-    canvas.addEventListener("mousemove", onMove);
-    canvas.addEventListener("mouseenter", onEnter);
-    canvas.addEventListener("mouseleave", onLeave);
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
 
     const draw = () => {
       const currentCanvas = canvasRef.current;
@@ -172,7 +171,7 @@ export function InfiniteImageField({
             // Subtle border overlay
             ctx.save();
             drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
-            ctx.strokeStyle = "rgba(108, 43, 217, 0.08)";
+            ctx.strokeStyle = "rgba(108, 43, 217, 0.12)";
             ctx.lineWidth = 1.5;
             ctx.stroke();
             ctx.restore();
@@ -188,9 +187,8 @@ export function InfiniteImageField({
     return () => {
       cancelAnimationFrame(rafId);
       ro.disconnect();
-      canvas.removeEventListener("mousemove", onMove);
-      canvas.removeEventListener("mouseenter", onEnter);
-      canvas.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
     };
   }, [imageWidth, imageHeight, gap, maxSpeed, smoothing, borderRadius]);
 

@@ -17,17 +17,17 @@ export default function Home() {
 
       tl.from(".anim-eyebrow", {
         opacity: 0,
-        y: -12,
-        duration: 0.5,
+        y: -14,
+        duration: 0.6,
       })
         .from(
           ".anim-headline",
           {
             opacity: 0,
-            y: 30,
-            duration: 0.7,
+            y: 32,
+            duration: 0.8,
           },
-          "-=0.2"
+          "-=0.3"
         )
         .from(
           ".anim-subheadline",
@@ -36,13 +36,13 @@ export default function Home() {
             y: 20,
             duration: 0.6,
           },
-          "-=0.3"
+          "-=0.4"
         )
         .from(
           ".anim-cta-group",
           {
             opacity: 0,
-            y: 20,
+            y: 18,
             duration: 0.5,
           },
           "-=0.3"
@@ -51,19 +51,19 @@ export default function Home() {
           ".anim-proof",
           {
             opacity: 0,
-            y: 15,
+            y: 14,
             duration: 0.5,
           },
           "-=0.2"
         )
         .from(
-          ".anim-canvas",
+          ".anim-hint",
           {
             opacity: 0,
-            scale: 0.96,
-            duration: 0.8,
+            scale: 0.9,
+            duration: 0.6,
           },
-          "-=0.5"
+          "-=0.3"
         );
     },
     { scope: containerRef }
@@ -71,17 +71,7 @@ export default function Home() {
 
   return (
     <div className={styles.pageWrapper} ref={containerRef}>
-      {/* Decorative Brand Ambience */}
-      <div
-        className="glow-blob-magenta"
-        style={{ top: "-140px", right: "-80px", opacity: 0.18 }}
-      />
-      <div
-        className="glow-blob-violet"
-        style={{ top: "180px", left: "-160px", opacity: 0.14 }}
-      />
-
-      {/* Thinner Navigation */}
+      {/* Thinner, Sleek Navbar */}
       <header className={styles.navbar}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>✦</div>
@@ -115,10 +105,45 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section: Full Viewport with Canvas Background & Content Above */}
       <main className={styles.heroSection}>
-        <div className={styles.heroGrid}>
-          {/* Left-Aligned Copy Column */}
+        {/* Full-Viewport Infinite Image Canvas */}
+        <div className={styles.canvasBackground}>
+          <InfiniteImageField
+            images={LINKEDIN_GROWTH_IMAGES}
+            imageWidth={250}
+            imageHeight={330}
+            gap={24}
+            maxSpeed={4}
+            smoothing={0.07}
+            borderRadius={18}
+            className="w-full h-full"
+          />
+        </div>
+
+        {/* Scrim & Vignette Overlays for Text Legibility & Depth */}
+        <div className={styles.scrimOverlay} />
+        <div className={styles.topVignette} />
+        <div className={styles.bottomVignette} />
+
+        {/* Ambient Glows */}
+        <div
+          className="glow-blob-magenta"
+          style={{ top: "-120px", left: "20%", opacity: 0.12 }}
+        />
+        <div
+          className="glow-blob-violet"
+          style={{ bottom: "50px", left: "-100px", opacity: 0.1 }}
+        />
+
+        {/* Interactive Canvas Hint Pill */}
+        <div className={`${styles.canvasHint} anim-hint`}>
+          <span className={styles.canvasHintDot} />
+          <span>Move cursor to glide canvas</span>
+        </div>
+
+        {/* Left-Aligned Hero Content Appearing Above the Canvas */}
+        <div className={styles.heroContentContainer}>
           <div className={styles.leftContent}>
             <div className={`${styles.eyebrow} anim-eyebrow`}>
               <span className={styles.eyebrowDot} />
@@ -149,7 +174,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Micro-Proof Friction Reducer */}
+            {/* Micro-Proof Line */}
             <div className={`${styles.microProof} anim-proof`}>
               <span className={styles.proofItem}>
                 <span className={styles.proofCheck}>✓</span> Trusted by 50+ founders
@@ -162,29 +187,6 @@ export default function Home() {
               <span className={styles.proofItem}>
                 <span className={styles.proofCheck}>✓</span> 94% client satisfaction
               </span>
-            </div>
-          </div>
-
-          {/* Right Column: Infinite Image Field Canvas Stage */}
-          <div className={`${styles.canvasStage} anim-canvas`}>
-            <div className={styles.canvasMaskTop} />
-            <div className={styles.canvasMaskBottom} />
-            <div className={styles.canvasHint}>
-              <span className={styles.canvasHintDot} />
-              <span>Move cursor to explore content</span>
-            </div>
-
-            <div className={styles.canvasInner}>
-              <InfiniteImageField
-                images={LINKEDIN_GROWTH_IMAGES}
-                imageWidth={230}
-                imageHeight={300}
-                gap={22}
-                maxSpeed={4}
-                smoothing={0.07}
-                borderRadius={18}
-                className="w-full h-full"
-              />
             </div>
           </div>
         </div>
