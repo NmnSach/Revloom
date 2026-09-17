@@ -1,19 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { InfiniteImageField, LINKEDIN_GROWTH_IMAGES } from "@/components/ui/infinite-image-field";
+import { SplashScreen } from "@/components/splash-screen";
 import styles from "./page.module.css";
 
 gsap.registerPlugin(useGSAP);
 
 export default function Home() {
   const containerRef = useRef(null);
+  const [showSplash, setShowSplash] = useState(true);
 
   useGSAP(
     () => {
+      if (showSplash) return;
+
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       tl.from(".anim-headline", {
@@ -49,11 +53,16 @@ export default function Home() {
           "-=0.2"
         );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [showSplash] }
   );
 
   return (
     <div className={styles.pageWrapper} ref={containerRef}>
+      {/* Splash Screen intro powered by WheelCarousel */}
+      {showSplash && (
+        <SplashScreen onComplete={() => setShowSplash(false)} />
+      )}
+
       {/* Dark gradient from top fading downwards for transparent nav visibility */}
       <div className={styles.topGradientScrim} />
 
