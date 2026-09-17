@@ -71,7 +71,10 @@ export default function Home() {
 
   return (
     <div className={styles.pageWrapper} ref={containerRef}>
-      {/* Thinner, Sleek Navbar */}
+      {/* Dark gradient from top fading downwards for transparent nav visibility */}
+      <div className={styles.topGradientScrim} />
+
+      {/* Transparent Navigation */}
       <header className={styles.navbar}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>✦</div>
