@@ -1,24 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata = {
-  title: "Revloom | Next.js + GSAP",
-  description: "Next.js application initialized with JavaScript, GSAP animations, and ready for modern UI libraries.",
+  title: "Revloom — Supercharge Your LinkedIn Reach & Content",
+  description:
+    "Revloom helps founders, creators, and leaders scale their LinkedIn reach and craft high-performing content.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,600,700&display=swap"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
