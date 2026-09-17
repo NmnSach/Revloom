@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { InfiniteImageField, LINKEDIN_GROWTH_IMAGES } from "@/components/ui/infinite-image-field";
 import styles from "./page.module.css";
 
 gsap.registerPlugin(useGSAP);
@@ -14,31 +15,31 @@ export default function Home() {
     () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(".anim-tag", {
+      tl.from(".anim-eyebrow", {
         opacity: 0,
-        y: -15,
-        duration: 0.6,
+        y: -12,
+        duration: 0.5,
       })
         .from(
-          ".anim-title",
+          ".anim-headline",
           {
             opacity: 0,
-            y: 35,
-            duration: 0.8,
+            y: 30,
+            duration: 0.7,
           },
-          "-=0.3"
+          "-=0.2"
         )
         .from(
-          ".anim-sub",
+          ".anim-subheadline",
           {
             opacity: 0,
             y: 20,
             duration: 0.6,
           },
-          "-=0.4"
+          "-=0.3"
         )
         .from(
-          ".anim-cta",
+          ".anim-cta-group",
           {
             opacity: 0,
             y: 20,
@@ -47,23 +48,22 @@ export default function Home() {
           "-=0.3"
         )
         .from(
-          ".anim-metrics",
+          ".anim-proof",
           {
             opacity: 0,
-            scale: 0.96,
-            duration: 0.6,
+            y: 15,
+            duration: 0.5,
           },
           "-=0.2"
         )
         .from(
-          ".anim-card",
+          ".anim-canvas",
           {
             opacity: 0,
-            y: 30,
-            stagger: 0.15,
-            duration: 0.7,
+            scale: 0.96,
+            duration: 0.8,
           },
-          "-=0.3"
+          "-=0.5"
         );
     },
     { scope: containerRef }
@@ -71,17 +71,17 @@ export default function Home() {
 
   return (
     <div className={styles.pageWrapper} ref={containerRef}>
-      {/* Decorative Brand Glow Blobs */}
+      {/* Decorative Brand Ambience */}
       <div
         className="glow-blob-magenta"
-        style={{ top: "-100px", right: "-100px" }}
+        style={{ top: "-140px", right: "-80px", opacity: 0.18 }}
       />
       <div
         className="glow-blob-violet"
-        style={{ top: "350px", left: "-150px" }}
+        style={{ top: "180px", left: "-160px", opacity: 0.14 }}
       />
 
-      {/* Top Navbar */}
+      {/* Thinner Navigation */}
       <header className={styles.navbar}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>✦</div>
@@ -91,176 +91,103 @@ export default function Home() {
         <nav>
           <ul className={styles.navLinks}>
             <li>
-              <a href="#features" className={styles.navLink}>
-                Features
-              </a>
-            </li>
-            <li>
-              <a href="#impact" className={styles.navLink}>
-                Results
-              </a>
-            </li>
-            <li>
               <a href="#how-it-works" className={styles.navLink}>
                 How It Works
+              </a>
+            </li>
+            <li>
+              <a href="#case-studies" className={styles.navLink}>
+                Case Studies
+              </a>
+            </li>
+            <li>
+              <a href="#pricing" className={styles.navLink}>
+                Pricing
               </a>
             </li>
           </ul>
         </nav>
 
         <div>
-          <a href="#cta" className="btn btn-primary" style={{ padding: "0.65rem 1.4rem" }}>
-            Get Started
+          <a href="#audit" className={`btn btn-primary ${styles.navCta}`}>
+            Get Free Audit
           </a>
         </div>
       </header>
 
-      <main>
-        {/* Hero Section */}
-        <section className={styles.heroSection}>
-          <div className={`${styles.heroTag} anim-tag`}>
-            <span className={styles.tagLimeDot} />
-            <span>Scale Your LinkedIn Influence</span>
-          </div>
-
-          <h1 className={`${styles.heroTitle} anim-title`}>
-            Multiply Your LinkedIn Reach &{" "}
-            <span className="text-gradient">Dominate Your Niche</span>
-          </h1>
-
-          <p className={`${styles.heroSubtitle} anim-sub`}>
-            Revloom transforms your ideas into viral LinkedIn content and targeted
-            audience growth. Built for founders, operators, and creators who want
-            authority without the endless grind.
-          </p>
-
-          <div className={`${styles.heroActions} anim-cta`}>
-            <a href="#cta" className="btn btn-primary">
-              Book a Strategy Call →
-            </a>
-            <a href="#how-it-works" className="btn btn-ghost-lime">
-              See How It Works
-            </a>
-          </div>
-
-          {/* Metrics / Proof Bar */}
-          <div className={`${styles.metricsBar} anim-metrics`}>
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>
-                <span className={styles.statUnderline}>12.4M+</span>
-              </div>
-              <div className={styles.metricLabel}>Organic Impressions Delivered</div>
+      {/* Hero Section */}
+      <main className={styles.heroSection}>
+        <div className={styles.heroGrid}>
+          {/* Left-Aligned Copy Column */}
+          <div className={styles.leftContent}>
+            <div className={`${styles.eyebrow} anim-eyebrow`}>
+              <span className={styles.eyebrowDot} />
+              <span>Founder-Led LinkedIn Growth</span>
             </div>
 
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>
-                <span className={styles.statUnderline}>3.8x</span>
-              </div>
-              <div className={styles.metricLabel}>Average Engagement Lift</div>
-            </div>
+            <h1 className={`${styles.headline} anim-headline`}>
+              Stop posting.{" "}
+              <span className="text-gradient">Start positioning.</span>
+            </h1>
 
-            <div className={styles.metricItem}>
-              <div className={styles.metricValue}>
-                <span className={styles.statUnderline}>150+</span>
-              </div>
-              <div className={styles.metricLabel}>Leaders & Founders Scaled</div>
-            </div>
-          </div>
-        </section>
-
-        {/* Feature Grid / Cards Section */}
-        <section id="features" className={styles.featuresSection}>
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionCategory}>Engineered for Impact</div>
-            <h2 className={styles.sectionTitle}>
-              Everything You Need to Win on LinkedIn
-            </h2>
-            <p className={styles.sectionSubtitle}>
-              From algorithmic positioning to thumb-stopping story hooks, our system turns
-              profile visitors into qualified pipeline and brand advocates.
+            <p className={`${styles.subheadline} anim-subheadline`}>
+              Revloom handles your LinkedIn strategy, writing, and engagement
+              end-to-end — so your profile stops looking like a resume and
+              starts working like your best salesperson. No ghostwriting fluff.
+              Just sharp positioning, consistent content, and real pipeline.
             </p>
-          </div>
 
-          <div className={styles.cardsGrid}>
-            <div className={`${styles.featureCard} anim-card`}>
-              <div className={styles.cardIconCircle}>⚡</div>
-              <h3 className={styles.cardHeading}>High-Retention Hooks</h3>
-              <p className={styles.cardParagraph}>
-                Data-backed copywriting frameworks crafted to stop the scroll and keep
-                readers riveted through the entire post.
-              </p>
-              <div className={styles.cardCheckItem}>
-                <span className={styles.checkBadge}>✓</span>
-                <span>Optimized for dwell time and algorithmic distribution</span>
-              </div>
-            </div>
-
-            <div className={`${styles.featureCard} anim-card`}>
-              <div className={styles.cardIconCircle}>🎯</div>
-              <h3 className={styles.cardHeading}>Audience Calibration</h3>
-              <p className={styles.cardParagraph}>
-                Pinpoint high-value decision-makers in your target industry so every post
-                attracts real business opportunities.
-              </p>
-              <div className={styles.cardCheckItem}>
-                <span className={styles.checkBadge}>✓</span>
-                <span>Zero fluff, pure authoritative positioning</span>
-              </div>
-            </div>
-
-            <div className={`${styles.featureCard} anim-card`}>
-              <div className={styles.cardIconCircle}>📈</div>
-              <h3 className={styles.cardHeading}>Turnkey Content Engine</h3>
-              <p className={styles.cardParagraph}>
-                Spend 45 minutes a month on strategy while we handle the research, drafting,
-                formatting, and continuous iteration.
-              </p>
-              <div className={styles.cardCheckItem}>
-                <span className={styles.checkBadge}>✓</span>
-                <span>Consistent 4-5 posts weekly without burning hours</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Dark Contrast Section (Ink Violet) */}
-        <section id="cta" className={styles.darkContrastSection}>
-          <div
-            className="glow-blob-magenta"
-            style={{ bottom: "-150px", left: "20%", opacity: 0.2 }}
-          />
-
-          <div className={styles.darkCtaBox}>
-            <div className="badge-lime" style={{ marginBottom: "1.5rem" }}>
-              Ready to Expand Your Reach?
-            </div>
-            <h2 className={styles.darkTitle}>
-              Ready to Turn LinkedIn into Your #1 Growth Channel?
-            </h2>
-            <p className={styles.darkSubtitle}>
-              Join founders and executives growing their audience and inbound pipeline with Revloom.
-            </p>
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#" className="btn btn-primary" style={{ padding: "1rem 2.25rem" }}>
-                Start Growing with Revloom
+            <div className={`${styles.ctaGroup} anim-cta-group`}>
+              <a href="#audit" className={`btn btn-primary ${styles.primaryCta}`}>
+                Get My Free Positioning Audit →
               </a>
-              <a href="#features" className="btn btn-secondary" style={{ color: "#ffffff", borderColor: "rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.08)" }}>
-                Explore Case Studies
+              <a
+                href="#how-it-works"
+                className={`btn btn-ghost-lime ${styles.secondaryCta}`}
+              >
+                See How It Works
               </a>
             </div>
 
-            <div className={styles.footerBottom}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span style={{ color: "var(--color-secondary)" }}>✦</span>
-                <span style={{ fontFamily: "var(--font-headline)", fontWeight: 700 }}>
-                  Revloom
-                </span>
-                <span>© {new Date().getFullYear()} All rights reserved.</span>
-              </div>
-              <div>Helping leaders build reach & content on LinkedIn.</div>
+            {/* Micro-Proof Friction Reducer */}
+            <div className={`${styles.microProof} anim-proof`}>
+              <span className={styles.proofItem}>
+                <span className={styles.proofCheck}>✓</span> Trusted by 50+ founders
+              </span>
+              <span className={styles.proofDot}>•</span>
+              <span className={styles.proofItem}>
+                <span className={styles.proofCheck}>✓</span> 6.6M+ impressions generated
+              </span>
+              <span className={styles.proofDot}>•</span>
+              <span className={styles.proofItem}>
+                <span className={styles.proofCheck}>✓</span> 94% client satisfaction
+              </span>
             </div>
           </div>
-        </section>
+
+          {/* Right Column: Infinite Image Field Canvas Stage */}
+          <div className={`${styles.canvasStage} anim-canvas`}>
+            <div className={styles.canvasMaskTop} />
+            <div className={styles.canvasMaskBottom} />
+            <div className={styles.canvasHint}>
+              <span className={styles.canvasHintDot} />
+              <span>Move cursor to explore content</span>
+            </div>
+
+            <div className={styles.canvasInner}>
+              <InfiniteImageField
+                images={LINKEDIN_GROWTH_IMAGES}
+                imageWidth={230}
+                imageHeight={300}
+                gap={22}
+                maxSpeed={4}
+                smoothing={0.07}
+                borderRadius={18}
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
