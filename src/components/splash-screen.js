@@ -1,242 +1,285 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore, useTransition } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { WheelCarousel } from "@/components/ui/wheel-carousel";
 
-const SPLASH_ITEMS = [
-  {
-    label: "Founder-Led Strategy",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80",
-    imageAlt: "Founder-Led Strategy",
-  },
-  {
-    label: "High-Retention Content",
-    image:
-      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800&auto=format&fit=crop&q=80",
-    imageAlt: "High-Retention Content",
-  },
-  {
-    label: "Algorithmic Reach",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
-    imageAlt: "Algorithmic Reach",
-  },
-  {
-    label: "B2B Pipeline Growth",
-    image:
-      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=80",
-    imageAlt: "B2B Pipeline Growth",
-  },
-  {
-    label: "Revloom",
-    image: "/logo.png",
-    imageAlt: "Revloom - Scale Your LinkedIn",
-  },
+const SERVICES = [
+  { label: "LinkedIn Ghostwriting" },
+  { label: "Personal Brand Strategy" },
+  { label: "Founder Positioning" },
+  { label: "Content Calendar & Scheduling" },
+  { label: "Engagement & Comment Management" },
+  { label: "Profile Optimization" },
+  { label: "Carousel & Visual Content Design" },
+  { label: "Lead Gen via LinkedIn Outreach" },
+  { label: "Analytics & Reporting" },
 ];
 
-export function SplashScreen({ onComplete }) {
+const STORAGE_KEY = "hasSeenRevloomSplash";
+
+function subscribe(callback) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getSnapshot() {
+  if (typeof window === "undefined") return "true";
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "true";
+  return sessionStorage.getItem(STORAGE_KEY) === "true" ? "true" : "false";
+}
+
+function getServerSnapshot() {
+  return "true";
+}
+
+export function SplashScreen({ onComplete, children }) {
+  const isAlreadySeen = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [showSplash, setShowSplash] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [stage, setStage] = useState("wheel"); // "wheel" | "logo" | "fadeout"
+  const [, startTransition] = useTransition();
+
+  const shouldSkip = isAlreadySeen === "true";
 
   useEffect(() => {
-    // Sequence of auto-scroll steps
-    const stepDuration = 1200; // ms per step
-    const finalHold = 1400; // ms to pause on Revloom before fade out
+    if (shouldSkip) {
+      onComplete?.();
+      return;
+    }
 
+    // Auto-rotation sequence through the 9 services
+    const stepDuration = 220;
     const timers = [];
 
-    // Step 1 -> index 1
-    timers.push(setTimeout(() => setActiveIndex(1), stepDuration));
-    // Step 2 -> index 2
-    timers.push(setTimeout(() => setActiveIndex(2), stepDuration * 2));
-    // Step 3 -> index 3
-    timers.push(setTimeout(() => setActiveIndex(3), stepDuration * 3));
-    // Step 4 -> index 4 ("Revloom")
-    timers.push(setTimeout(() => setActiveIndex(4), stepDuration * 4));
+    SERVICES.forEach((_, idx) => {
+      if (idx > 0) {
+        timers.push(
+          setTimeout(() => {
+            startTransition(() => {
+              setActiveIndex(idx);
+            });
+          }, idx * stepDuration)
+        );
+      }
+    });
 
-    // After pausing on Revloom, trigger fade out
+    const rotationEndTime = SERVICES.length * stepDuration;
+
+    // After rotation completes, transition from wheel to logo
     timers.push(
       setTimeout(() => {
-        setIsFadingOut(true);
-      }, stepDuration * 4 + finalHold)
+        setStage("logo");
+      }, rotationEndTime + 250)
     );
 
-    // After fade out completes, call onComplete
+    // Hold on the Revloom logo for ~1.2s, then trigger final fadeout
     timers.push(
       setTimeout(() => {
+        setStage("fadeout");
+      }, rotationEndTime + 250 + 1200)
+    );
+
+    // Total duration is under 4 seconds (~3.8s) -> dismiss splash screen
+    timers.push(
+      setTimeout(() => {
+        sessionStorage.setItem(STORAGE_KEY, "true");
+        setShowSplash(false);
         onComplete?.();
-      }, stepDuration * 4 + finalHold + 800)
+      }, rotationEndTime + 250 + 1200 + 600)
     );
 
     return () => {
       timers.forEach((t) => clearTimeout(t));
     };
-  }, [onComplete]);
+  }, [onComplete, shouldSkip]);
 
   const handleSkip = () => {
-    setIsFadingOut(true);
+    sessionStorage.setItem(STORAGE_KEY, "true");
+    setStage("fadeout");
     setTimeout(() => {
+      setShowSplash(false);
       onComplete?.();
-    }, 400);
+    }, 250);
   };
 
-  return (
-    <AnimatePresence>
-      {!isFadingOut && (
-        <motion.div
-          key="revloom-splash-screen"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.03, filter: "blur(8px)" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            position: "fixed",
-            inset: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: 9999,
-            backgroundColor: "#120E1C",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-          }}
-        >
-          {/* Subtle Ambient Brand Glows */}
-          <div
-            style={{
-              position: "absolute",
-              top: "-15%",
-              right: "15%",
-              width: "600px",
-              height: "600px",
-              borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(108, 43, 217, 0.25) 0%, transparent 70%)",
-              filter: "blur(90px)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: "-15%",
-              left: "15%",
-              width: "600px",
-              height: "600px",
-              borderRadius: "50%",
-              background:
-                "radial-gradient(circle, rgba(255, 79, 206, 0.18) 0%, transparent 70%)",
-              filter: "blur(90px)",
-              pointerEvents: "none",
-            }}
-          />
+  if (shouldSkip) {
+    return <>{children}</>;
+  }
 
-          {/* Top Bar with Brand Badge and Skip Button */}
-          <div
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {showSplash && stage !== "fadeout" && (
+          <motion.div
+            key="revloom-splash-container"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.025 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              padding: "1.5rem 2.5rem",
+              position: "fixed",
+              inset: 0,
+              width: "100vw",
+              height: "100vh",
+              zIndex: 99999,
+              backgroundColor: "#FFFFFF",
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              zIndex: 20,
+              justifyContent: "center",
+              overflow: "hidden",
             }}
           >
+            {/* Subtle brand ambiance in the background */}
             <div
               style={{
-                fontFamily: "var(--font-headline)",
-                fontWeight: 800,
-                fontSize: "1.1rem",
-                color: "#FFFFFF",
-                letterSpacing: "-0.02em",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
+                position: "absolute",
+                top: "15%",
+                left: "20%",
+                width: "500px",
+                height: "500px",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(108, 43, 217, 0.05) 0%, transparent 70%)",
+                filter: "blur(80px)",
+                pointerEvents: "none",
               }}
-            >
-              <span style={{ color: "var(--color-accent)" }}>✦</span>
-              <span>Revloom</span>
-            </div>
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "15%",
+                right: "20%",
+                width: "500px",
+                height: "500px",
+                borderRadius: "50%",
+                background:
+                  "radial-gradient(circle, rgba(255, 79, 206, 0.04) 0%, transparent 70%)",
+                filter: "blur(80px)",
+                pointerEvents: "none",
+              }}
+            />
 
+            {/* Stage 1: Wheel Carousel rotating through services */}
+            {stage === "wheel" && (
+              <motion.div
+                key="wheel-stage"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <WheelCarousel
+                  items={SERVICES}
+                  activeIndex={activeIndex}
+                  mode="custom"
+                  background="#FFFFFF"
+                  selectedColor="#6C2BD9"
+                  textColor="rgba(26, 22, 37, 0.35)"
+                  markerColor="#C6FF3D"
+                  photoWidth={0} // Hide photo/image column completely
+                  showMarker={true}
+                  markerSize={16}
+                  markerGap={24}
+                  contentWidth={1100}
+                  radius={420}
+                  spacing={16}
+                  visibleItems={7}
+                  apexInset={28}
+                  interactive={false} // Disable user dragging during scripted autoplay
+                  appear={false}
+                  edgeFade={true}
+                  edgeFadeSize={25}
+                />
+              </motion.div>
+            )}
+
+            {/* Stage 2: Revloom Logo Center Reveal */}
+            {stage === "logo" && (
+              <motion.div
+                key="logo-stage"
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.04 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "1.25rem",
+                  zIndex: 20,
+                }}
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    width: "160px",
+                    height: "160px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Image
+                    src="/logo.png"
+                    alt="Revloom"
+                    width={160}
+                    height={160}
+                    priority
+                    style={{
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 8px 24px rgba(108, 43, 217, 0.15))",
+                    }}
+                  />
+                </div>
+              </motion.div>
+            )}
+
+            {/* Skip Text Link (Bottom-Right, #1A1625 at 50% opacity) */}
             <button
               onClick={handleSkip}
               type="button"
               style={{
-                background: "rgba(255, 255, 255, 0.08)",
-                border: "1px solid rgba(255, 255, 255, 0.15)",
-                color: "rgba(255, 255, 255, 0.75)",
-                padding: "0.4rem 0.95rem",
-                borderRadius: "9999px",
+                position: "absolute",
+                bottom: "2rem",
+                right: "2.5rem",
+                background: "transparent",
+                border: "none",
+                color: "rgba(26, 22, 37, 0.5)",
                 fontFamily: "var(--font-body)",
-                fontSize: "0.8rem",
-                fontWeight: 600,
+                fontSize: "0.85rem",
+                fontWeight: 500,
+                letterSpacing: "0.02em",
                 cursor: "pointer",
-                backdropFilter: "blur(8px)",
-                transition: "all 0.2s ease",
+                padding: "0.5rem 0.75rem",
+                transition: "color 0.2s ease, opacity 0.2s ease",
+                zIndex: 50,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#FFFFFF";
-                e.currentTarget.style.borderColor = "var(--color-accent)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.14)";
+                e.currentTarget.style.color = "#6C2BD9";
+                e.currentTarget.style.opacity = "1";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = "rgba(255, 255, 255, 0.75)";
-                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                e.currentTarget.style.color = "rgba(26, 22, 37, 0.5)";
+                e.currentTarget.style.opacity = "1";
               }}
             >
-              Skip Intro →
+              Skip →
             </button>
-          </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-          {/* Wheel Carousel Component */}
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
-              zIndex: 10,
-            }}
-          >
-            <WheelCarousel
-              items={SPLASH_ITEMS}
-              activeIndex={activeIndex}
-              photoSide="left"
-              photoWidth={34}
-              photoAspect="4/3"
-              contentWidth={1000}
-              gap={54}
-              radius={360}
-              spacing={15}
-              visibleItems={5}
-              apexInset={30}
-              showMarker={true}
-              markerColor="#C6FF3D"
-              markerSize={14}
-              markerGap={20}
-              background="transparent"
-              panelColor="#1C152B"
-              textColor="rgba(255, 255, 255, 0.35)"
-              selectedColor="#FFFFFF"
-              scrollSpeed={0.008}
-              dragSpeed={0.02}
-              snap={true}
-              momentum={true}
-              appear={false}
-              edgeFade={true}
-              edgeFadeSize={25}
-            />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      {/* Render children (main application) underneath */}
+      {children}
+    </>
   );
 }

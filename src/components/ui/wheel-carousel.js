@@ -4,17 +4,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const unsplash = (id) =>
-  `https://images.unsplash.com/photo-${id}?w=1200&q=80&auto=format&fit=crop`;
-
-export const wheelCarouselDefaultItems = [
-  { label: "Halcyon Fields", image: unsplash("1520529890308-f503006340b4") },
-  { label: "Meridian House", image: unsplash("1483366774565-c783b9f70e2c") },
-  { label: "Norlight Pavilion", image: unsplash("1496865534669-25ec2a3a0fd3") },
-  { label: "Aperture Studio", image: unsplash("1549791084-5f78368b208b") },
-  { label: "Solene Tower", image: unsplash("1534094830444-3a1e21f7e3e7") },
-];
-
 const aspectRatios = {
   "3/4": "3 / 4",
   "1/1": "1 / 1",
@@ -34,34 +23,35 @@ function shortestOffset(index, rotation, length) {
 }
 
 export function WheelCarousel({
-  items = wheelCarouselDefaultItems,
+  items = [],
   mode = "custom",
   photoSide = "left",
-  photoWidth = 32,
+  photoWidth = 0, // Default to 0 for text-only mode
   photoAspect = "4/3",
-  contentWidth = 980,
-  gap = 48,
-  photoRadius = 20,
-  crossfadeDuration = 0.5,
-  radius = 340,
-  spacing = 15,
-  visibleItems = 5,
-  apexInset = 32,
-  textColor = "rgba(255, 255, 255, 0.4)",
-  selectedColor = "#FFFFFF",
+  contentWidth = 1100,
+  gap = 40,
+  photoRadius = 18,
+  crossfadeDuration = 0.4,
+  radius = 380,
+  spacing = 16,
+  visibleItems = 7,
+  apexInset = 35,
+  textColor = "rgba(26, 22, 37, 0.35)",
+  selectedColor = "#6C2BD9",
   showMarker = true,
   markerColor = "#C6FF3D",
   markerSize = 14,
-  markerGap = 18,
-  background = "#120E1C",
-  panelColor = "#1F182E",
+  markerGap = 22,
+  background = "#FFFFFF",
+  panelColor = "#F1EEF7",
   scrollSpeed = 0.008,
   dragSpeed = 0.02,
   snap = true,
   momentum = true,
+  interactive = true,
   appear = true,
   edgeFade = true,
-  edgeFadeSize = 30,
+  edgeFadeSize = 25,
   initialIndex = 0,
   activeIndex,
   onActiveChange,
@@ -71,7 +61,10 @@ export function WheelCarousel({
 }) {
   const reduceMotion = useReducedMotion() ?? false;
   const instanceId = useId();
-  const carouselItems = items.length ? items : wheelCarouselDefaultItems;
+  const carouselItems = useMemo(
+    () => (items.length ? items : [{ label: "Service" }]),
+    [items]
+  );
   const itemCount = carouselItems.length;
   const startingIndex = wrapIndex(activeIndex ?? initialIndex, itemCount);
   const [rotation, setRotation] = useState(startingIndex);
@@ -100,19 +93,19 @@ export function WheelCarousel({
     if (mode === "dark") {
       return {
         background: "#000000",
-        text: "rgba(255, 255, 255, 0.5)",
-        selected: "#ffffff",
-        marker: "#2c6bff",
+        text: "rgba(255, 255, 255, 0.35)",
+        selected: "#FFFFFF",
+        marker: "#C6FF3D",
         panel: "#141414",
       };
     }
     if (mode === "light") {
       return {
-        background: "#ffffff",
-        text: "rgba(0, 0, 0, 0.32)",
-        selected: "#0a0a0a",
-        marker: "#2c6bff",
-        panel: "#ededed",
+        background: "#FFFFFF",
+        text: "rgba(26, 22, 37, 0.35)",
+        selected: "#6C2BD9",
+        marker: "#C6FF3D",
+        panel: "#F1EEF7",
       };
     }
     return {
@@ -153,14 +146,14 @@ export function WheelCarousel({
       if (!draggingRef.current && Math.abs(velocityRef.current) > 0.0008) {
         commitRotation(rotationRef.current + velocityRef.current);
         velocityRef.current *=
-          momentum && !reduceMotion ? (snap ? 0.9 : 0.94) : 0.8;
+          momentum && !reduceMotion ? (snap ? 0.88 : 0.94) : 0.8;
         keepAnimating = true;
       } else if (!draggingRef.current && snap) {
         velocityRef.current = 0;
         const target = Math.round(rotationRef.current);
         const delta = target - rotationRef.current;
         if (Math.abs(delta) > 0.001 && !reduceMotion) {
-          commitRotation(rotationRef.current + delta * 0.22);
+          commitRotation(rotationRef.current + delta * 0.28);
           keepAnimating = true;
         } else {
           commitRotation(target);
@@ -184,6 +177,7 @@ export function WheelCarousel({
   );
 
   useEffect(() => {
+    if (!interactive) return;
     const stage = stageRef.current;
     if (!stage) return;
 
@@ -198,7 +192,7 @@ export function WheelCarousel({
 
     stage.addEventListener("wheel", handleWheel, { passive: false });
     return () => stage.removeEventListener("wheel", handleWheel);
-  }, [commitRotation, runAnimation, scrollSpeed]);
+  }, [commitRotation, interactive, runAnimation, scrollSpeed]);
 
   useEffect(() => {
     if (activeIndex === undefined) return;
@@ -212,7 +206,8 @@ export function WheelCarousel({
     selectedRef.current = controlledIndex;
     setSelectedIndex(controlledIndex);
     commitRotationRef.current(rotationRef.current + delta);
-  }, [activeIndex, itemCount]);
+    runAnimation();
+  }, [activeIndex, itemCount, runAnimation]);
 
   const moveBy = (amount) => {
     velocityRef.current = 0;
@@ -221,6 +216,7 @@ export function WheelCarousel({
   };
 
   const handlePointerDown = (event) => {
+    if (!interactive) return;
     if (!event.isPrimary || event.button !== 0) return;
     draggingRef.current = true;
     setIsDragging(true);
@@ -231,7 +227,7 @@ export function WheelCarousel({
   };
 
   const handlePointerMove = (event) => {
-    if (!draggingRef.current) return;
+    if (!interactive || !draggingRef.current) return;
     const distance = event.clientY - dragOriginRef.current.y;
     const nextRotation = dragOriginRef.current.rotation - distance * dragSpeed;
     velocityRef.current = nextRotation - previousDragRotationRef.current;
@@ -240,7 +236,7 @@ export function WheelCarousel({
   };
 
   const handlePointerEnd = (event) => {
-    if (!draggingRef.current) return;
+    if (!interactive || !draggingRef.current) return;
     draggingRef.current = false;
     setIsDragging(false);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -250,6 +246,7 @@ export function WheelCarousel({
   };
 
   const handleKeyDown = (event) => {
+    if (!interactive) return;
     if (event.key === "ArrowDown" || event.key === "ArrowRight") {
       event.preventDefault();
       moveBy(1);
@@ -257,19 +254,6 @@ export function WheelCarousel({
     if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
       event.preventDefault();
       moveBy(-1);
-    }
-    if (event.key === "Home") {
-      event.preventDefault();
-      velocityRef.current = 0;
-      commitRotation(rotationRef.current - selectedIndex);
-      runAnimation();
-    }
-    if (event.key === "End") {
-      event.preventDefault();
-      velocityRef.current = 0;
-      const lastIndex = itemCount - 1;
-      commitRotation(rotationRef.current + lastIndex - selectedIndex);
-      runAnimation();
     }
   };
 
@@ -279,13 +263,15 @@ export function WheelCarousel({
     ? `linear-gradient(to bottom, transparent 0%, black ${edgeFadeSize}%, black ${100 - edgeFadeSize}%, transparent 100%)`
     : undefined;
 
+  const hasPhoto = photoWidth > 0 && selectedItem?.image;
+
   return (
     <motion.div
-      initial={appear && !reduceMotion ? { opacity: 0, y: 18 } : false}
+      initial={appear && !reduceMotion ? { opacity: 0, y: 16 } : false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "flex h-full min-h-[420px] w-full items-center justify-center overflow-hidden",
+        "flex h-full w-full items-center justify-center overflow-hidden select-none",
         className
       )}
       style={{ backgroundColor: palette.background }}
@@ -294,56 +280,60 @@ export function WheelCarousel({
         ref={stageRef}
         role="listbox"
         aria-label="Wheel carousel"
-        tabIndex={0}
+        tabIndex={interactive ? 0 : -1}
         className={cn(
-          "flex h-full w-full touch-none select-none items-stretch overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-current",
+          "flex h-full w-full touch-none items-stretch overflow-hidden outline-none",
           photoSide === "right" && "flex-row-reverse",
-          isDragging ? "cursor-grabbing" : "cursor-grab"
+          interactive && (isDragging ? "cursor-grabbing" : "cursor-grab")
         )}
-        style={{ maxWidth: contentWidth, gap }}
+        style={{ maxWidth: contentWidth, gap: hasPhoto ? gap : 0 }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         onPointerCancel={handlePointerEnd}
         onKeyDown={handleKeyDown}
       >
-        <div
-          className="flex h-full shrink-0 items-center justify-center"
-          style={{
-            width: `${photoWidth}%`,
-            backgroundColor: palette.background,
-          }}
-        >
+        {/* Photo Column (Optional, hidden when photoWidth is 0) */}
+        {hasPhoto && (
           <div
-            className={cn(
-              "relative w-full max-h-full overflow-hidden shadow-2xl",
-              photoClassName
-            )}
+            className="flex h-full shrink-0 items-center justify-center"
             style={{
-              aspectRatio: aspectRatios[photoAspect] || "4 / 3",
-              borderRadius: photoRadius,
-              backgroundColor: palette.panel,
-              border: "1px solid rgba(255, 255, 255, 0.12)",
+              width: `${photoWidth}%`,
+              backgroundColor: palette.background,
             }}
           >
-            <AnimatePresence initial={false} mode="sync">
-              <motion.img
-                key={`${safeSelectedIndex}-${selectedItem.image}`}
-                src={selectedItem.image}
-                alt={selectedItem.imageAlt || selectedItem.label}
-                initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduceMotion ? 0 : crossfadeDuration }}
-                className="absolute inset-0 h-full w-full object-cover"
-                draggable={false}
-              />
-            </AnimatePresence>
+            <div
+              className={cn(
+                "relative w-full max-h-full overflow-hidden shadow-xl",
+                photoClassName
+              )}
+              style={{
+                aspectRatio: aspectRatios[photoAspect] || "4 / 3",
+                borderRadius: photoRadius,
+                backgroundColor: palette.panel,
+                border: "1px solid rgba(108, 43, 217, 0.12)",
+              }}
+            >
+              <AnimatePresence initial={false} mode="sync">
+                <motion.img
+                  key={`${safeSelectedIndex}-${selectedItem.image}`}
+                  src={selectedItem.image}
+                  alt={selectedItem.imageAlt || selectedItem.label}
+                  initial={reduceMotion ? false : { opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reduceMotion ? 0 : crossfadeDuration }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  draggable={false}
+                />
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
+        )}
 
+        {/* Labels Wheel Container */}
         <div
-          className="relative h-full min-w-0 flex-1 overflow-hidden"
+          className="relative h-full min-w-0 flex-1 overflow-hidden flex items-center"
           style={{ maskImage: mask, WebkitMaskImage: mask }}
         >
           {showMarker && (
@@ -356,7 +346,7 @@ export function WheelCarousel({
                 height: markerSize,
                 marginLeft: -markerSize,
                 backgroundColor: palette.marker,
-                boxShadow: `0 0 12px ${palette.marker}`,
+                boxShadow: `0 0 14px ${palette.marker}`,
               }}
             />
           )}
@@ -371,7 +361,7 @@ export function WheelCarousel({
             const y = radius * Math.sin(radians);
             const distance = Math.min(Math.abs(offset) / visibleItems, 1);
             const opacity = Math.cos((distance * Math.PI) / 2);
-            const scale = 1 - Math.min(Math.abs(offset) * 0.04, 0.45);
+            const scale = 1 - Math.min(Math.abs(offset) * 0.05, 0.35);
             const selected = Math.abs(offset) < 0.5;
 
             return (
@@ -381,7 +371,7 @@ export function WheelCarousel({
                 role="option"
                 aria-selected={selected}
                 className={cn(
-                  "pointer-events-none absolute top-1/2 origin-left whitespace-nowrap text-[clamp(1.15rem,2.5vw,1.85rem)] font-bold leading-none tracking-[-0.02em]",
+                  "pointer-events-none absolute top-1/2 origin-left whitespace-nowrap",
                   itemClassName
                 )}
                 style={{
@@ -390,8 +380,12 @@ export function WheelCarousel({
                   opacity,
                   transform: `translate(${x}px, ${y}px) translateY(-50%) rotate(${angle}deg) scale(${scale})`,
                   fontFamily: "var(--font-headline)",
-                  letterSpacing: "-0.02em",
-                  transition: "color 0.25s ease",
+                  fontWeight: selected ? 800 : 700,
+                  fontSize: selected
+                    ? "clamp(2rem, 4.5vw, 3.5rem)"
+                    : "clamp(1.5rem, 3.2vw, 2.5rem)",
+                  letterSpacing: "-0.03em",
+                  transition: "color 0.2s ease, font-size 0.2s ease",
                 }}
               >
                 {item.label}
