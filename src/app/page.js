@@ -15,20 +15,11 @@ export default function Home() {
     () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(".anim-eyebrow", {
+      tl.from(".anim-headline", {
         opacity: 0,
-        y: -14,
-        duration: 0.6,
+        y: 32,
+        duration: 0.8,
       })
-        .from(
-          ".anim-headline",
-          {
-            opacity: 0,
-            y: 32,
-            duration: 0.8,
-          },
-          "-=0.3"
-        )
         .from(
           ".anim-subheadline",
           {
@@ -55,15 +46,6 @@ export default function Home() {
             duration: 0.5,
           },
           "-=0.2"
-        )
-        .from(
-          ".anim-hint",
-          {
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.6,
-          },
-          "-=0.3"
         );
     },
     { scope: containerRef }
@@ -137,20 +119,9 @@ export default function Home() {
           style={{ bottom: "50px", left: "-100px", opacity: 0.1 }}
         />
 
-        {/* Interactive Canvas Hint Pill */}
-        <div className={`${styles.canvasHint} anim-hint`}>
-          <span className={styles.canvasHintDot} />
-          <span>Move cursor to glide canvas</span>
-        </div>
-
         {/* Left-Aligned Hero Content Appearing Above the Canvas */}
         <div className={styles.heroContentContainer}>
           <div className={styles.leftContent}>
-            <div className={`${styles.eyebrow} anim-eyebrow`}>
-              <span className={styles.eyebrowDot} />
-              <span>Founder-Led LinkedIn Growth</span>
-            </div>
-
             <h1 className={`${styles.headline} anim-headline`}>
               Stop posting.{" "}
               <span className="text-gradient">Start positioning.</span>
