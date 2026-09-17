@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { InfiniteImageField, LINKEDIN_GROWTH_IMAGES } from "@/components/ui/infinite-image-field";
@@ -58,10 +59,16 @@ export default function Home() {
 
       {/* Transparent Navigation */}
       <header className={styles.navbar}>
-        <div className={styles.logo}>
-          <div className={styles.logoIcon}>✦</div>
-          <span>Revloom</span>
-        </div>
+        <a href="#" className={styles.logo} aria-label="Revloom Home">
+          <Image
+            src="/logo.png"
+            alt="Revloom"
+            width={48}
+            height={48}
+            priority
+            className={styles.logoImg}
+          />
+        </a>
 
         <nav>
           <ul className={styles.navLinks}>
