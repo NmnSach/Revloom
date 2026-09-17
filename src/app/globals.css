@@ -305,3 +305,11 @@ button,
   pointer-events: none;
   z-index: 0;
 }
+
+/* Layout Utilities */
+.w-full { width: 100% !important; }
+.h-full { height: 100% !important; }
+.relative { position: relative !important; }
+.absolute { position: absolute !important; }
+.overflow-hidden { overflow: hidden !important; }
+

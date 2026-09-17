@@ -121,10 +121,8 @@ export default function Home() {
           />
         </div>
 
-        {/* Scrim & Vignette Overlays for Text Legibility & Depth */}
+        {/* Subtle Scrim Overlay on the left for text legibility */}
         <div className={styles.scrimOverlay} />
-        <div className={styles.topVignette} />
-        <div className={styles.bottomVignette} />
 
         {/* Ambient Glows */}
         <div

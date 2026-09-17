@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 export const LINKEDIN_GROWTH_IMAGES = [
   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80",
@@ -34,17 +33,18 @@ function drawRoundedRect(ctx, x, y, w, h, r) {
 }
 
 export function InfiniteImageField({
-  className,
+  className = "",
   images = LINKEDIN_GROWTH_IMAGES,
   imageWidth = 260,
-  imageHeight = 340,
-  gap = 26,
+  imageHeight = 350,
+  gap = 28,
   maxSpeed = 4,
   smoothing = 0.07,
   borderRadius = 18,
   style = {},
   ...rest
 }) {
+  const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const loadedImagesRef = useRef([]);
   const dimsRef = useRef({ w: 0, h: 0 });
@@ -52,12 +52,18 @@ export function InfiniteImageField({
   const velRef = useRef({ x: 0, y: 0 });
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const isInsideRef = useRef(false);
+  const [loadTrigger, setLoadTrigger] = useState(0);
 
   // Pre-load images
   useEffect(() => {
     const imgs = images.map((src) => {
       const img = new Image();
-      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        setLoadTrigger((prev) => prev + 1);
+      };
+      img.onerror = () => {
+        console.warn("Failed to load image from:", src);
+      };
       img.src = src;
       return img;
     });
@@ -66,25 +72,30 @@ export function InfiniteImageField({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     let rafId = 0;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      dimsRef.current = { w: rect.width, h: rect.height };
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      const rect = container.getBoundingClientRect();
+      const w = rect.width || window.innerWidth;
+      const h = rect.height || window.innerHeight;
+
+      dimsRef.current = { w, h };
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
     };
 
     resize();
 
     const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
+    ro.observe(container);
+    window.addEventListener("resize", resize);
 
     const onMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
         mouseRef.current = {
           x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
@@ -156,6 +167,19 @@ export function InfiniteImageField({
               Math.abs(col * 7 + row * 13 + ((col * row * 3) | 0)) % numImages;
             const img = imgs[imgIdx];
 
+            // Card shadow
+            ctx.save();
+            ctx.shadowColor = "rgba(108, 43, 217, 0.12)";
+            ctx.shadowBlur = 16;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 6;
+
+            drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
+            ctx.fillStyle = "#EDE8F5";
+            ctx.fill();
+            ctx.restore();
+
+            // Draw image or placeholder
             ctx.save();
             drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
             ctx.clip();
@@ -163,15 +187,16 @@ export function InfiniteImageField({
             if (img && img.complete && img.naturalWidth > 0) {
               ctx.drawImage(img, sx, sy, imageWidth, imageHeight);
             } else {
-              ctx.fillStyle = "rgba(241, 238, 247, 0.9)";
+              // Placeholder fill with soft violet tint
+              ctx.fillStyle = "#E4DFED";
               ctx.fillRect(sx, sy, imageWidth, imageHeight);
             }
             ctx.restore();
 
-            // Subtle border overlay
+            // Border overlay
             ctx.save();
             drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
-            ctx.strokeStyle = "rgba(108, 43, 217, 0.12)";
+            ctx.strokeStyle = "rgba(108, 43, 217, 0.18)";
             ctx.lineWidth = 1.5;
             ctx.stroke();
             ctx.restore();
@@ -187,18 +212,42 @@ export function InfiniteImageField({
     return () => {
       cancelAnimationFrame(rafId);
       ro.disconnect();
+      window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
     };
-  }, [imageWidth, imageHeight, gap, maxSpeed, smoothing, borderRadius]);
+  }, [imageWidth, imageHeight, gap, maxSpeed, smoothing, borderRadius, loadTrigger]);
 
   return (
     <div
+      ref={containerRef}
       {...rest}
-      className={cn("relative w-full h-full overflow-hidden", className)}
-      style={style}
+      className={className}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+        pointerEvents: "auto",
+        ...style,
+      }}
     >
-      <canvas ref={canvasRef} className="block w-full h-full bg-transparent" />
+      <canvas
+        ref={canvasRef}
+        style={{
+          display: "block",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "transparent",
+        }}
+      />
     </div>
   );
 }
