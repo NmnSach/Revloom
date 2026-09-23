@@ -1,81 +1,41 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { InfiniteImageField, LINKEDIN_GROWTH_IMAGES } from "@/components/ui/infinite-image-field";
+import { Hero2 } from "@/components/ui/hero-2";
+import { PositioningQuiz } from "@/components/ui/positioning-quiz";
+import { WhatWeDo } from "@/components/ui/what-we-do";
+import { ProcessSection } from "@/components/ui/process-section";
+import { SocialProof } from "@/components/ui/social-proof";
 import { SplashScreen } from "@/components/splash-screen";
 import styles from "./page.module.css";
 
-gsap.registerPlugin(useGSAP);
-
 export default function Home() {
-  const containerRef = useRef(null);
   const [heroReady, setHeroReady] = useState(false);
-
-  useGSAP(
-    () => {
-      if (!heroReady) return;
-
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      tl.from(".anim-headline", {
-        opacity: 0,
-        y: 32,
-        duration: 0.8,
-      })
-        .from(
-          ".anim-subheadline",
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-          },
-          "-=0.4"
-        )
-        .from(
-          ".anim-cta-group",
-          {
-            opacity: 0,
-            y: 18,
-            duration: 0.5,
-          },
-          "-=0.3"
-        )
-        .from(
-          ".anim-proof",
-          {
-            opacity: 0,
-            y: 14,
-            duration: 0.5,
-          },
-          "-=0.2"
-        );
-    },
-    { scope: containerRef, dependencies: [heroReady] }
-  );
 
   return (
     <SplashScreen onComplete={() => setHeroReady(true)}>
-      <div className={styles.pageWrapper} ref={containerRef}>
+      <div className={styles.pageWrapper}>
         {/* Dark gradient from top fading downwards for transparent nav visibility */}
         <div className={styles.topGradientScrim} />
 
         {/* Transparent Navigation */}
         <header className={styles.navbar}>
-          <a href="#" className={styles.logo} aria-label="Revloom Home">
-            <Image
-              src="/logo.png"
-              alt="Revloom"
-              width={48}
-              height={48}
-              priority
-              className={styles.logoImg}
-            />
-          </a>
+          <div className={styles.navLeft}>
+            <a href="#" className={styles.logo} aria-label="Revloom Home">
+              <Image
+                src="/logo.png"
+                alt="Revloom Logo"
+                width={38}
+                height={38}
+                priority
+                className={styles.logoImg}
+              />
+              <span className={styles.logoText}>Revloom</span>
+            </a>
+          </div>
 
-          <nav>
+          <nav className={styles.navCenter}>
             <ul className={styles.navLinks}>
               <li>
                 <a href="#how-it-works" className={styles.navLink}>
@@ -95,87 +55,23 @@ export default function Home() {
             </ul>
           </nav>
 
-          <div>
+          <div className={styles.navRight}>
             <a href="#audit" className={`btn btn-primary ${styles.navCta}`}>
               Get Free Audit
             </a>
           </div>
         </header>
 
-        {/* Hero Section: Full Viewport with Canvas Background & Content Above */}
-        <main className={styles.heroSection}>
-          {/* Full-Viewport Infinite Image Canvas */}
-          <div className={styles.canvasBackground}>
-            <InfiniteImageField
-              images={LINKEDIN_GROWTH_IMAGES}
-              imageWidth={250}
-              imageHeight={330}
-              gap={24}
-              maxSpeed={4}
-              smoothing={0.07}
-              borderRadius={18}
-              className="w-full h-full"
-            />
-          </div>
-
-          {/* Subtle Scrim Overlay on the left for text legibility */}
-          <div className={styles.scrimOverlay} />
-
-          {/* Ambient Glows */}
-          <div
-            className="glow-blob-magenta"
-            style={{ top: "-120px", left: "20%", opacity: 0.12 }}
-          />
-          <div
-            className="glow-blob-violet"
-            style={{ bottom: "50px", left: "-100px", opacity: 0.1 }}
-          />
-
-          {/* Left-Aligned Hero Content Appearing Above the Canvas */}
-          <div className={styles.heroContentContainer}>
-            <div className={styles.leftContent}>
-              <h1 className={`${styles.headline} anim-headline`}>
-                Stop posting.{" "}
-                <span className="text-gradient">Start positioning.</span>
-              </h1>
-
-              <p className={`${styles.subheadline} anim-subheadline`}>
-                Revloom handles your LinkedIn strategy, writing, and engagement
-                end-to-end — so your profile stops looking like a resume and
-                starts working like your best salesperson. No ghostwriting fluff.
-                Just sharp positioning, consistent content, and real pipeline.
-              </p>
-
-              <div className={`${styles.ctaGroup} anim-cta-group`}>
-                <a href="#audit" className={`btn btn-primary ${styles.primaryCta}`}>
-                  Get My Free Positioning Audit →
-                </a>
-                <a
-                  href="#how-it-works"
-                  className={`btn btn-ghost-lime ${styles.secondaryCta}`}
-                >
-                  See How It Works
-                </a>
-              </div>
-
-              {/* Micro-Proof Line */}
-              <div className={`${styles.microProof} anim-proof`}>
-                <span className={styles.proofItem}>
-                  <span className={styles.proofCheck}>✓</span> Trusted by 50+ founders
-                </span>
-                <span className={styles.proofDot}>•</span>
-                <span className={styles.proofItem}>
-                  <span className={styles.proofCheck}>✓</span> 6.6M+ impressions generated
-                </span>
-                <span className={styles.proofDot}>•</span>
-                <span className={styles.proofItem}>
-                  <span className={styles.proofCheck}>✓</span> 94% client satisfaction
-                </span>
-              </div>
-            </div>
-          </div>
+        {/* Sections */}
+        <main>
+          <Hero2 isReady={heroReady} />
+          <PositioningQuiz />
+          <WhatWeDo />
+          <ProcessSection />
+          <SocialProof />
         </main>
       </div>
     </SplashScreen>
   );
 }
+

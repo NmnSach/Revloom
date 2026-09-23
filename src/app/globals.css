@@ -306,10 +306,42 @@ button,
   z-index: 0;
 }
 
-/* Layout Utilities */
+/* Layout & Flex Utilities */
 .w-full { width: 100% !important; }
 .h-full { height: 100% !important; }
 .relative { position: relative !important; }
 .absolute { position: absolute !important; }
 .overflow-hidden { overflow: hidden !important; }
+.flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.flex-row-reverse { flex-direction: row-reverse !important; }
+.items-center { align-items: center !important; }
+.items-stretch { align-items: stretch !important; }
+.justify-center { justify-content: center !important; }
+.min-w-0 { min-width: 0 !important; }
+.flex-1 { flex: 1 1 0% !important; }
+.shrink-0 { flex-shrink: 0 !important; }
+.select-none { user-select: none !important; }
+.touch-none { touch-action: none !important; }
+.outline-none { outline: none !important; }
+.whitespace-nowrap { white-space: nowrap !important; }
+.origin-left { transform-origin: left center !important; }
+.pointer-events-none { pointer-events: none !important; }
+.rounded-full { border-radius: 9999px !important; }
+.z-10 { z-index: 10 !important; }
+.z-20 { z-index: 20 !important; }
+.z-50 { z-index: 50 !important; }
+
+/* Accessibility Screen Reader Utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+}
 

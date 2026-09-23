@@ -3,18 +3,22 @@
 import { useEffect, useRef, useState } from "react";
 
 export const LINKEDIN_GROWTH_IMAGES = [
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&auto=format&fit=crop&q=80",
+  "/field-images/linkedin-growth-overview.jpg",
+  "/field-images/linkedin-pipeline-funnel.jpg",
+  "/field-images/linkedin-ssi-score.jpg",
+  "/field-images/linkedin-pipeline-roi.jpg",
+  "/field-images/linkedin-profile-views.jpg",
+  "/field-images/linkedin-content-matrix.jpg",
+  "/field-images/linkedin-3d-badge.jpg",
+  "/field-images/analytics-screen-users.jpg",
+  "/field-images/marketing-conversion-metrics.jpg",
+  "/field-images/market-candlestick-chart.jpg",
+  "/field-images/crypto-stock-growth-desk.jpg",
+  "/field-images/saas-analytics-dashboard.jpg",
+  "/field-images/traffic-funnel-breakdown.jpg",
+  "/field-images/candlestick-night-city.jpg",
+  "/field-images/handdrawn-growth-graph.jpg",
+  "/field-images/campaign-performance-tablet.jpg",
 ];
 
 function drawRoundedRect(ctx, x, y, w, h, r) {
@@ -167,15 +171,15 @@ export function InfiniteImageField({
               Math.abs(col * 7 + row * 13 + ((col * row * 3) | 0)) % numImages;
             const img = imgs[imgIdx];
 
-            // Card shadow
+            // Card shadow & base
             ctx.save();
-            ctx.shadowColor = "rgba(108, 43, 217, 0.12)";
-            ctx.shadowBlur = 16;
+            ctx.shadowColor = "rgba(0, 0, 0, 0.65)";
+            ctx.shadowBlur = 22;
             ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 6;
+            ctx.shadowOffsetY = 8;
 
             drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
-            ctx.fillStyle = "#EDE8F5";
+            ctx.fillStyle = "#13101C";
             ctx.fill();
             ctx.restore();
 
@@ -187,16 +191,16 @@ export function InfiniteImageField({
             if (img && img.complete && img.naturalWidth > 0) {
               ctx.drawImage(img, sx, sy, imageWidth, imageHeight);
             } else {
-              // Placeholder fill with soft violet tint
-              ctx.fillStyle = "#E4DFED";
+              // Placeholder fill with dark violet tone
+              ctx.fillStyle = "#1A1627";
               ctx.fillRect(sx, sy, imageWidth, imageHeight);
             }
             ctx.restore();
 
-            // Border overlay
+            // Sleek glowing border overlay
             ctx.save();
             drawRoundedRect(ctx, sx, sy, imageWidth, imageHeight, borderRadius);
-            ctx.strokeStyle = "rgba(108, 43, 217, 0.18)";
+            ctx.strokeStyle = "rgba(108, 43, 217, 0.35)";
             ctx.lineWidth = 1.5;
             ctx.stroke();
             ctx.restore();
