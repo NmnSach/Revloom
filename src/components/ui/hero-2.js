@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { KineticTextReveal } from "@/components/ui/kinetic-text-reveal";
 import { cn } from "@/lib/utils";
 import styles from "./hero-2.module.css";
@@ -47,6 +48,88 @@ function BentoCard({ children, className = "", style = {} }) {
     </div>
   );
 }
+
+// Floating Founder Avatars around the Hero Section
+const FLOATING_AVATARS = [
+  {
+    id: "julian",
+    name: "Julian Vance",
+    role: "CEO, Hyperplane AI",
+    avatarImg: "/avatars/julian-vance.jpg",
+    size: 54,
+    top: "13%",
+    left: "0.5%",
+    badge: "+380%",
+    badgeType: "metric",
+    animClass: styles.floatA,
+    tooltipPos: "right",
+  },
+  {
+    id: "elena",
+    name: "Elena Rostova",
+    role: "CTO, Koyeb Metrics",
+    avatarImg: "/avatars/elena-rostova.jpg",
+    size: 46,
+    top: "43%",
+    left: "-0.5%",
+    badge: null,
+    badgeType: "dot",
+    animClass: styles.floatB,
+    tooltipPos: "right",
+  },
+  {
+    id: "marcus",
+    name: "Marcus Chen",
+    role: "CEO, OmniFlow",
+    avatarImg: "/avatars/marcus-chen.jpg",
+    size: 50,
+    top: "73%",
+    left: "1%",
+    badge: "42 Demos",
+    badgeType: "metric",
+    animClass: styles.floatC,
+    tooltipPos: "right",
+  },
+  {
+    id: "nadia",
+    name: "Nadia Patel",
+    role: "CEO, Loominate",
+    avatarImg: "/avatars/nadia-patel.jpg",
+    size: 56,
+    top: "14%",
+    right: "0.5%",
+    badge: "$240k",
+    badgeType: "metric",
+    animClass: styles.floatB,
+    tooltipPos: "left",
+  },
+  {
+    id: "devon",
+    name: "Devon Pierce",
+    role: "CEO, StackPulse",
+    avatarImg: "/avatars/devon-pierce.jpg",
+    size: 44,
+    top: "45%",
+    right: "-0.5%",
+    badge: null,
+    badgeType: "dot",
+    animClass: styles.floatA,
+    tooltipPos: "left",
+  },
+  {
+    id: "sarah",
+    name: "Sarah Jenkins",
+    role: "CPO, Veloce Security",
+    avatarImg: "/avatars/sarah-jenkins.jpg",
+    size: 50,
+    top: "74%",
+    right: "1.5%",
+    badge: "Series A",
+    badgeType: "metric",
+    animClass: styles.floatC,
+    tooltipPos: "left",
+  },
+];
 
 export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
   const containerRef = useRef(null);
@@ -136,6 +219,52 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
 
       {/* Hero Header & Copy */}
       <div className={styles.headerContent}>
+        {/* Floating Founder Avatars Frame */}
+        <div className={styles.floatingAvatarsWrapper} aria-hidden="false">
+          {FLOATING_AVATARS.map((avatar) => (
+            <div
+              key={avatar.id}
+              className={cn(styles.floatingAvatarItem, avatar.animClass)}
+              style={{
+                top: avatar.top,
+                left: avatar.left,
+                right: avatar.right,
+                width: avatar.size,
+                height: avatar.size,
+              }}
+            >
+              <div className={styles.avatarCircle}>
+                <Image
+                  src={avatar.avatarImg}
+                  alt={avatar.name}
+                  width={avatar.size}
+                  height={avatar.size}
+                  className={styles.avatarImg}
+                  priority
+                />
+              </div>
+
+              {/* Optional Metric Badge */}
+              {avatar.badge && (
+                <span className={styles.avatarBadge}>
+                  {avatar.badge}
+                </span>
+              )}
+
+              {/* Optional Active Pulse Dot */}
+              {avatar.badgeType === "dot" && (
+                <span className={styles.avatarDot} />
+              )}
+
+              {/* Interactive Tooltip Card */}
+              <div className={cn(styles.avatarTooltip, styles[`tooltip_${avatar.tooltipPos}`])}>
+                <div className={styles.tooltipName}>{avatar.name}</div>
+                <div className={styles.tooltipRole}>{avatar.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Pill Eyebrow */}
         <div className={styles.pillBadge}>
           <span className={styles.pulseDot} />

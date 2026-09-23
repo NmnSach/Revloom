@@ -88,6 +88,200 @@
   padding: 2rem 1rem;
 }
 
+/* ==========================================================================
+   Floating Founder Avatars
+   ========================================================================== */
+.floatingAvatarsWrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  overflow: visible;
+}
+
+.floatingAvatarItem {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  will-change: transform;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.2s ease;
+}
+
+.floatingAvatarItem:hover {
+  animation-play-state: paused !important;
+  transform: scale(1.18) translateY(-4px) !important;
+  z-index: 35 !important;
+}
+
+.avatarCircle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 
+    0 10px 25px -4px rgba(108, 43, 217, 0.18),
+    0 4px 10px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(108, 43, 217, 0.12);
+  overflow: hidden;
+  background-color: #F8F6FE;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floatingAvatarItem:hover .avatarCircle {
+  border-color: #FFFFFF;
+  box-shadow: 
+    0 14px 34px -4px rgba(108, 43, 217, 0.32),
+    0 0 0 2px #6C2BD9,
+    0 0 22px rgba(198, 255, 61, 0.35);
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Metric / Stat Badge on Avatar */
+.avatarBadge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #1A1625 0%, #2E2545 100%);
+  color: #C6FF3D;
+  font-family: var(--font-headline);
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  border: 1.5px solid #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  white-space: nowrap;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Active Status Pulse Dot */
+.avatarDot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10B981;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Interactive Hover Tooltip */
+.avatarTooltip {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  background: rgba(26, 22, 37, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.45rem 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+  z-index: 40;
+}
+
+.tooltip_right {
+  left: calc(100% + 10px);
+}
+
+.tooltip_left {
+  right: calc(100% + 10px);
+}
+
+.floatingAvatarItem:hover .avatarTooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) scale(1);
+}
+
+.tooltipName {
+  font-family: var(--font-headline);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.tooltipRole {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: #C6FF3D;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+/* Float Keyframe Presets */
+@keyframes floatPresetA {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(4px, -14px, 0) rotate(1.5deg);
+  }
+  66% {
+    transform: translate3d(-3px, 8px, 0) rotate(-1deg);
+  }
+}
+
+@keyframes floatPresetB {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  40% {
+    transform: translate3d(-5px, -11px, 0) rotate(-1.5deg);
+  }
+  75% {
+    transform: translate3d(3px, 10px, 0) rotate(1deg);
+  }
+}
+
+@keyframes floatPresetC {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(3px, -16px, 0) rotate(1.2deg);
+  }
+}
+
+.floatA {
+  animation: floatPresetA 6.2s ease-in-out infinite;
+}
+
+.floatB {
+  animation: floatPresetB 5.2s ease-in-out infinite 0.7s;
+}
+
+.floatC {
+  animation: floatPresetC 6.6s ease-in-out infinite 1.4s;
+}
+
 .pillBadge {
   display: inline-flex;
   align-items: center;
@@ -753,5 +947,20 @@
   }
   .cursorGlow, .cursorBead {
     display: none; /* Mobile touch devices use ambient stationary glow */
+  }
+}
+
+@media (max-width: 1200px) {
+  .floatingAvatarItem {
+    transform: scale(0.88);
+  }
+  .floatingAvatarItem:hover {
+    transform: scale(1.05) translateY(-2px) !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .floatingAvatarsWrapper {
+    display: none;
   }
 }
