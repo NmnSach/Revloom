@@ -66,12 +66,21 @@ const STORAGE_KEY = "hasSeenRevloomSplash";
 
 export function SplashScreen({ onComplete, children }) {
   const [mounted, setMounted] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !window.location.search.includes("skip=true");
+    }
+    return true;
+  });
   const [stage, setStage] = useState("wheel"); // "wheel" | "logo" | "eyelid"
   const carouselRef = useRef(null);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("skip=true")) {
+      onComplete?.();
+      return;
+    }
     startTransition(() => {
       setMounted(true);
     });
@@ -81,13 +90,17 @@ export function SplashScreen({ onComplete, children }) {
       typeof window !== "undefined" &&
       window.location.search.includes("splash=true");
 
+    const skipSplash =
+      typeof window !== "undefined" &&
+      window.location.search.includes("skip=true");
+
     const alreadySeen =
       !isDev &&
       !forceSplash &&
       typeof window !== "undefined" &&
       sessionStorage.getItem(STORAGE_KEY) === "true";
 
-    if (alreadySeen) {
+    if (skipSplash || alreadySeen) {
       setTimeout(() => {
         setShowSplash(false);
         onComplete?.();

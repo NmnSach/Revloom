@@ -45,11 +45,11 @@
 /* Cursor Following Ambient Light Glow */
 .cursorGlow {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(198, 255, 61, 0.16) 0%, rgba(108, 43, 217, 0.09) 35%, transparent 70%);
-  filter: blur(55px);
+  filter: blur(40px);
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -515,19 +515,17 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1.5rem;
+  scroll-margin-top: 6rem;
 }
 
 /* Base Bento Card */
 .bentoCard {
   position: relative;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(108, 43, 217, 0.12);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 28px;
   overflow: hidden;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  padding: 1.85rem;
-  box-shadow: 0 20px 48px -12px rgba(108, 43, 217, 0.08), 0 2px 8px rgba(26, 22, 37, 0.02);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
   display: flex;
   flex-direction: column;
@@ -535,11 +533,11 @@
 
 .bentoCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(108, 43, 217, 0.32);
-  box-shadow: 0 28px 60px -12px rgba(108, 43, 217, 0.16), 0 0 24px rgba(198, 255, 61, 0.15);
+  border-color: #CBD5E1;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
 }
 
-/* Card Spotlight Layer (tracks cursor on card surface) */
+/* Card Spotlight Layer */
 .cardSpotlight {
   position: absolute;
   inset: 0;
@@ -554,323 +552,1141 @@
   opacity: 1;
 }
 
-/* Card Specific Spans */
+/* Card Specific Grid Spans */
 .card1 {
   grid-column: span 7;
-  min-height: 380px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card2 {
   grid-column: span 5;
-  min-height: 380px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card3 {
   grid-column: span 5;
-  min-height: 320px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card4 {
   grid-column: span 7;
-  min-height: 320px;
-}
-
-/* Card Header */
-.cardHeader {
+  min-height: 400px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 1.25rem;
-  position: relative;
-  z-index: 2;
 }
 
-.cardTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.28rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(108, 43, 217, 0.08);
-  border: 1px solid rgba(108, 43, 217, 0.2);
-  color: #6C2BD9;
+/* Typography for Bento Cards */
+.bentoTitleDark {
+  font-family: var(--font-headline);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
 }
 
-.cardStatus {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+.bentoSubDark {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: #7E7794;
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
   font-weight: 500;
 }
 
-.cardStatusDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #6C2BD9;
-  box-shadow: 0 0 6px rgba(108, 43, 217, 0.6);
-}
-
-/* Card Content Styling */
-.cardTitle {
+.bentoTitleWhite {
   font-family: var(--font-headline);
   font-size: 1.45rem;
   font-weight: 700;
-  color: #1A1625;
+  color: #FFFFFF;
   letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
-  position: relative;
-  z-index: 2;
+  line-height: 1.25;
 }
 
-.cardDesc {
+.bentoSubGray {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: #5E5873;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  color: #9CA3AF;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.cardTopText {
+  padding: 2rem 2rem 0.5rem;
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
-/* Metric Display in Card 1 */
-.metricDisplay {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+.cardBottomText {
+  padding: 1.25rem 2rem 2rem;
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
-.metricBig {
-  font-family: var(--font-headline);
-  font-size: 3.25rem;
-  font-weight: 800;
-  color: #6C2BD9;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  text-shadow: 0 4px 20px rgba(108, 43, 217, 0.2);
-}
-
-.metricLabel {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #5E5873;
-}
-
-/* Chart Canvas Container */
-.chartContainer {
+/* =========================================
+   CARD 1: Pipeline Graphic (3 Connected Tiles)
+   ========================================= */
+.pipelineGraphicWrapper {
   position: relative;
   width: 100%;
-  height: 130px;
-  margin-top: auto;
-  border-radius: 16px;
-  background: rgba(245, 243, 250, 0.85);
-  border: 1px solid rgba(108, 43, 217, 0.1);
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: 0.5rem 1rem;
-  z-index: 2;
-}
-
-/* Carousel Preview in Card 2 */
-.carouselDeck {
-  position: relative;
-  width: 100%;
-  margin-top: auto;
+  height: 430px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0;
+  margin: 0;
+  background: #0D0B16;
+  border-bottom: 1px solid #E2E8F0;
+  border-radius: 27px 27px 0 0;
+  padding: 1.5rem 1rem 0;
+  overflow: hidden;
+}
+
+.circuitSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pipelineTilesRow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.pipelineTile {
+  background: #171523;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  padding: 1.35rem;
+  width: 205px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.pipelineTile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(108, 43, 217, 0.45);
+}
+
+.terminalHeader {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.termDotRed {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #EF4444;
+}
+
+.termDotYellow {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #F59E0B;
+}
+
+.termDotGreen {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.terminalCode {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: #E2E8F0;
+}
+
+.terminalCode p {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.codeDim {
+  color: #64748B;
+}
+
+.codeLime {
+  color: #C6FF3D;
+}
+
+.codePink {
+  color: #FF4FCE;
+}
+
+.codeWhite {
+  color: #FFFFFF;
+}
+
+.codeCyan {
+  color: #38BDF8;
+}
+
+.pipelineTileCenter {
+  width: 175px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.brandCenterGlow {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108, 43, 217, 0.5) 0%, transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.waveBarContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  margin-top: 0.5rem;
+}
+
+.waveBar {
+  width: 3.5px;
+  background: #38BDF8;
+  border-radius: 9999px;
+  animation: wavePulse 1.2s ease-in-out infinite alternate;
+}
+
+.waveBar:nth-child(1) { height: 7px; animation-delay: 0.1s; }
+.waveBar:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+.waveBar:nth-child(3) { height: 11px; animation-delay: 0.2s; }
+.waveBar:nth-child(4) { height: 18px; animation-delay: 0.4s; }
+.waveBar:nth-child(5) { height: 8px; animation-delay: 0.15s; }
+
+@keyframes wavePulse {
+  0% { transform: scaleY(0.4); opacity: 0.7; }
+  100% { transform: scaleY(1.1); opacity: 1; }
+}
+
+.tileLinkedinIcon {
+  width: 52px;
+  height: 52px;
+  color: #38BDF8;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.6));
+  position: relative;
   z-index: 2;
 }
 
-.deckCardFront {
-  width: 88%;
-  background: #FFFFFF;
-  border: 1px solid rgba(108, 43, 217, 0.18);
-  border-radius: 18px;
-  padding: 1.25rem;
-  box-shadow: 0 16px 36px rgba(108, 43, 217, 0.1), 0 2px 8px rgba(26, 22, 37, 0.04);
-  transform: rotate(-2deg);
-  transition: transform 0.3s ease;
-}
-
-.deckCardFront:hover {
-  transform: rotate(0deg) scale(1.02);
-}
-
-.deckCardBack {
-  position: absolute;
-  width: 84%;
-  height: 100%;
-  top: -8px;
-  background: rgba(241, 238, 247, 0.95);
-  border: 1px solid rgba(108, 43, 217, 0.2);
-  border-radius: 18px;
-  transform: rotate(3deg);
-  z-index: -1;
-}
-
-.deckTitle {
-  font-family: var(--font-headline);
-  font-size: 0.95rem;
+.brandCenterLabel {
+  font-size: 0.68rem;
+  color: #94A3B8;
   font-weight: 700;
-  color: #1A1625;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.tileLiveHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #34D399;
+}
+
+.livePostContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.livePostAuthor {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.liveAuthorDot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF4FCE, #6C2BD9);
+  display: inline-block;
+}
+
+.livePostQuote {
+  font-size: 0.72rem;
+  color: #CBD5E1;
+  line-height: 1.35;
+  margin: 0.2rem 0;
+  font-style: italic;
+}
+
+.livePostStats {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.liveBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  color: #D1D5DB;
+  font-weight: 500;
+  font-family: var(--font-body);
+}
+
+.livePulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.liveText {
+  white-space: nowrap;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 6px #10B981;
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 12px #10B981;
+  }
+}
+
+/* =========================================
+   CARD 2: Intuitive Workflow Dashboard Mockup
+   ========================================= */
+.dashboardMockupCard2 {
+  background: #FFFFFF;
+  border-radius: 20px 20px 0 0;
+  margin: 1rem 0 0;
+  width: 100%;
+  padding: 1.25rem 1.25rem 0.5rem;
+  border: 1px solid #E2E8F0;
+  border-bottom: none;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  min-height: 380px;
+  flex: 1;
+}
+
+.mockupHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.mockupBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mockupLogoCircle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #0E0C17;
+  color: #FFFFFF;
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockupTitleText {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0F172A;
+}
+
+.mockupFilterPills {
+  display: flex;
+  background: #F1F5F9;
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.filterPill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.filterPillActive {
+  background: #6C2BD9;
+  color: #FFFFFF;
+}
+
+.mockupGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.mockupCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.statMiniCard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.statMiniHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+
+.statMiniLabel {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.statGrowthBadge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.statBigNumber {
+  font-family: var(--font-headline);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+  margin-top: 0.15rem;
+}
+
+.statMiniSub {
+  font-size: 0.65rem;
+  color: #94A3B8;
+  display: block;
   margin-bottom: 0.4rem;
 }
 
-.deckSub {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  color: #5E5873;
-  line-height: 1.4;
-  margin-bottom: 0.85rem;
-}
-
-.deckStats {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: #6C2BD9;
-  font-weight: 700;
-  border-top: 1px solid rgba(108, 43, 217, 0.1);
-  padding-top: 0.6rem;
-}
-
-/* DM Funnel in Card 3 */
-.dmCard {
+.splineGraphWrap {
   position: relative;
-  background: rgba(248, 246, 252, 0.9);
-  border: 1px solid rgba(108, 43, 217, 0.14);
-  border-radius: 18px;
-  padding: 1.15rem;
-  margin-top: auto;
-  z-index: 2;
+  width: 100%;
+  height: 55px;
+  margin-top: 0.35rem;
 }
 
-.dmSender {
+.splineSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.splineTooltip {
+  position: absolute;
+  right: 28px;
+  top: -2px;
+  background: #0F172A;
+  color: #FFFFFF;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.donutCardMini {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.65rem;
+  text-align: center;
+}
+
+.donutHeader {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  margin-bottom: 0.75rem;
+  justify-content: flex-start;
+  margin-bottom: 0.2rem;
 }
 
-.dmAvatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6C2BD9, #FF4FCE);
+.donutGraphicWrap {
+  position: relative;
+  width: 75px;
+  height: 75px;
+  margin: 0.3rem auto;
+}
+
+.donutSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.donutCenterText {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 0.8rem;
 }
 
-.dmName {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #1A1625;
+.donutCenterVal {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #0F172A;
 }
 
-.dmRole {
-  font-size: 0.72rem;
-  color: #7E7794;
+.donutLegend {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.6rem;
+  color: #64748B;
+  margin-top: 0.3rem;
 }
 
-.dmBubble {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  color: #1A1625;
-  line-height: 1.45;
-  background: #FFFFFF;
+.donutLegend span {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.donutLegend i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.transactionsMini {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
   border-radius: 12px;
-  padding: 0.75rem 0.9rem;
-  border: 1px solid rgba(108, 43, 217, 0.14);
-  box-shadow: 0 2px 8px rgba(108, 43, 217, 0.04);
-  margin-bottom: 0.75rem;
+  padding: 0.75rem;
 }
 
-.dmFooter {
+.txHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: #6C2BD9;
-  font-weight: 700;
-}
-
-/* Timeline Framework in Card 4 */
-.timelineGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-top: auto;
-  position: relative;
-  z-index: 2;
-}
-
-.timelineStep {
-  position: relative;
-  background: rgba(248, 246, 252, 0.85);
-  border: 1px solid rgba(108, 43, 217, 0.1);
-  border-radius: 16px;
-  padding: 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.timelineStep:hover {
-  border-color: rgba(108, 43, 217, 0.35);
-  background: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(108, 43, 217, 0.08);
-}
-
-.stepNumber {
-  font-family: var(--font-headline);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #6C2BD9;
-  background: rgba(108, 43, 217, 0.08);
-  border: 1px solid rgba(108, 43, 217, 0.18);
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
   margin-bottom: 0.5rem;
 }
 
-.stepName {
-  font-family: var(--font-headline);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #1A1625;
-  margin-bottom: 0.35rem;
+.viewAllLink {
+  font-size: 0.65rem;
+  color: #6C2BD9;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.stepDesc {
-  font-family: var(--font-body);
+.txList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.txItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.4rem;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #F1F5F9;
+}
+
+.txIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.75rem;
-  color: #5E5873;
-  line-height: 1.35;
+}
+
+.txIconBlue {
+  background: rgba(56, 189, 248, 0.15);
+  color: #0284C7;
+}
+
+.txIconPurple {
+  background: rgba(108, 43, 217, 0.15);
+  color: #6C2BD9;
+}
+
+.txIconLime {
+  background: rgba(198, 255, 61, 0.25);
+  color: #4D7C0F;
+}
+
+.txDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.txTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.txSub {
+  font-size: 0.58rem;
+  color: #94A3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.txAmount {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.monetisationMini {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.growthGreen {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #10B981;
+}
+
+.monetisationVal {
+  font-family: var(--font-headline);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.15rem 0;
+}
+
+.sparklineSvg {
+  width: 100%;
+  height: 26px;
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* =========================================
+   CARD 3: 3D Dotted Earth Sphere
+   ========================================= */
+.globeGraphicContainer {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin: 0;
+  background: #0D0B16;
+  border-top: 1px solid #E2E8F0;
+  border-radius: 0 0 27px 27px;
+}
+
+.globeAtmosphereGlow {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.28) 0%, rgba(108, 43, 217, 0.18) 45%, transparent 70%);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.globeSvg {
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  transform: translate(30px, 30px);
+}
+
+.beaconGroup {
+  cursor: pointer;
+}
+
+.beaconRing {
+  animation: beaconPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  transform-origin: 273px 237px;
+}
+
+@keyframes beaconPing {
+  0% {
+    r: 6px;
+    opacity: 0.9;
+  }
+  70%, 100% {
+    r: 22px;
+    opacity: 0;
+  }
+}
+
+.globeBadgesOverlay {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 5;
+}
+
+.globePill {
+  background: rgba(14, 12, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  color: #E2E8F0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   CARD 4: Desktop Dashboard & Table
+   ========================================= */
+.dashboardMockupCard4 {
+  background: #FFFFFF;
+  border-radius: 20px 20px 0 0;
+  margin: 1.5rem 0 0;
+  width: 100%;
+  border: 1px solid #E2E8F0;
+  border-bottom: none;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  min-height: 350px;
+}
+
+.card4DashboardInner {
+  display: flex;
+  width: 100%;
+  min-height: 270px;
+}
+
+.card4Sidebar {
+  width: 52px;
+  background: #0F0D18;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card4LogoBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6C2BD9, #FF4FCE);
+  color: #FFFFFF;
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card4NavIcons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.card4NavBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card4NavBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.card4NavBtn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.card4NavBtnActive {
+  color: #FFFFFF;
+  background: #6C2BD9;
+}
+
+.card4Main {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.card4HeaderBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.card4Breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+}
+
+.card4BreadcrumbParent {
+  color: #94A3B8;
+}
+
+.card4BreadcrumbSlash {
+  color: #CBD5E1;
+}
+
+.card4BreadcrumbActive {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.card4SearchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.68rem;
+  color: #94A3B8;
+  width: 220px;
+}
+
+.card4SearchIcon {
+  font-size: 0.75rem;
+}
+
+.card4SearchPlaceholder {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card4UserPill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #065F46;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+.card4AvatarDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.card4MetricsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+}
+
+.card4MetricCard {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.55rem 0.7rem;
+}
+
+.card4MetricLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748B;
+  display: block;
+}
+
+.card4MetricNumWrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+}
+
+.card4MetricVal {
+  font-family: var(--font-headline);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.badgeLime {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #3F6212;
+  background: rgba(198, 255, 61, 0.35);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.badgePurple {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #581C87;
+  background: rgba(108, 43, 217, 0.15);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.badgePink {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #9D174D;
+  background: rgba(255, 79, 206, 0.15);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.badgeBlue {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #0369A1;
+  background: rgba(56, 189, 248, 0.2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.card4TableContainer {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card4TableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.75rem;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.card4TableCount {
+  font-size: 0.62rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.card4Table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.68rem;
+}
+
+.card4Table th {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.card4Table td {
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid #F1F5F9;
+  color: #1E293B;
+  vertical-align: middle;
+}
+
+.tableUser {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tableAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.tableAvatar1 {
+  background: linear-gradient(135deg, #6C2BD9, #38BDF8);
+}
+
+.tableAvatar2 {
+  background: linear-gradient(135deg, #FF4FCE, #F59E0B);
+}
+
+.tableAvatar3 {
+  background: linear-gradient(135deg, #10B981, #0284C7);
+}
+
+.tableName {
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.tableSub {
+  font-size: 0.58rem;
+  color: #94A3B8;
+}
+
+.companyBadge {
+  display: inline-block;
+  font-size: 0.62rem;
+  background: #EDF2F7;
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.dealVal {
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.stageTagGreen {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #047857;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+}
+
+.stageTagPurple {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #6D28D9;
+  background: rgba(108, 43, 217, 0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+}
+
+.stageTagLime {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #4D7C0F;
+  background: rgba(198, 255, 61, 0.25);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
 }
 
 /* Mobile & Tablet Responsiveness */
