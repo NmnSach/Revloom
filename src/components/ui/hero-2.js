@@ -49,83 +49,104 @@ function BentoCard({ children, className = "", style = {} }) {
   );
 }
 
-// Floating Founder Avatars around the Hero Section
+// Floating Founder Avatars around the Hero Section (8-9 color avatars)
 const FLOATING_AVATARS = [
   {
-    id: "julian",
+    id: "yellow-man",
     name: "Julian Vance",
-    role: "CEO, Hyperplane AI",
-    avatarImg: "/avatars/julian-vance.jpg",
-    size: 54,
-    top: "13%",
-    left: "0.5%",
-    badge: "+380%",
-    badgeType: "metric",
+    role: "Co-Founder & CEO, Hyperplane",
+    avatarImg: "/avatars/color/yellow-man.jpg",
+    size: 74,
+    top: "4%",
+    left: "29%",
     animClass: styles.floatA,
-    tooltipPos: "right",
+    tooltipPos: "left",
   },
   {
-    id: "elena",
-    name: "Elena Rostova",
-    role: "CTO, Koyeb Metrics",
-    avatarImg: "/avatars/elena-rostova.jpg",
-    size: 46,
-    top: "43%",
-    left: "-0.5%",
-    badge: null,
-    badgeType: "dot",
-    animClass: styles.floatB,
-    tooltipPos: "right",
-  },
-  {
-    id: "marcus",
-    name: "Marcus Chen",
-    role: "CEO, OmniFlow",
-    avatarImg: "/avatars/marcus-chen.jpg",
-    size: 50,
-    top: "73%",
-    left: "1%",
-    badge: "42 Demos",
-    badgeType: "metric",
+    id: "peach-woman",
+    name: "Nadia Patel",
+    role: "Founder & CEO, FinFlow",
+    avatarImg: "/avatars/color/peach-woman.jpg",
+    size: 44,
+    top: "8%",
+    right: "30%",
     animClass: styles.floatC,
     tooltipPos: "right",
   },
   {
-    id: "nadia",
-    name: "Nadia Patel",
-    role: "CEO, Loominate",
-    avatarImg: "/avatars/nadia-patel.jpg",
-    size: 56,
-    top: "14%",
-    right: "0.5%",
-    badge: "$240k",
-    badgeType: "metric",
+    id: "teal-man",
+    name: "Marcus Chen",
+    role: "Founder, OmniFlow",
+    avatarImg: "/avatars/color/teal-man.jpg",
+    size: 68,
+    top: "16%",
+    left: "2%",
+    animClass: styles.floatB,
+    tooltipPos: "right",
+  },
+  {
+    id: "slate-man",
+    name: "Liam Foster",
+    role: "Managing Director, Veloce",
+    avatarImg: "/avatars/color/slate-man.jpg",
+    size: 62,
+    top: "15%",
+    right: "2%",
     animClass: styles.floatB,
     tooltipPos: "left",
   },
   {
-    id: "devon",
-    name: "Devon Pierce",
-    role: "CEO, StackPulse",
-    avatarImg: "/avatars/devon-pierce.jpg",
-    size: 44,
-    top: "45%",
-    right: "-0.5%",
-    badge: null,
-    badgeType: "dot",
+    id: "mint-woman",
+    name: "Chloe Zhao",
+    role: "Head of Growth, Loominate",
+    avatarImg: "/avatars/color/mint-woman.jpg",
+    size: 48,
+    top: "47%",
+    left: "6%",
+    animClass: styles.floatC,
+    tooltipPos: "right",
+  },
+  {
+    id: "rose-woman",
+    name: "Elena Rostova",
+    role: "CTO, Koyeb Metrics",
+    avatarImg: "/avatars/color/rose-woman.jpg",
+    size: 52,
+    top: "46%",
+    right: "6%",
     animClass: styles.floatA,
     tooltipPos: "left",
   },
   {
-    id: "sarah",
+    id: "blue-man",
+    name: "Devon Pierce",
+    role: "CEO, StackPulse",
+    avatarImg: "/avatars/color/blue-man.jpg",
+    size: 66,
+    top: "76%",
+    left: "2%",
+    animClass: styles.floatA,
+    tooltipPos: "right",
+  },
+  {
+    id: "amber-woman",
     name: "Sarah Jenkins",
-    role: "CPO, Veloce Security",
-    avatarImg: "/avatars/sarah-jenkins.jpg",
-    size: 50,
-    top: "74%",
-    right: "1.5%",
-    badge: "Series A",
-    badgeType: "metric",
+    role: "Co-Founder, Synthetix",
+    avatarImg: "/avatars/color/amber-woman.jpg",
+    size: 48,
+    top: "83%",
+    left: "32%",
+    animClass: styles.floatB,
+    tooltipPos: "right",
+  },
+  {
+    id: "purple-man",
+    name: "Alex Rivera",
+    role: "Category Lead, HyperScale",
+    avatarImg: "/avatars/color/purple-man.jpg",
+    size: 78,
+    top: "73%",
+    right: "2%",
     animClass: styles.floatC,
     tooltipPos: "left",
   },
@@ -244,18 +265,6 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
                 />
               </div>
 
-              {/* Optional Metric Badge */}
-              {avatar.badge && (
-                <span className={styles.avatarBadge}>
-                  {avatar.badge}
-                </span>
-              )}
-
-              {/* Optional Active Pulse Dot */}
-              {avatar.badgeType === "dot" && (
-                <span className={styles.avatarDot} />
-              )}
-
               {/* Interactive Tooltip Card */}
               <div className={cn(styles.avatarTooltip, styles[`tooltip_${avatar.tooltipPos}`])}>
                 <div className={styles.tooltipName}>{avatar.name}</div>
@@ -293,7 +302,7 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
                 ref={textRef2}
                 text="Start positioning."
                 className={styles.kineticLine}
-                segmentClassName={styles.gradientSegment}
+                segmentClassName={styles.darkSegment}
                 maskClassName={styles.kineticMask}
                 splitBy="words"
                 direction="up"
