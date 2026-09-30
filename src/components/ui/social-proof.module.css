@@ -1,3 +1,7 @@
+/* ==========================================================================
+   Social Proof / Testimonials Section with Shadcn Carousel (3 in a row)
+   ========================================================================== */
+
 .sectionContainer {
   position: relative;
   width: 100%;
@@ -6,8 +10,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: var(--color-base);
   overflow: hidden;
+  transition: background-color 0.35s ease;
 }
 
 /* Background Ambient Radiance & Architectural Grid */
@@ -15,9 +20,9 @@
   position: absolute;
   inset: 0;
   background-image: 
-    radial-gradient(circle at center, rgba(108, 43, 217, 0.045) 0%, transparent 70%),
-    linear-gradient(to right, rgba(108, 43, 217, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(108, 43, 217, 0.03) 1px, transparent 1px);
+    radial-gradient(circle at center, var(--grid-radial) 0%, transparent 70%),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 100% 100%, 48px 48px, 48px 48px;
   mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 40%, transparent 100%);
@@ -27,13 +32,13 @@
 
 .ambientAura {
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 550px;
+  width: 960px;
+  height: 560px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(108, 43, 217, 0.08) 0%, rgba(255, 79, 206, 0.045) 45%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(108, 43, 217, 0.12) 0%, rgba(198, 255, 61, 0.04) 45%, transparent 70%);
   filter: blur(95px);
   pointer-events: none;
   z-index: 0;
@@ -57,7 +62,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3.75rem;
+  margin-bottom: 3.5rem;
 }
 
 /* Eyebrow Pill */
@@ -65,9 +70,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(108, 43, 217, 0.2);
-  box-shadow: 0 4px 16px rgba(108, 43, 217, 0.06);
+  background: var(--color-card-bg-elevated);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 0.45rem 1.25rem;
@@ -75,17 +80,18 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
-  color: #6C2BD9;
+  color: var(--color-primary);
   margin-bottom: 1.35rem;
   letter-spacing: 0.02em;
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
 
 .pulseDot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #6C2BD9;
-  box-shadow: 0 0 8px rgba(108, 43, 217, 0.6), 0 0 0 2px rgba(198, 255, 61, 0.5);
+  background-color: #C6FF3D;
+  box-shadow: 0 0 8px #C6FF3D, 0 0 0 2px rgba(108, 43, 217, 0.5);
   animation: pulseDotAnim 2s infinite ease-in-out;
 }
 
@@ -107,9 +113,10 @@
   font-size: clamp(2.25rem, 5vw, 3.65rem);
   line-height: 1.2;
   letter-spacing: -0.035em;
-  color: #1A1625;
+  color: var(--text-headline-dark);
   text-align: center;
   margin-bottom: 1.25rem;
+  transition: color 0.35s ease;
 }
 
 .headingBreak {
@@ -122,444 +129,346 @@
   font-size: clamp(1.05rem, 1.4vw, 1.22rem);
   font-weight: 400;
   line-height: 1.6;
-  color: #5E5873;
+  color: var(--text-muted);
   text-align: center;
   max-width: 680px;
   margin-bottom: 0;
   text-wrap: pretty;
+  transition: color 0.35s ease;
 }
 
-/* 3-Column Grid of Client Hover Cards */
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.65rem;
-  width: 100%;
-}
-
-/* Card Wrapper with Componentry HoverTransition */
+/* ==========================================================================
+   Testimonial Showcase Card Layout (3 in a Row, Exactly Same Size):
+   - Company name on top left
+   - Text central
+   - Person name and avatar on bottom left
+   ========================================================================== */
 .cardShell {
   position: relative;
-  border-radius: 24px;
-  height: 480px;
   width: 100%;
-  box-shadow: 0 16px 40px -10px rgba(108, 43, 217, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  min-height: 410px;
+  border-radius: 22px;
+  background: var(--color-card-bg-elevated);
+  border: 1.5px solid var(--color-card-border);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 24px rgba(108, 43, 217, 0.1);
+  padding: 1.65rem 1.65rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.25s ease, background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .cardShell:hover {
-  box-shadow: 0 24px 50px -10px rgba(108, 43, 217, 0.22);
+  transform: translateY(-3px);
+  border-color: rgba(168, 85, 247, 0.55);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5), 0 0 28px rgba(108, 43, 217, 0.2);
 }
 
-/* --- Default Card Surface: Full Size Person Image + Name, Company & Designation on Bottom --- */
-.defaultCard {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  box-sizing: border-box;
+:global([data-theme="light"]) .cardShell {
+  background: #FFFFFF;
+  border-color: rgba(108, 43, 217, 0.18);
+  box-shadow: 0 12px 32px rgba(108, 43, 217, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme="light"]) .cardShell:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 16px 40px rgba(108, 43, 217, 0.16);
+}
+
+/* Top Row: Company Name on Top Left, Metric on Top Right */
+.cardTopRow {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  border: 1.5px solid rgba(108, 43, 217, 0.18);
-  background: #141021;
-}
-
-/* Full Size Founder Photo */
-.founderFullImg {
-  object-fit: cover;
-  object-position: center 15%;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cardShell:hover .founderFullImg {
-  transform: scale(1.04);
-}
-
-/* Top Subtle Floating Meta */
-.cardTopFloating {
-  position: absolute;
-  top: 1.2rem;
-  left: 1.2rem;
-  right: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.topCompanyPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.32rem 0.75rem 0.32rem 0.4rem;
-  border-radius: 9999px;
-  background: rgba(18, 14, 28, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-.topLogoWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.topCompanyName {
-  font-family: var(--font-headline);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: -0.01em;
-}
-
-.topMetricPill {
-  font-family: var(--font-headline);
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #C6FF3D;
-  background: rgba(18, 14, 28, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(198, 255, 61, 0.4);
-  padding: 0.32rem 0.75rem;
-  border-radius: 9999px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-/* Bottom Scrim: Gradient fade ensuring pure legibility */
-.bottomScrim {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 4.5rem 1.45rem 1.45rem;
-  background: linear-gradient(
-    to top,
-    rgba(14, 10, 24, 0.98) 0%,
-    rgba(14, 10, 24, 0.82) 48%,
-    rgba(14, 10, 24, 0.35) 80%,
-    transparent 100%
-  );
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
   gap: 0.75rem;
+  width: 100%;
+  min-height: 36px;
+  margin-bottom: 0.85rem;
 }
 
-.founderIdentityBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.founderNameOverImage {
-  font-family: var(--font-headline);
-  font-size: 1.42rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.companyAndRoleRow {
+/* Company Name on Top Left (Decreased size) */
+.companyInfoTopLeft {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.65rem;
+  min-width: 0;
 }
 
-.companyInlineBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.companyLogoInlineWrap {
+.companyLogoBadge {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  overflow: hidden;
   flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.companyNameOverImage {
-  font-family: var(--font-headline);
-  font-weight: 700;
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.95);
-  letter-spacing: -0.01em;
-}
-
-.roleDivider {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.8rem;
-}
-
-.designationOverImage {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.78);
-}
-
-.bottomHoverPrompt {
+.companyTextGroup {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
 }
 
-.hoverPromptText {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
+.companyName {
+  font-family: var(--font-headline);
+  font-size: 0.88rem;
   font-weight: 600;
-  color: rgba(198, 255, 61, 0.9);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.hoverPromptIcon {
-  font-size: 0.85rem;
-  color: #C6FF3D;
-  transition: transform 0.25s ease;
-}
-
-.cardShell:hover .hoverPromptIcon {
-  transform: translate(2px, -2px);
-}
-
-/* --- Hover Reveal Card Surface (Revealed by Componentry Ripple Transition) --- */
-.hoverCard {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: 1.85rem 1.65rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1.5px solid rgba(198, 255, 61, 0.45);
-  box-shadow: 0 20px 50px rgba(14, 10, 24, 0.65), inset 0 0 30px rgba(108, 43, 217, 0.35);
-  color: #FFFFFF;
-}
-
-.hoverBgImageWrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.hoverBgImg {
-  object-fit: cover;
-  object-position: center top;
-  filter: blur(14px) brightness(0.2) saturate(1.2);
-  transform: scale(1.1);
-}
-
-.hoverBackdropTint {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    160deg,
-    rgba(22, 17, 36, 0.94) 0%,
-    rgba(36, 23, 60, 0.95) 55%,
-    rgba(14, 10, 24, 0.97) 100%
-  );
-}
-
-.hoverCardContent {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.hoverTopRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.hoverCompanyBadge {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.hoverCompanyLogoWrap {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.hoverCompanyName {
-  font-family: var(--font-headline);
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #FFFFFF;
   letter-spacing: -0.01em;
+  color: var(--text-headline-dark);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hoverBadge {
+.companyStage {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #A79EBF;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:global([data-theme="light"]) .companyStage {
+  color: var(--text-muted);
+}
+
+/* Top Right: Verified Metric Pill (Decreased size) */
+.metricBadgeTopRight {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-body);
-  font-size: 0.74rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(198, 255, 61, 0.15);
+  font-family: var(--font-headline);
+  font-size: 0.64rem;
+  font-weight: 600;
   color: #C6FF3D;
-  border: 1px solid rgba(198, 255, 61, 0.5);
+  background: rgba(198, 255, 61, 0.1);
+  padding: 0.18rem 0.52rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(198, 255, 61, 0.3);
+  letter-spacing: 0.02em;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.hoverQuoteBody {
+:global([data-theme="light"]) .metricBadgeTopRight {
+  color: var(--color-primary);
+  background: rgba(108, 43, 217, 0.08);
+  border-color: rgba(108, 43, 217, 0.25);
+}
+
+.metricDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #C6FF3D;
+  box-shadow: 0 0 4px #C6FF3D;
+}
+
+:global([data-theme="light"]) .metricDot {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 4px rgba(108, 43, 217, 0.6);
+}
+
+/* ==========================================================================
+   Central Quote Text Area (Increased size)
+   ========================================================================== */
+.quoteCentralWrapper {
+  position: relative;
+  width: 100%;
   margin: auto 0;
-  padding: 0.5rem 0;
+  padding: 1rem 0.25rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
 }
 
-.quoteMark {
+.quoteMarkGlyph {
+  font-family: Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: #6C2BD9;
+  opacity: 0.35;
+  margin-bottom: -0.3rem;
+  user-select: none;
+}
+
+:global([data-theme="light"]) .quoteMarkGlyph {
+  color: var(--color-primary);
+  opacity: 0.25;
+}
+
+.centralQuoteText {
   font-family: var(--font-headline);
-  font-size: 2.6rem;
-  color: #FF4FCE;
-  line-height: 0.75;
-  opacity: 0.9;
-}
-
-.quoteText {
-  font-family: var(--font-body);
-  font-size: 1.02rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.96);
-  font-style: italic;
+  font-size: clamp(1.08rem, 1.35vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.52;
+  letter-spacing: -0.015em;
+  color: var(--text-headline-dark);
   margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.35s ease;
 }
 
-.hoverBottomRow {
+/* ==========================================================================
+   Bottom Row: Person Name & Avatar on Bottom Left
+   ========================================================================== */
+.cardBottomRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  gap: 0.5rem;
+  gap: 0.75rem;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.15rem;
+  margin-top: 1.15rem;
+  min-height: 52px;
 }
 
-.hoverFounderInfo {
+:global([data-theme="light"]) .cardBottomRow {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Person Name and Avatar on Bottom Left */
+.founderBottomLeft {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
+  min-width: 0;
 }
 
-.hoverFounderAvatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  overflow: hidden;
+.avatarWrap {
   position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #6C2BD9 0%, #C6FF3D 100%);
   flex-shrink: 0;
-  border: 2px solid #C6FF3D;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
-.founderAvatarImg {
+:global([data-theme="light"]) .avatarWrap {
+  background: linear-gradient(135deg, #6C2BD9 0%, #8544F6 100%);
+}
+
+.avatarImg {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   object-fit: cover;
   display: block;
-  border-radius: 50%;
 }
 
-.founderText {
+.verifiedBadge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #C6FF3D;
+  border: 1.5px solid #161126;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0F0B1E;
+}
+
+:global([data-theme="light"]) .verifiedBadge {
+  border-color: #FFFFFF;
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.founderDetails {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  text-align: left;
+  min-width: 0;
 }
 
-.hoverFounderName {
-  display: block;
+.founderName {
   font-family: var(--font-headline);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  color: var(--text-headline-dark);
+  margin: 0;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.hoverFounderRole {
-  display: block;
+.founderRole {
   font-family: var(--font-body);
-  font-size: 0.76rem;
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.2;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.impactPill {
-  font-family: var(--font-headline);
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #C6FF3D;
-  background: rgba(198, 255, 61, 0.15);
-  padding: 0.28rem 0.7rem;
-  border-radius: 8px;
-  border: 1px solid rgba(198, 255, 61, 0.4);
+/* Bottom Right: Impact / Outcome badge */
+.impactBottomRight {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.impactLabel {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #C084FC;
+  background: rgba(108, 43, 217, 0.16);
+  border: 1px solid rgba(108, 43, 217, 0.3);
+  padding: 0.22rem 0.6rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
   white-space: nowrap;
 }
 
-/* Tablet & Mobile Responsiveness */
-@media (max-width: 1024px) {
-  .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  .cardShell {
-    height: 460px;
-  }
+:global([data-theme="light"]) .impactLabel {
+  color: var(--color-primary);
+  background: rgba(108, 43, 217, 0.08);
+  border-color: rgba(108, 43, 217, 0.2);
 }
 
-@media (max-width: 640px) {
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 768px) {
   .sectionContainer {
-    padding: 5rem 1rem 5.5rem;
-  }
-
-  .cardsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.35rem;
+    padding: 5rem 1rem 6rem;
   }
 
   .cardShell {
-    height: 440px;
+    min-height: 360px;
+    padding: 1.65rem 1.35rem 1.45rem;
   }
 
-  .defaultCard, .hoverCard {
-    padding: 1.5rem 1.35rem;
+  .headingBreak {
+    display: inline;
   }
 }

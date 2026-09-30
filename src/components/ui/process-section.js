@@ -1,154 +1,188 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { CircuitBoard } from "./circuit-board";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./process-section.module.css";
 
 const PROCESS_STEPS = [
   {
-    id: "kickoff",
+    id: "discovery",
     stepNumber: "01",
-    title: "Kickoff",
-    subtitle: "Voice & Thesis Extraction",
-    timeline: "Day 1",
+    nodeTitle: "Discovery Call",
+    nodeTimeline: "Week 1",
+    phaseBadge: "Phase 01",
+    phaseTimeline: "Week 1",
+    title: "Discovery Call",
+    subtitle: "Business & Growth Alignment",
     description:
-      "A 45-minute deep-dive extraction interview capturing your authentic voice, core thesis, and proprietary insights.",
-    deliverable: "⚡ 45 Mins (One-Time)",
-    nodePos: { x: 110, y: 150 },
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
-        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
-        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
-      </svg>
-    ),
+      "We sit down with you and your team to understand your business, offer, audience, current growth channels, goals, and what needs to happen next.",
+    deliverables: [
+      { text: "45–60 min discovery call", icon: "clock" },
+    ],
+    iconType: "phone",
   },
   {
-    id: "strategy",
+    id: "technical_setup",
     stepNumber: "02",
-    title: "Strategy Alignment",
-    subtitle: "Positioning & ICP Blueprint",
-    timeline: "Days 2–4",
+    nodeTitle: "Technical Setup",
+    nodeTimeline: "Week 2",
+    phaseBadge: "Phase 02",
+    phaseTimeline: "Week 2",
+    title: "Technical Setup",
+    subtitle: "Get Everything Ready",
     description:
-      "We nail down your 1-of-1 category positioning, ICP audience profile, core content pillars, and competitive narrative.",
-    deliverable: "🎯 Positioning Playbook",
-    nodePos: { x: 330, y: 80 },
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <line x1="22" y1="12" x2="18" y2="12"/>
-        <line x1="6" y1="12" x2="2" y2="12"/>
-        <line x1="12" y1="6" x2="12" y2="2"/>
-        <line x1="12" y1="22" x2="12" y2="18"/>
-      </svg>
-    ),
+      "We set up the infrastructure required to run your campaigns properly. For LinkedIn, this includes profile optimisation. For email, we handle the technical foundation required for outreach and deliverability.",
+    deliverables: [
+      { text: "LinkedIn optimisation", icon: "check" },
+      { text: "Email setup", icon: "check" },
+      { text: "DKIM • SPF • MX", icon: "check" },
+      { text: "Tracking", icon: "check" },
+    ],
+    iconType: "sliders",
   },
   {
-    id: "access",
+    id: "research_content",
     stepNumber: "03",
-    title: "Access & Planning",
-    subtitle: "Handover & 30-Day Sprint",
-    timeline: "Days 5–7",
+    nodeTitle: "Research & Content",
+    nodeTimeline: "Week 3",
+    phaseBadge: "Phase 03",
+    phaseTimeline: "Week 3",
+    title: "Research & Content",
+    subtitle: "Build the Foundation",
     description:
-      "Zero-friction profile access handover, tracking integrations, and your first 30-day editorial sprint completely mapped out.",
-    deliverable: "🚀 Sprint 1 Approved",
-    nodePos: { x: 550, y: 220 },
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-        <line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/>
-        <line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-    ),
+      "We research your ICP, audience, competitors, market, and messaging while developing your LinkedIn content strategy. Your first content starts going live from Week 2, while email infrastructure begins warming up.",
+    deliverables: [
+      { text: "ICP research", icon: "check" },
+      { text: "Lead research", icon: "check" },
+      { text: "Content strategy", icon: "check" },
+      { text: "Email warm-up", icon: "check" },
+    ],
+    iconType: "document",
   },
   {
-    id: "workflow",
+    id: "campaign_launch",
     stepNumber: "04",
-    title: "Weekly Workflow",
-    subtitle: "Hands-Off Execution & Inbound",
-    timeline: "Ongoing",
+    nodeTitle: "Campaign Launch",
+    nodeTimeline: "From Day 15",
+    phaseBadge: "Phase 04",
+    phaseTimeline: "From Day 15",
+    title: "Campaign Launch",
+    subtitle: "Start the Conversations",
     description:
-      "We write, format, schedule, engage in comments, and route high-ticket DMs. You spend 15 minutes reviewing weekly batches.",
-    deliverable: "⏱ < 15 Mins / Week",
-    nodePos: { x: 770, y: 80 },
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-      </svg>
-    ),
+      "Once the foundation is ready, we launch your outbound campaigns. LinkedIn outreach and email campaigns begin running with targeted messaging and structured follow-ups.",
+    deliverables: [
+      { text: "LinkedIn outreach", icon: "check" },
+      { text: "Email campaigns", icon: "check" },
+      { text: "Personalised messaging", icon: "check" },
+      { text: "Follow-ups", icon: "check" },
+    ],
+    iconType: "lightning",
   },
   {
-    id: "optimization",
+    id: "analytics_optimisation",
     stepNumber: "05",
-    title: "Continuous Optimization",
-    subtitle: "Weekly Compounding Growth",
-    timeline: "Weekly",
+    nodeTitle: "Analytics & Optimisation",
+    nodeTimeline: "Ongoing",
+    phaseBadge: "Phase 05",
+    phaseTimeline: "Ongoing",
+    title: "Analytics & Optimisation",
+    subtitle: "Improve What Works",
     description:
-      "Every post is a test; every result shapes the next sprint. Weekly data retrospectives compound your inbound deal pipeline.",
-    deliverable: "📈 Compounding Pipeline",
-    nodePos: { x: 990, y: 150 },
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-        <polyline points="17 6 23 6 23 12"/>
-      </svg>
-    ),
+      "We track campaign performance, responses, engagement, and lead quality. The data feeds back into our messaging, targeting, content, and outreach strategy so every cycle gets sharper.",
+    deliverables: [
+      { text: "Performance tracking", icon: "check" },
+      { text: "Testing", icon: "check" },
+      { text: "Iteration", icon: "check" },
+      { text: "Monthly reporting", icon: "check" },
+    ],
+    iconType: "chart",
   },
 ];
 
-const STATS_DATA = [
-  {
-    number: "50+",
-    label: "B2B Founders Positioned",
-    sub: "Seed to Series B Tech Executives",
-  },
-  {
-    number: "6.6M+",
-    label: "Impressions Generated",
-    sub: "High-Intent Enterprise Reach",
-  },
-  {
-    number: "200+",
-    label: "Qualified Sales Calls",
-    sub: "Inbound Pipeline Without Ad Spend",
-  },
-  {
-    number: "94%",
-    label: "Client Retention Rate",
-    sub: "Month-Over-Month Continuity",
-  },
-];
+function StepIcon({ type, className }) {
+  switch (type) {
+    case "phone":
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+      );
+    case "sliders":
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <line x1="4" y1="21" x2="4" y2="14"/>
+          <line x1="4" y1="10" x2="4" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12" y2="3"/>
+          <line x1="20" y1="21" x2="20" y2="16"/>
+          <line x1="20" y1="12" x2="20" y2="3"/>
+          <line x1="1" y1="14" x2="7" y2="14"/>
+          <line x1="9" y1="8" x2="15" y2="8"/>
+          <line x1="17" y1="16" x2="23" y2="16"/>
+        </svg>
+      );
+    case "document":
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      );
+    case "lightning":
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      );
+    case "chart":
+      return (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+          <line x1="12" y1="20" x2="12" y2="8"/>
+          <line x1="18" y1="20" x2="18" y2="12"/>
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+function ClockIcon({ className }) {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+
+function CheckIcon({ className }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
 
 export function ProcessSection() {
-  const [activeStepId, setActiveStepId] = useState("workflow");
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Prepare nodes for CircuitBoard component
-  const circuitNodes = PROCESS_STEPS.map((step) => ({
-    id: step.id,
-    x: step.nodePos.x,
-    y: step.nodePos.y,
-    label: step.title,
-    duration: step.timeline,
-    stepNumber: step.stepNumber,
-    icon: step.icon,
-    status: activeStepId === step.id ? "active" : "inactive",
-    size: "md",
-  }));
+  const currentStep = PROCESS_STEPS[activeIndex];
 
-  // Interconnected circuit traces representing system data flow
-  const circuitConnections = [
-    { from: "kickoff", to: "strategy", animated: true, pulseColor: "#6C2BD9" },
-    { from: "strategy", to: "access", animated: true, pulseColor: "#FF4FCE" },
-    { from: "access", to: "workflow", animated: true, pulseColor: "#6C2BD9" },
-    { from: "workflow", to: "optimization", animated: true, pulseColor: "#C6FF3D" },
-    { from: "optimization", to: "workflow", animated: true, pulseColor: "#6C2BD9" },
-  ];
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : PROCESS_STEPS.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev < PROCESS_STEPS.length - 1 ? prev + 1 : 0));
+  };
 
   return (
-    <section id="process" className={styles.sectionContainer}>
+    <section id="services" className={styles.sectionContainer}>
+      <span id="process" style={{ position: "absolute", top: 0, pointerEvents: "none" }} aria-hidden="true" />
       {/* Background Architectural Grid & Subtle Radial Aura */}
       <div className={styles.backgroundGrid} />
       <div className={styles.ambientAura} />
@@ -156,15 +190,6 @@ export function ProcessSection() {
       <div className={styles.contentWrapper}>
         {/* Header Area */}
         <div className={styles.headerArea}>
-          <div className={styles.pillBadge}>
-            <span className={styles.pulseDot} />
-            <span>Section 04 • The Process</span>
-          </div>
-
-          <div className={styles.systemNotice}>
-            No black box. No guesswork. Here&apos;s the exact system we run for every client.
-          </div>
-
           <h2 className={styles.sectionHeading}>
             Here&apos;s Exactly{" "}
             <span className="text-gradient">How We Get You There</span>
@@ -175,78 +200,222 @@ export function ProcessSection() {
           </p>
         </div>
 
-        {/* Stats Proof Bar (50+, 6.6M+, 200+, 94%) */}
-        <div className={styles.statsBarWrapper}>
-          <div className={styles.statsBar}>
-            {STATS_DATA.map((stat) => (
-              <div key={stat.label} className={styles.statItem}>
-                <div className={styles.statNumber}>{stat.number}</div>
-                <div className={styles.statLabel}>{stat.label}</div>
-                <div className={styles.statSub}>{stat.sub}</div>
-              </div>
-            ))}
+        {/* System Pipeline Architecture // Live Traces Header */}
+        <div className={styles.pipelineHeader}>
+          <span className={styles.pipelineTitle}>
+            <span className={styles.pipelineIndicator} />
+            SYSTEM PIPELINE ARCHITECTURE // LIVE TRACES
+          </span>
+          <span className={styles.pipelineHint}>
+            Click any node to inspect phase deliverables
+          </span>
+        </div>
+
+        {/* Horizontal Pipeline Diagram with Animated Central Circuit Trace */}
+        <div className={styles.pipelineDiagramWrapper}>
+          {/* Animated Circuit Board SVG Canvas */}
+          <div className={styles.traceLineContainer}>
+            <svg
+              className={styles.traceSvg}
+              preserveAspectRatio="none"
+              viewBox="0 0 1000 64"
+            >
+              <defs>
+                <filter id="circuitElectricGlow" x="-30%" y="-100%" width="160%" height="300%">
+                  <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Static Central Base Line strictly through all 5 Nodes */}
+              <line
+                x1="100"
+                y1="32"
+                x2="900"
+                y2="32"
+                stroke="rgba(108, 43, 217, 0.35)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              />
+
+              {/* Primary Electric Neon Signal Traveling strictly from Step 1 (100) to Step 5 (900) */}
+              <motion.line
+                x1="100"
+                y1="32"
+                x2="900"
+                y2="32"
+                stroke="#C6FF3D"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                filter="url(#circuitElectricGlow)"
+                strokeDasharray="100 700"
+                animate={{ strokeDashoffset: [0, -800] }}
+                transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Circuit Solder Pad Points at each of the 5 nodes */}
+              <circle cx="100" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+              <circle cx="300" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+              <circle cx="500" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+              <circle cx="700" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+              <circle cx="900" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+            </svg>
+          </div>
+
+          {/* 5 Nodes Row */}
+          <div className={styles.nodesRow}>
+            {PROCESS_STEPS.map((step, idx) => {
+              const isActive = activeIndex === idx;
+
+              return (
+                <div
+                  key={step.id}
+                  className={`${styles.nodeItem} ${isActive ? styles.nodeItemActive : ""}`}
+                  onClick={() => setActiveIndex(idx)}
+                >
+                  <button
+                    type="button"
+                    className={`${styles.nodeButton} ${isActive ? styles.nodeButtonActive : ""}`}
+                    aria-label={`${step.stepNumber} — ${step.nodeTitle}`}
+                    aria-pressed={isActive}
+                  >
+                    {/* Electric halo when active */}
+                    {isActive && (
+                      <motion.div
+                        className={styles.nodeActiveHalo}
+                        initial={{ scale: 0.85, opacity: 0 }}
+                        animate={{ scale: [1, 1.28, 1], opacity: [0.7, 0.2, 0.7] }}
+                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                    )}
+
+                    <span
+                      className={`${styles.nodeBadge} ${
+                        isActive ? styles.nodeBadgeActive : ""
+                      }`}
+                    >
+                      {step.stepNumber}
+                    </span>
+
+                    <span className={styles.nodeIcon}>
+                      <StepIcon type={step.iconType} />
+                    </span>
+                  </button>
+
+                  <div className={styles.nodeLabelGroup}>
+                    <span className={styles.nodeTitle}>{step.nodeTitle}</span>
+                    <span className={styles.nodeTimeline}>{step.nodeTimeline}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Componentry Circuit Board Architecture Visualizer */}
-        <div className={styles.circuitWrapper}>
-          <div className={styles.circuitHeader}>
-            <span className={styles.circuitTitle}>
-              <span className={styles.circuitIndicator} />
-              SYSTEM PIPELINE ARCHITECTURE // LIVE TRACES
-            </span>
-            <span className={styles.circuitHint}>
-              Click any node to inspect phase deliverables
-            </span>
-          </div>
-
-          <CircuitBoard
-            nodes={circuitNodes}
-            connections={circuitConnections}
-            width={1100}
-            height={320}
-            activeNodeId={activeStepId}
-            onNodeClick={(id) => setActiveStepId(id)}
-            pulseSpeed={2.4}
-            traceWidth={2.5}
-            gridSize={24}
+        {/* Master Detail Inspection Card Below with Active Node Caret (Fixed Rock-Solid Height) */}
+        <div className={styles.inspectionCard}>
+          {/* Animated Caret on Top Border pointing to the active node */}
+          <motion.div
+            className={styles.cardCaret}
+            animate={{ left: `${10 + activeIndex * 20}%` }}
+            transition={{ type: "spring", stiffness: 360, damping: 30 }}
           />
-        </div>
 
-        {/* 5-Step Process Grid */}
-        <div className={styles.stepsGrid}>
-          {PROCESS_STEPS.map((step) => {
-            const isActive = activeStepId === step.id;
-
-            return (
-              <motion.div
-                key={step.id}
-                className={`${styles.stepCard} ${
-                  isActive ? styles.stepCardActive : ""
-                }`}
-                onClick={() => setActiveStepId(step.id)}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className={styles.stepCardHeader}>
-                  <span className={styles.stepNumberBadge}>
-                    Phase {step.stepNumber}
-                  </span>
-                  <span className={styles.stepTimeline}>{step.timeline}</span>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep.id}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className={styles.inspectionContent}
+            >
+              {/* Left Column: Phase Badge, Title, Subtitle, Description */}
+              <div className={styles.inspectionLeft}>
+                <div className={styles.phaseHeaderRow}>
+                  <span className={styles.phaseBadge}>{currentStep.phaseBadge}</span>
+                  <span className={styles.phaseTimeline}>{currentStep.phaseTimeline}</span>
                 </div>
 
-                <div className={styles.stepCardBody}>
-                  <h3 className={styles.stepTitle}>{step.title}</h3>
-                  <span className={styles.stepSub}>{step.subtitle}</span>
-                  <p className={styles.stepDescription}>{step.description}</p>
+                <h3 className={styles.phaseTitle}>{currentStep.title}</h3>
+                <div className={styles.phaseSubtitle}>{currentStep.subtitle}</div>
+                <p className={styles.phaseDescription}>{currentStep.description}</p>
+              </div>
+
+              {/* Right Column: Deliverables Card */}
+              <div className={styles.deliverablesCard}>
+                <div className={styles.deliverablesHeader}>
+                  <span className={styles.deliverablesTitle}>Deliverables</span>
                 </div>
 
-                <div className={styles.stepDeliverablePill}>
-                  <span>{step.deliverable}</span>
+                <ul className={styles.deliverablesList}>
+                  {currentStep.deliverables.map((item, idx) => (
+                    <li key={idx} className={styles.deliverableItem}>
+                      <span className={styles.deliverableIconWrapper}>
+                        {item.icon === "clock" ? (
+                          <ClockIcon className={styles.deliverableIcon} />
+                        ) : (
+                          <CheckIcon className={styles.deliverableIcon} />
+                        )}
+                      </span>
+                      <span className={styles.deliverableText}>{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Bottom-right Navigation Arrows (Stationary across all phases) */}
+                <div className={styles.navControls}>
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className={styles.navBtn}
+                    aria-label="Previous Phase"
+                  >
+                    <svg
+                      className={styles.navSvg}
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className={styles.navBtn}
+                    aria-label="Next Phase"
+                  >
+                    <svg
+                      className={styles.navSvg}
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

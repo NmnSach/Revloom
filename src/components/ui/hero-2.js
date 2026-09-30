@@ -49,106 +49,91 @@ function BentoCard({ children, className = "", style = {} }) {
   );
 }
 
-// Floating Founder Avatars around the Hero Section (8-9 color avatars)
+// Floating Founder Avatars around the Hero Section (Real Founder Photos)
 const FLOATING_AVATARS = [
   {
-    id: "yellow-man",
+    id: "founder-1",
     name: "Julian Vance",
     role: "Co-Founder & CEO, Hyperplane",
-    avatarImg: "/avatars/color/yellow-man.jpg",
+    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.25.00 PM.png",
+    objectPosition: "center 20%",
     size: 74,
-    top: "4%",
-    left: "29%",
+    top: "5%",
+    left: "28%",
     animClass: styles.floatA,
     tooltipPos: "left",
   },
   {
-    id: "peach-woman",
+    id: "founder-2",
     name: "Nadia Patel",
     role: "Founder & CEO, FinFlow",
-    avatarImg: "/avatars/color/peach-woman.jpg",
-    size: 44,
-    top: "8%",
-    right: "30%",
+    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.23.58 PM.png",
+    objectPosition: "center 22%",
+    size: 56,
+    top: "7%",
+    right: "28%",
     animClass: styles.floatC,
     tooltipPos: "right",
   },
   {
-    id: "teal-man",
+    id: "founder-3",
     name: "Marcus Chen",
     role: "Founder, OmniFlow",
-    avatarImg: "/avatars/color/teal-man.jpg",
-    size: 68,
-    top: "16%",
-    left: "2%",
+    avatarImg: "/avatars/color/y7y7y.jpeg",
+    objectPosition: "center 20%",
+    size: 72,
+    top: "17%",
+    left: "3%",
     animClass: styles.floatB,
     tooltipPos: "right",
   },
   {
-    id: "slate-man",
-    name: "Liam Foster",
-    role: "Managing Director, Veloce",
-    avatarImg: "/avatars/color/slate-man.jpg",
-    size: 62,
-    top: "15%",
-    right: "2%",
-    animClass: styles.floatB,
-    tooltipPos: "left",
-  },
-  {
-    id: "mint-woman",
-    name: "Chloe Zhao",
-    role: "Head of Growth, Loominate",
-    avatarImg: "/avatars/color/mint-woman.jpg",
-    size: 48,
-    top: "47%",
-    left: "6%",
-    animClass: styles.floatC,
-    tooltipPos: "right",
-  },
-  {
-    id: "rose-woman",
+    id: "founder-4",
     name: "Elena Rostova",
     role: "CTO, Koyeb Metrics",
-    avatarImg: "/avatars/color/rose-woman.jpg",
-    size: 52,
-    top: "46%",
-    right: "6%",
-    animClass: styles.floatA,
+    avatarImg: "/avatars/color/azsc.jpeg",
+    objectPosition: "center 28%",
+    size: 66,
+    top: "16%",
+    right: "3%",
+    animClass: styles.floatB,
     tooltipPos: "left",
   },
   {
-    id: "blue-man",
+    id: "founder-5",
     name: "Devon Pierce",
     role: "CEO, StackPulse",
-    avatarImg: "/avatars/color/blue-man.jpg",
-    size: 66,
-    top: "76%",
-    left: "2%",
-    animClass: styles.floatA,
+    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.23.22 PM.png",
+    objectPosition: "center 25%",
+    size: 70,
+    top: "48%",
+    left: "5%",
+    animClass: styles.floatC,
     tooltipPos: "right",
   },
   {
-    id: "amber-woman",
+    id: "founder-6",
     name: "Sarah Jenkins",
     role: "Co-Founder, Synthetix",
-    avatarImg: "/avatars/color/amber-woman.jpg",
-    size: 48,
-    top: "83%",
-    left: "32%",
-    animClass: styles.floatB,
-    tooltipPos: "right",
+    avatarImg: "/avatars/color/s.jpeg",
+    objectPosition: "center 25%",
+    size: 60,
+    top: "47%",
+    right: "5%",
+    animClass: styles.floatA,
+    tooltipPos: "left",
   },
   {
-    id: "purple-man",
-    name: "Alex Rivera",
-    role: "Category Lead, HyperScale",
-    avatarImg: "/avatars/color/purple-man.jpg",
-    size: 78,
-    top: "73%",
-    right: "2%",
-    animClass: styles.floatC,
-    tooltipPos: "left",
+    id: "founder-7",
+    name: "Liam Foster",
+    role: "Managing Director, Veloce",
+    avatarImg: "/avatars/color/ertfss.jpeg",
+    objectPosition: "center 28%",
+    size: 72,
+    top: "67%",
+    left: "3%",
+    animClass: styles.floatA,
+    tooltipPos: "right",
   },
 ];
 
@@ -265,6 +250,7 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
                   width={avatar.size}
                   height={avatar.size}
                   className={styles.avatarImg}
+                  style={avatar.objectPosition ? { objectPosition: avatar.objectPosition } : undefined}
                   priority
                 />
               </div>
@@ -290,7 +276,7 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
             <span className={styles.headlineLine}>
               <KineticTextReveal
                 ref={textRef1}
-                text="Stop posting."
+                text="In Today's World,"
                 className={styles.kineticLine}
                 segmentClassName={styles.darkSegment}
                 maskClassName={styles.kineticMask}
@@ -304,7 +290,7 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
             <span className={styles.headlineLine}>
               <KineticTextReveal
                 ref={textRef2}
-                text="Start positioning."
+                text="Your Content Is Your Sales Team."
                 className={styles.kineticLine}
                 segmentClassName={styles.gradientSegment}
                 maskClassName={styles.kineticMask}
@@ -320,54 +306,60 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
 
         {/* Subheadline */}
         <p className={styles.subHeadline}>
-          Revloom handles your LinkedIn strategy, ghostwriting, and engagement
-          end-to-end — turning your profile into a pipeline-generating asset with
-          zero ghostwriting fluff.
+          Every day, 10 new competitors arrive in the market. The options are now
+          higher than ever. Let us help you become the ONLY choice in the industry.
         </p>
 
         {/* CTAs */}
         <div className={styles.ctaGroup}>
           <a
-            href="#audit"
+            href="#book-a-call"
             onClick={onAuditClick}
             className={styles.primaryCta}
           >
-            <span>Get My Free Positioning Audit</span>
+            <span>Book a call</span>
             <span>→</span>
           </a>
           <a
-            href="#how-it-works"
+            href="#what-we-do"
             onClick={onHowItWorksClick}
             className={styles.secondaryCta}
           >
-            <span>See How It Works</span>
+            <span>Check out what we do</span>
           </a>
         </div>
 
         {/* Micro-Proof Metrics */}
         <div className={styles.microProof}>
           <span className={styles.proofItem}>
-            <span className={styles.proofCheck}>✓</span> Trusted by 50+ B2B Founders
+            <span className={styles.proofCheck}>✓</span> Trusted by 70+ Founders
           </span>
           <span className={styles.proofDot}>•</span>
           <span className={styles.proofItem}>
-            <span className={styles.proofCheck}>✓</span> 6.6M+ Impressions Generated
+            <span className={styles.proofCheck}>✓</span> Worked in 15+ Industry Verticals
           </span>
           <span className={styles.proofDot}>•</span>
           <span className={styles.proofItem}>
-            <span className={styles.proofCheck}>✓</span> 94% Client Satisfaction
+            <span className={styles.proofCheck}>✓</span> 10M+ Impressions generated every month
+          </span>
+          <span className={styles.proofDot}>•</span>
+          <span className={styles.proofItem}>
+            <span className={styles.proofCheck}>✓</span> 20K+ potential businesses reached every month
           </span>
         </div>
 
         {/* Scroll Indicator */}
-        <a href="#explore-architecture" className={styles.scrollIndicator}>
-          <span>Explore Architecture</span>
+        <a href="#what-we-do" className={styles.scrollIndicator}>
+          <span>Check out what we do</span>
           <span className={styles.scrollArrow}>↓</span>
         </a>
       </div>
 
-      {/* Bento Grid */}
-      <div id="explore-architecture" className={styles.bentoGridWrapper}>
+      {/* ======================================================================== */}
+      {/* BENTO GRID (Commented out - replaced by <WhatWeDo /> below LogoCloud)    */}
+      {/* ======================================================================== */}
+      {false && (
+        <div id="explore-architecture" className={styles.bentoGridWrapper}>
         {/* Bento Card 1: Done-For-You Content Engine (Span 7) */}
         <BentoCard className={styles.card1}>
           {/* Top Visual: 3 Connected Tiles with Circuit Trace */}
@@ -535,7 +527,7 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
             <div className={styles.donutGraphicWrap}>
               <svg viewBox="0 0 80 80" className={styles.donutSvg}>
                 {/* Ring segments */}
-                <circle cx="40" cy="40" r="30" fill="none" stroke="#E2E8F0" strokeWidth="10" />
+                <circle cx="40" cy="40" r="30" fill="none" stroke="var(--color-card-border, #E2E8F0)" strokeWidth="10" />
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#6C2BD9" strokeWidth="10" strokeDasharray="95 188" strokeDashoffset="0" />
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#FF4FCE" strokeWidth="10" strokeDasharray="42 188" strokeDashoffset="-95" />
                 <circle cx="40" cy="40" r="30" fill="none" stroke="#C6FF3D" strokeWidth="10" strokeDasharray="30 188" strokeDashoffset="-137" />
@@ -837,7 +829,11 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
     </div>
   </BentoCard>
 </div>
-</section>
+      )}
+      {/* ======================================================================== */}
+      {/* END COMMENTED OUT BENTO GRID                                             */}
+      {/* ======================================================================== */}
+    </section>
   );
 }
 

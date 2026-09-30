@@ -1,0 +1,471 @@
+/* ==========================================================================
+   Orbit Card Stack Component Styles
+   Inspired by Componentry Orbit Card Stack
+   Optimized for Revloom Design System (Dark/Light Modes)
+   ========================================================================== */
+
+.stageContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 540px;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.5rem 2.5rem;
+  box-sizing: border-box;
+  perspective: 1200px;
+}
+
+.stage {
+  position: relative;
+  height: 510px;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  outline: none;
+}
+
+/* Base Card Shell */
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(82vw, 21.5rem);
+  transform-origin: bottom center;
+  cursor: pointer;
+  border-radius: 1.85rem;
+  padding: 1rem 1rem 1.15rem;
+  box-sizing: border-box;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background: rgba(22, 17, 38, 0.96);
+  border: 1.5px solid rgba(108, 43, 217, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(108, 43, 217, 0.15);
+  transition-property: transform, box-shadow, border-color, background-color;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+/* Light Mode Card Surface */
+:global([data-theme="light"]) .card {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(108, 43, 217, 0.18);
+  box-shadow: 0 12px 32px rgba(108, 43, 217, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Active / Elevated Card Glow */
+.cardActive {
+  border-color: rgba(198, 255, 61, 0.65) !important;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.65), 0 0 28px rgba(198, 255, 61, 0.28) !important;
+}
+
+:global([data-theme="light"]) .cardActive {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 20px 48px rgba(108, 43, 217, 0.22), 0 0 20px rgba(108, 43, 217, 0.15) !important;
+}
+
+/* Keyboard Focus */
+.card:focus-visible {
+  outline: 2px solid #C6FF3D;
+  outline-offset: 3px;
+}
+
+:global([data-theme="light"]) .card:focus-visible {
+  outline: 2px solid var(--color-primary);
+}
+
+/* Portrait Wrapper */
+.portraitWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.34;
+  overflow: hidden;
+  border-radius: 1.35rem;
+  background: rgba(12, 9, 22, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:global([data-theme="light"]) .portraitWrap {
+  background: rgba(108, 43, 217, 0.04);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.portraitImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .portraitImg {
+  transform: scale(1.03);
+}
+
+/* Fallback Portrait if no image */
+.fallbackPortrait {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 35%, rgba(108, 43, 217, 0.35), transparent 70%);
+}
+
+.fallbackAvatarCircle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6C2BD9, #8544F6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-headline);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  border: 2px solid rgba(198, 255, 61, 0.6);
+}
+
+/* Top-Left Company Pill on Portrait */
+.companyPill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.68rem;
+  border-radius: 9999px;
+  background: rgba(15, 11, 30, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+
+:global([data-theme="light"]) .companyPill {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1A1625;
+  border-color: rgba(108, 43, 217, 0.2);
+}
+
+.companyLogoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Top-Right Arrow Action Circle Button */
+.arrowBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(15, 11, 30, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C6FF3D;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:global([data-theme="light"]) .arrowBtn {
+  background: #FFFFFF;
+  border-color: rgba(108, 43, 217, 0.2);
+  color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover .arrowBtn {
+  background: #C6FF3D;
+  color: #0F0B1E;
+  border-color: #C6FF3D;
+  transform: rotate(45deg);
+}
+
+:global([data-theme="light"]) .card:hover .arrowBtn {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+.arrowIcon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.4;
+}
+
+/* Bottom-Right Initials Tag on Portrait */
+.initialsTag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 9999px;
+  background: rgba(15, 11, 30, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-headline);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #C6FF3D;
+  z-index: 2;
+}
+
+:global([data-theme="light"]) .initialsTag {
+  background: #FFFFFF;
+  color: var(--color-primary);
+  border-color: rgba(108, 43, 217, 0.2);
+}
+
+/* Text Content Area */
+.cardContent {
+  padding: 0.95rem 0.35rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.roleText {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #A79EBF;
+  margin: 0 0 0.35rem;
+}
+
+:global([data-theme="light"]) .roleText {
+  color: var(--color-primary);
+}
+
+.nameText {
+  font-family: var(--font-headline);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0 0 0.55rem;
+}
+
+:global([data-theme="light"]) .nameText {
+  color: #1A1625;
+}
+
+.quoteText {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.48;
+  color: #C4BDD6;
+  margin: 0 0 0.95rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 3.9rem;
+}
+
+:global([data-theme="light"]) .quoteText {
+  color: #554D68;
+}
+
+/* Bottom Stat Divider */
+.statDivider {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+:global([data-theme="light"]) .statDivider {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+.statBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-headline);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #C6FF3D;
+}
+
+:global([data-theme="light"]) .statBadge {
+  color: var(--color-primary);
+}
+
+.statDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #C6FF3D;
+  box-shadow: 0 0 6px #C6FF3D;
+}
+
+:global([data-theme="light"]) .statDot {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 6px rgba(108, 43, 217, 0.6);
+}
+
+.stageMeta {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #8C84A3;
+}
+
+/* ==========================================================================
+   Mobile / Tablet Navigation & Dot Controls
+   ========================================================================== */
+.controlsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.dotIndicators {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.dotBtn {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(108, 43, 217, 0.35);
+  border: none;
+  padding: 0 !important;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+:global([data-theme="light"]) .dotBtn {
+  background: rgba(108, 43, 217, 0.2);
+}
+
+.dotBtnActive {
+  width: 24px;
+  border-radius: 9999px;
+  background: #C6FF3D;
+  box-shadow: 0 0 10px rgba(198, 255, 61, 0.6);
+}
+
+:global([data-theme="light"]) .dotBtnActive {
+  background: var(--color-primary);
+  box-shadow: 0 0 10px rgba(108, 43, 217, 0.4);
+}
+
+.deckNavBtn {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 10px;
+  background: rgba(26, 20, 44, 0.85);
+  border: 1px solid rgba(108, 43, 217, 0.35);
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  box-sizing: border-box;
+}
+
+:global([data-theme="light"]) .deckNavBtn {
+  background: #FFFFFF;
+  border-color: rgba(108, 43, 217, 0.2);
+  color: var(--color-primary);
+}
+
+.deckNavBtn:hover {
+  background: rgba(108, 43, 217, 0.3);
+  border-color: #C6FF3D;
+  color: #C6FF3D;
+  transform: translateY(-2px);
+}
+
+:global([data-theme="light"]) .deckNavBtn:hover {
+  background: rgba(108, 43, 217, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .stage {
+    height: 490px;
+  }
+
+  .card {
+    width: min(84vw, 20rem);
+  }
+
+  .nameText {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .stageContainer {
+    min-height: 480px;
+    padding: 0.5rem 0 1.5rem;
+  }
+
+  .stage {
+    height: 460px;
+  }
+
+  .card {
+    width: min(88vw, 19.5rem);
+    padding: 0.85rem 0.85rem 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .portraitWrap {
+    border-radius: 1.15rem;
+  }
+
+  .nameText {
+    font-size: 1.25rem;
+  }
+
+  .quoteText {
+    font-size: 0.84rem;
+    -webkit-line-clamp: 3;
+    min-height: 3.6rem;
+  }
+}

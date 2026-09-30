@@ -1,12 +1,20 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { HoverTransition } from "./hover-transition";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselDots,
+} from "./carousel";
 import styles from "./social-proof.module.css";
 
-// Vector Company Logos for the 6 B2B Tech/SaaS Clients
-function CompanyLogo({ id, size = 24 }) {
+// Vector Client Company Logos
+function CompanyLogo({ id, size = 26 }) {
   switch (id) {
     case "hyperplane":
       return (
@@ -129,7 +137,7 @@ const CLIENT_TESTIMONIALS = [
     avatarImg: "/avatars/elena-rostova.jpg",
     coreMetric: "2.4M+ Reach",
     metricLabel: "Organic Impressions",
-    hoverImpact: "2.4M Reach • 0 Hrs/Wk",
+    hoverImpact: "0 Hrs/Wk Required",
     quote:
       "I hate writing social posts. Revloom captured my technical voice with surgical precision—0 hours required from me, but massive C-level reach.",
   },
@@ -142,9 +150,9 @@ const CLIENT_TESTIMONIALS = [
     avatarImg: "/avatars/marcus-chen.jpg",
     coreMetric: "42 Demos",
     metricLabel: "Qualified Inbound Calls",
-    hoverImpact: "42 Demo Calls Booked",
+    hoverImpact: "Closing Before Zoom",
     quote:
-      "Positioning First changed everything. We stopped competing on price and started closing buyers before the demo even started.",
+      "Positioning First changed everything. We stopped competing on price and started closing enterprise buyers before the demo even started.",
   },
   {
     company: "Veloce Security",
@@ -153,7 +161,7 @@ const CLIENT_TESTIMONIALS = [
     founder: "Sarah Jenkins",
     role: "Co-Founder & CPO",
     avatarImg: "/avatars/sarah-jenkins.jpg",
-    coreMetric: "-21 Days",
+    coreMetric: "-21 Days Velocity",
     metricLabel: "Sales Cycle Velocity",
     hoverImpact: "-3 Wks Deal Velocity",
     quote:
@@ -166,9 +174,9 @@ const CLIENT_TESTIMONIALS = [
     founder: "Devon Pierce",
     role: "CEO & Co-Founder",
     avatarImg: "/avatars/devon-pierce.jpg",
-    coreMetric: "Top 1%",
+    coreMetric: "Top 1% Creator",
     metricLabel: "Creator Benchmark",
-    hoverImpact: "Top 1% Creator Reach",
+    hoverImpact: "Compounding Pipeline",
     quote:
       "No freelancers or black box guesswork. The weekly workflow is seamless and the compounding pipeline ROI is undeniable.",
   },
@@ -179,15 +187,20 @@ const CLIENT_TESTIMONIALS = [
     founder: "Nadia Patel",
     role: "Founder & CEO",
     avatarImg: "/avatars/nadia-patel.jpg",
-    coreMetric: "$240k",
+    coreMetric: "$240k Pipeline",
     metricLabel: "Pipeline Influenced",
     hoverImpact: "$240k Pipeline Created",
     quote:
-      "The highest-leverage personal brand investment I've made as a founder. Revloom is our secret weapon for enterprise trust.",
+      "The highest-leverage personal brand investment I've made as a founder. Revloom is our secret weapon for building category trust.",
   },
 ];
 
 export function SocialProof() {
+  const autoplayPlugin = useMemo(
+    () => Autoplay({ delay: 3500, stopOnInteraction: false, stopOnMouseEnter: true }),
+    []
+  );
+
   return (
     <section id="case-studies" className={styles.sectionContainer}>
       {/* Background Architectural Grid & Subtle Radial Aura */}
@@ -209,149 +222,89 @@ export function SocialProof() {
 
           <p className={styles.subText}>
             From Series A pioneers to venture-backed SaaS operators — here’s how
-            executive positioning transformed their personal authority into pipeline.
+            executive positioning transformed their personal authority into predictable pipeline.
           </p>
         </div>
 
-        {/* 3-Column Interactive Ripple Hover Cards Grid */}
-        <div className={styles.cardsGrid}>
-          {CLIENT_TESTIMONIALS.map((item, index) => {
-            // Default Surface: Full Size Person Image + Name, Company & Designation on the Bottom
-            const defaultCard = (
-              <div className={styles.defaultCard}>
-                {/* Full Size Image of the Person */}
-                <Image
-                  src={item.avatarImg}
-                  alt={item.founder}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className={styles.founderFullImg}
-                  priority={index < 3}
-                />
-
-                {/* Top Subtle Floating Meta */}
-                <div className={styles.cardTopFloating}>
-                  <div className={styles.topCompanyPill}>
-                    <div className={styles.topLogoWrap}>
-                      <CompanyLogo id={item.logoId} size={18} />
-                    </div>
-                    <span className={styles.topCompanyName}>{item.company}</span>
-                  </div>
-                  <span className={styles.topMetricPill}>{item.coreMetric}</span>
-                </div>
-
-                {/* Bottom Scrim Overlay: Name, Company Name & Designation over the image */}
-                <div className={styles.bottomScrim}>
-                  <div className={styles.founderIdentityBlock}>
-                    <h3 className={styles.founderNameOverImage}>{item.founder}</h3>
-                    <div className={styles.companyAndRoleRow}>
-                      <div className={styles.companyInlineBadge}>
-                        <div className={styles.companyLogoInlineWrap}>
-                          <CompanyLogo id={item.logoId} size={18} />
-                        </div>
-                        <span className={styles.companyNameOverImage}>{item.company}</span>
+        {/* Shadcn Carousel with Testimonial Cards (3 in a Row, Auto-scrolling every 3.5s) */}
+        <Carousel
+          opts={{
+            loop: true,
+            align: "start",
+          }}
+          plugins={[autoplayPlugin]}
+          className={styles.carouselWrapper}
+        >
+          <CarouselContent>
+            {CLIENT_TESTIMONIALS.map((item, index) => (
+              <CarouselItem key={`${item.company}-${index}`}>
+                <article className={styles.cardShell}>
+                  {/* Top Row: Company Name on Top Left, Metric on Top Right */}
+                  <div className={styles.cardTopRow}>
+                    <div className={styles.companyInfoTopLeft}>
+                      <div className={styles.companyLogoBadge}>
+                        <CompanyLogo id={item.logoId} size={18} />
                       </div>
-                      <span className={styles.roleDivider}>•</span>
-                      <span className={styles.designationOverImage}>{item.role}</span>
-                    </div>
-                  </div>
-
-                  <div className={styles.bottomHoverPrompt}>
-                    <span className={styles.hoverPromptText}>Hover to read story</span>
-                    <span className={styles.hoverPromptIcon}>↗</span>
-                  </div>
-                </div>
-              </div>
-            );
-
-            // Hover Revealed Surface: Full Testimonial with Ripple Effect
-            const hoverCard = (
-              <div className={styles.hoverCard}>
-                {/* Background Blurred Founder Image with Dark Tint Overlay for Atmospheric Depth */}
-                <div className={styles.hoverBgImageWrap}>
-                  <Image
-                    src={item.avatarImg}
-                    alt={item.founder}
-                    fill
-                    sizes="33vw"
-                    className={styles.hoverBgImg}
-                  />
-                  <div className={styles.hoverBackdropTint} />
-                </div>
-
-                {/* Testimonial Content Surface */}
-                <div className={styles.hoverCardContent}>
-                  {/* Top Header */}
-                  <div className={styles.hoverTopRow}>
-                    <div className={styles.hoverCompanyBadge}>
-                      <div className={styles.hoverCompanyLogoWrap}>
-                        <CompanyLogo id={item.logoId} size={24} />
+                      <div className={styles.companyTextGroup}>
+                        <span className={styles.companyName}>{item.company}</span>
+                        <span className={styles.companyStage}>{item.stage}</span>
                       </div>
-                      <span className={styles.hoverCompanyName}>{item.company}</span>
                     </div>
-                    <span className={styles.hoverBadge}>
-                      <span>★</span> {item.hoverImpact}
-                    </span>
+
+                    <div className={styles.metricBadgeTopRight}>
+                      <span className={styles.metricDot} />
+                      <span>{item.coreMetric}</span>
+                    </div>
                   </div>
 
-                  {/* Testimonial Quote Body */}
-                  <div className={styles.hoverQuoteBody}>
-                    <span className={styles.quoteMark}>&ldquo;</span>
-                    <p className={styles.quoteText}>{item.quote}</p>
+                  {/* Central Quote Text */}
+                  <div className={styles.quoteCentralWrapper}>
+                    <span className={styles.quoteMarkGlyph} aria-hidden="true">&ldquo;</span>
+                    <blockquote className={styles.centralQuoteText}>
+                      &ldquo;{item.quote}&rdquo;
+                    </blockquote>
                   </div>
 
-                  {/* Bottom Footer: Name, Designation & Verified Metric */}
-                  <div className={styles.hoverBottomRow}>
-                    <div className={styles.hoverFounderInfo}>
-                      <div className={styles.hoverFounderAvatar}>
+                  {/* Bottom Row: Person Name and Avatar on Bottom Left */}
+                  <div className={styles.cardBottomRow}>
+                    <div className={styles.founderBottomLeft}>
+                      <div className={styles.avatarWrap}>
                         <Image
                           src={item.avatarImg}
                           alt={item.founder}
-                          width={42}
-                          height={42}
-                          className={styles.founderAvatarImg}
+                          width={54}
+                          height={54}
+                          className={styles.avatarImg}
                         />
-                      </div>
-                      <div className={styles.founderText}>
-                        <span className={styles.hoverFounderName}>{item.founder}</span>
-                        <span className={styles.hoverFounderRole}>
-                          {item.role} • {item.company}
+                        <span className={styles.verifiedBadge} aria-label="Verified Client">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
                         </span>
+                      </div>
+
+                      <div className={styles.founderDetails}>
+                        <h4 className={styles.founderName}>{item.founder}</h4>
+                        <p className={styles.founderRole}>{item.role}</p>
                       </div>
                     </div>
 
-                    <span className={styles.impactPill}>{item.coreMetric}</span>
+                    <div className={styles.impactBottomRight}>
+                      <span className={styles.impactLabel}>{item.hoverImpact}</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
+                </article>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-            return (
-              <motion.div
-                key={item.company}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.05 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={styles.cardShell}
-              >
-                <HoverTransition
-                  defaultComponent={defaultCard}
-                  hoverComponent={hoverCard}
-                  effect="ripple"
-                  direction="center"
-                  duration={0.7}
-                  easing="cubic-bezier(0.22, 1, 0.36, 1)"
-                  label={`${item.founder} from ${item.company} testimonial`}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
+          {/* Desktop Floating Previous & Next Buttons */}
+          <CarouselPrevious />
+          <CarouselNext />
+
+          {/* Bottom Pagination Dots */}
+          <CarouselDots />
+        </Carousel>
       </div>
     </section>
   );

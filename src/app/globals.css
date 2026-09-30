@@ -2,10 +2,10 @@
 
 :root {
   /* ==========================================================================
-     Revloom Brand Color Palette
+     Revloom Brand Color Palette — Light Mode
      ========================================================================== */
   
-  /* Primary — Deep Violet (Headlines, primary buttons, nav, logo, icons) */
+  /* Primary — Deep Violet */
   --color-primary: #6C2BD9;
   --color-primary-hover: #5b21b6;
   --color-primary-active: #4c1d95;
@@ -15,35 +15,53 @@
   --color-base: #FFFFFF;
   --color-base-warm: #FDFCFF;
 
-  /* Secondary — Hot Magenta / Pink (Gradients, hover states, decorative blobs) */
+  /* Secondary — Hot Magenta / Pink */
   --color-secondary: #FF4FCE;
   --color-secondary-hover: #e83bb7;
   --color-secondary-glow: rgba(255, 79, 206, 0.22);
 
-  /* Accent — Electric Lime (5-10% visual weight: CTA highlights, badges, checkmarks, underlines) */
+  /* Accent — Electric Lime */
   --color-accent: #C6FF3D;
   --color-accent-hover: #b4f522;
   --color-accent-text: #132400;
   --color-accent-glow: rgba(198, 255, 61, 0.4);
 
-  /* Dark Anchor — Ink Violet (Body text & dark contrast sections like footer / final CTA) */
+  /* Dark Anchor / Deep Contrast */
   --color-dark-anchor: #1A1625;
   --color-dark-anchor-soft: #241f33;
   --color-dark-surface: #2b253b;
 
-  /* Neutral — Soft Lavender Gray (Card backgrounds, subtle fills, section dividers) */
+  /* Neutral — Soft Lavender Gray */
   --color-neutral: #F1EEF7;
   --color-neutral-hover: #e9e5f2;
   --color-neutral-border: #E5E0F0;
 
+  /* Cards & Elevated Surfaces */
+  --color-card-bg: #FFFFFF;
+  --color-card-bg-elevated: rgba(255, 255, 255, 0.95);
+  --color-card-border: rgba(108, 43, 217, 0.12);
+  --color-card-border-hover: rgba(108, 43, 217, 0.32);
+  --color-card-subtle: #F8FAFC;
+  --color-card-subtle-border: #E2E8F0;
+
   /* Text Roles */
   --text-headline: var(--color-primary);
-  --text-headline-dark: var(--color-dark-anchor);
-  --text-body: var(--color-dark-anchor);
+  --text-headline-dark: #1A1625;
+  --text-body: #1A1625;
   --text-muted: #5E5873;
   --text-light: #7E7794;
   --text-inverse: #FFFFFF;
   --text-inverse-muted: #C5BFD4;
+
+  /* Nav */
+  --nav-bg: rgba(255, 255, 255, 0.82);
+  --nav-scrim: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.65) 50%, rgba(255, 255, 255, 0.15) 80%, transparent 100%);
+  --nav-border: rgba(108, 43, 217, 0.08);
+  --nav-text: #1A1625;
+
+  /* Grids & Background Radiance */
+  --grid-line: rgba(108, 43, 217, 0.04);
+  --grid-radial: rgba(108, 43, 217, 0.06);
 
   /* Gradients */
   --gradient-brand: linear-gradient(135deg, #6C2BD9 0%, #FF4FCE 100%);
@@ -62,6 +80,161 @@
   --shadow-card-hover: 0 16px 36px -4px rgba(108, 43, 217, 0.12);
   --shadow-primary-cta: 0 10px 25px -3px rgba(108, 43, 217, 0.35);
   --shadow-accent-glow: 0 4px 18px rgba(198, 255, 61, 0.35);
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Magic UI Animated Theme Toggler — View Transitions API Configuration
+   ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration, 450ms);
+}
+
+html[data-magicui-theme-vt="active"]::view-transition-new(root) {
+  clip-path: var(--magicui-theme-vt-clip-from);
+}
+
+/* Prevent double-transition fighting while View Transition is running */
+html[data-magicui-theme-vt="active"] *,
+html[data-magicui-theme-vt="active"] *::before,
+html[data-magicui-theme-vt="active"] *::after {
+  transition: none !important;
+}
+
+/* ==========================================================================
+   Revloom Brand Color Palette — Dark Mode (Explicit & System Fallback)
+   ========================================================================== */
+[data-theme="dark"],
+html.dark,
+.dark {
+  --color-primary: #8B5CF6;
+  --color-primary-hover: #A78BFA;
+  --color-primary-active: #7C3AED;
+  --color-primary-glow: rgba(139, 92, 246, 0.35);
+
+  --color-base: #0B0813;
+  --color-base-warm: #0E0A1A;
+
+  --color-secondary: #FF5CD0;
+  --color-secondary-hover: #FF7CE0;
+  --color-secondary-glow: rgba(255, 92, 208, 0.35);
+
+  --color-accent: #C6FF3D;
+  --color-accent-hover: #D4FF66;
+  --color-accent-text: #0D1700;
+  --color-accent-glow: rgba(198, 255, 61, 0.45);
+
+  --color-dark-anchor: #F3EFFC;
+  --color-dark-anchor-soft: #DDD7EB;
+  --color-dark-surface: #1B152E;
+
+  --color-neutral: #1E1636;
+  --color-neutral-hover: #291F48;
+  --color-neutral-border: rgba(167, 139, 250, 0.25);
+
+  --color-card-bg: #241C3D;
+  --color-card-bg-elevated: rgba(43, 34, 72, 0.96);
+  --color-card-border: rgba(167, 139, 250, 0.24);
+  --color-card-border-hover: rgba(167, 139, 250, 0.5);
+  --color-card-subtle: #1A142E;
+  --color-card-subtle-border: rgba(167, 139, 250, 0.18);
+
+  --text-headline: #FFFFFF;
+  --text-headline-dark: #FFFFFF;
+  --text-body: #DDD7EB;
+  --text-muted: #A39BB9;
+  --text-light: #8980A1;
+  --text-inverse: #FFFFFF;
+  --text-inverse-muted: #C5BFD4;
+
+  --nav-bg: rgba(11, 8, 19, 0.85);
+  --nav-scrim: linear-gradient(180deg, rgba(11, 8, 19, 0.96) 0%, rgba(11, 8, 19, 0.75) 50%, rgba(11, 8, 19, 0.2) 80%, transparent 100%);
+  --nav-border: rgba(167, 139, 250, 0.22);
+  --nav-text: #F3EFFC;
+
+  --grid-line: rgba(139, 92, 246, 0.08);
+  --grid-radial: rgba(139, 92, 246, 0.12);
+
+  --gradient-glow: radial-gradient(circle, rgba(255, 92, 208, 0.2) 0%, rgba(139, 92, 246, 0.16) 35%, transparent 70%);
+  --gradient-neutral: linear-gradient(180deg, var(--color-base) 0%, var(--color-neutral) 100%);
+  --gradient-dark-section: linear-gradient(180deg, #100C1E 0%, #090710 100%);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 12px 36px -4px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(167, 139, 250, 0.14);
+  --shadow-card-hover: 0 20px 48px -4px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(167, 139, 250, 0.35);
+  --shadow-primary-cta: 0 10px 28px -2px rgba(139, 92, 246, 0.5);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-primary: #8B5CF6;
+    --color-primary-hover: #A78BFA;
+    --color-primary-active: #7C3AED;
+    --color-primary-glow: rgba(139, 92, 246, 0.35);
+
+    --color-base: #0B0813;
+    --color-base-warm: #0E0A1A;
+
+    --color-secondary: #FF5CD0;
+    --color-secondary-hover: #FF7CE0;
+    --color-secondary-glow: rgba(255, 92, 208, 0.35);
+
+    --color-accent: #C6FF3D;
+    --color-accent-hover: #D4FF66;
+    --color-accent-text: #0D1700;
+    --color-accent-glow: rgba(198, 255, 61, 0.45);
+
+    --color-dark-anchor: #F3EFFC;
+    --color-dark-anchor-soft: #DDD7EB;
+    --color-dark-surface: #1B152E;
+
+    --color-neutral: #1E1636;
+    --color-neutral-hover: #291F48;
+    --color-neutral-border: rgba(167, 139, 250, 0.25);
+
+    --color-card-bg: #241C3D;
+    --color-card-bg-elevated: rgba(43, 34, 72, 0.96);
+    --color-card-border: rgba(167, 139, 250, 0.24);
+    --color-card-border-hover: rgba(167, 139, 250, 0.5);
+    --color-card-subtle: #1A142E;
+    --color-card-subtle-border: rgba(167, 139, 250, 0.18);
+
+    --text-headline: #FFFFFF;
+    --text-headline-dark: #FFFFFF;
+    --text-body: #DDD7EB;
+    --text-muted: #A39BB9;
+    --text-light: #8980A1;
+    --text-inverse: #FFFFFF;
+    --text-inverse-muted: #C5BFD4;
+
+    --nav-bg: rgba(11, 8, 19, 0.85);
+    --nav-scrim: linear-gradient(180deg, rgba(11, 8, 19, 0.96) 0%, rgba(11, 8, 19, 0.75) 50%, rgba(11, 8, 19, 0.2) 80%, transparent 100%);
+    --nav-border: rgba(167, 139, 250, 0.22);
+    --nav-text: #F3EFFC;
+
+    --grid-line: rgba(139, 92, 246, 0.08);
+    --grid-radial: rgba(139, 92, 246, 0.12);
+
+    --gradient-glow: radial-gradient(circle, rgba(255, 92, 208, 0.2) 0%, rgba(139, 92, 246, 0.16) 35%, transparent 70%);
+    --gradient-neutral: linear-gradient(180deg, var(--color-base) 0%, var(--color-neutral) 100%);
+    --gradient-dark-section: linear-gradient(180deg, #100C1E 0%, #090710 100%);
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 12px 36px -4px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(167, 139, 250, 0.14);
+    --shadow-card-hover: 0 20px 48px -4px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(167, 139, 250, 0.35);
+    --shadow-primary-cta: 0 10px 28px -2px rgba(139, 92, 246, 0.5);
+
+    color-scheme: dark;
+  }
 }
 
 /* ==========================================================================
@@ -82,13 +255,23 @@ html {
 
 body {
   min-height: 100%;
-  background-color: var(--color-base-warm);
+  background-color: var(--color-base);
   color: var(--text-body);
   font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth theme transition */
+body,
+header,
+main,
+section,
+.btn,
+.card-neutral {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* ==========================================================================
@@ -241,7 +424,7 @@ button,
 .card-neutral:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
-  background: #ECE7F4;
+  background: var(--color-neutral-hover);
 }
 
 /* Dark Section: Ink Violet background for footer or contrast sections */
@@ -263,7 +446,7 @@ button,
 /* Lime Highlight & Badge */
 .badge-lime {
   background: rgba(198, 255, 61, 0.2);
-  color: #3b5c00;
+  color: var(--color-accent-text);
   border: 1px solid rgba(198, 255, 61, 0.6);
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
@@ -274,6 +457,11 @@ button,
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+[data-theme="dark"] .badge-lime {
+  color: #C6FF3D;
+  background: rgba(198, 255, 61, 0.15);
 }
 
 .lime-underline {
@@ -344,4 +532,3 @@ button,
   white-space: nowrap !important;
   border-width: 0 !important;
 }
-

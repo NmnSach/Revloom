@@ -7,13 +7,13 @@ import { WheelCarousel } from "@/components/ui/wheel-carousel";
 
 const SERVICES = [
   {
-    label: "LinkedIn Ghostwriting",
+    label: "Sales Funnel",
     image:
       "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "LinkedIn Ghostwriting & Content Strategy",
   },
   {
-    label: "Personal Brand Strategy",
+    label: "Lead Generation",
     image:
       "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Personal Brand Strategy & Market Positioning",
@@ -25,37 +25,49 @@ const SERVICES = [
     imageAlt: "Founder Positioning & Authority Building",
   },
   {
-    label: "Content Calendar & Scheduling",
+    label: "Business Growth",
     image:
       "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Content Calendar & Editorial Scheduling",
   },
   {
-    label: "Engagement & Comment Management",
+    label: "PR & Brand Authority",
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Community Engagement & Dynamic Comment Strategy",
   },
   {
-    label: "Profile Optimization",
+    label: "Demand Generation",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Executive LinkedIn Profile & Banner Optimization",
   },
   {
-    label: "Carousel & Visual Content Design",
+    label: "Thought Leadership",
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Visual Carousel Slide Design & Assets",
   },
   {
-    label: "Lead Gen via LinkedIn Outreach",
+    label: "Client Acquisition",
     image:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "High-Converting LinkedIn Lead Outreach & Inbound",
   },
   {
-    label: "Analytics & Reporting",
+    label: "Market Positioning",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
+    imageAlt: "Analytics, Reach Tracking & Performance Reports",
+  },
+  {
+    label: "Content Strategy",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
+    imageAlt: "Analytics, Reach Tracking & Performance Reports",
+  },
+  {
+    label: "Customer Acquisition",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
     imageAlt: "Analytics, Reach Tracking & Performance Reports",
@@ -235,9 +247,9 @@ export function SplashScreen({ onComplete, children }) {
               left: 0,
               width: "100%",
               height: "50%",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "var(--color-base, #FFFFFF)",
               zIndex: 1,
-              borderBottom: "1px solid rgba(108, 43, 217, 0.08)",
+              borderBottom: "1px solid var(--color-card-border, rgba(108, 43, 217, 0.08))",
               boxShadow: "0 14px 36px rgba(108, 43, 217, 0.1)",
             }}
           />
@@ -256,9 +268,9 @@ export function SplashScreen({ onComplete, children }) {
               left: 0,
               width: "100%",
               height: "50%",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "var(--color-base, #FFFFFF)",
               zIndex: 1,
-              borderTop: "1px solid rgba(108, 43, 217, 0.08)",
+              borderTop: "1px solid var(--color-card-border, rgba(108, 43, 217, 0.08))",
               boxShadow: "0 -14px 36px rgba(108, 43, 217, 0.1)",
             }}
           />
@@ -333,11 +345,11 @@ export function SplashScreen({ onComplete, children }) {
                     ref={carouselRef}
                     items={SERVICES}
                     mode="custom"
-                    background="#FFFFFF"
-                    selectedColor="#6C2BD9"
-                    textColor="rgba(26, 22, 37, 0.35)"
+                    background="var(--color-base, #FFFFFF)"
+                    selectedColor="var(--color-primary, #6C2BD9)"
+                    textColor="var(--text-muted, rgba(26, 22, 37, 0.35))"
                     markerColor="#C6FF3D"
-                    panelColor="#F1EEF7"
+                    panelColor="var(--color-card-subtle, #F1EEF7)"
                     photoSide="left"
                     photoWidth={34}
                     photoAspect="3/4"

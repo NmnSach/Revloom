@@ -2,14 +2,15 @@
   position: relative;
   width: 100%;
   max-width: 1100px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1.5px solid rgba(108, 43, 217, 0.12);
+  background: var(--color-card-bg-elevated);
+  border: 1.5px solid var(--color-card-border);
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 20px 48px -12px rgba(108, 43, 217, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   user-select: none;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .circuitSvg {
@@ -53,9 +54,9 @@
   width: 100%;
   height: 100%;
   border-radius: 14px;
-  background: #FFFFFF;
-  border: 2px solid rgba(108, 43, 217, 0.22);
-  box-shadow: 0 4px 16px rgba(108, 43, 217, 0.08);
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,29 +64,29 @@
 }
 
 .nodeAnchor:hover .nodeButton {
-  border-color: #6C2BD9;
-  box-shadow: 0 8px 24px rgba(108, 43, 217, 0.2), 0 0 12px rgba(198, 255, 61, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px var(--color-primary-glow), 0 0 12px rgba(198, 255, 61, 0.2);
 }
 
 .nodeButtonActive {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5F0FF 100%);
-  border-color: #6C2BD9;
-  box-shadow: 0 10px 30px rgba(108, 43, 217, 0.3), 0 0 18px rgba(198, 255, 61, 0.35);
+  background: linear-gradient(135deg, var(--color-card-bg) 0%, rgba(108, 43, 217, 0.25) 100%);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px var(--color-primary-glow), 0 0 18px rgba(198, 255, 61, 0.35);
 }
 
 .nodeStepBadge {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: #6C2BD9;
+  background: var(--color-primary);
   color: #FFFFFF;
   font-family: var(--font-headline);
   font-size: 0.65rem;
   font-weight: 800;
   padding: 0.15rem 0.4rem;
   border-radius: 9999px;
-  border: 1.5px solid #FFFFFF;
-  box-shadow: 0 2px 6px rgba(108, 43, 217, 0.35);
+  border: 1.5px solid var(--color-card-bg);
+  box-shadow: 0 2px 6px var(--color-primary-glow);
 }
 
 .nodeButtonActive .nodeStepBadge {
@@ -97,12 +98,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6C2BD9;
+  color: var(--color-primary);
   transition: transform 0.2s ease;
 }
 
 .nodeButtonActive .nodeIcon {
-  color: #6C2BD9;
+  color: var(--color-primary);
   transform: scale(1.08);
 }
 
@@ -124,20 +125,21 @@
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 600;
-  color: #1A1625;
-  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-headline-dark);
+  background: var(--color-card-bg-elevated);
   padding: 0.15rem 0.55rem;
   border-radius: 9999px;
-  border: 1px solid rgba(108, 43, 217, 0.12);
-  box-shadow: 0 2px 8px rgba(26, 22, 37, 0.04);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
 .nodeLabelActive .nodeLabelText {
-  color: #6C2BD9;
+  color: var(--color-primary);
   font-weight: 700;
-  border-color: #6C2BD9;
-  background: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(108, 43, 217, 0.18);
+  border-color: var(--color-primary);
+  background: var(--color-card-bg);
+  box-shadow: 0 4px 14px var(--color-primary-glow);
 }
 
 .nodeDuration {

@@ -1,0 +1,72 @@
+.themeTogglerBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-card-bg-elevated);
+  border: 1px solid var(--color-card-border);
+  color: var(--text-headline-dark);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              color 0.2s ease;
+}
+
+.themeTogglerBtn:hover {
+  transform: scale(1.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 4px 16px var(--color-primary-glow);
+}
+
+.themeTogglerBtn:active {
+  transform: scale(0.95);
+}
+
+.themeTogglerBtn:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-base), 0 0 0 4px var(--color-primary);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: transform 0.25s ease;
+}
+
+.themeTogglerBtn:hover .icon {
+  transform: rotate(15deg);
+}
+
+/* Mobile Drawer Variant */
+.drawerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: var(--color-card-subtle);
+  border: 1px solid var(--color-card-border);
+  margin-bottom: 0.5rem;
+}
+
+.drawerLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-headline-dark);
+}

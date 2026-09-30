@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Shadcn Carousel Component Styles (CSS Module)
+   - 3 Cards in a Row on Desktop
+   - Same Height Cards (align-items: stretch)
+   - Responsive Touch & Keyboard Navigation
+   ========================================================================== */
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  outline: none;
+}
+
+.carouselViewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 28px;
+  padding: 0.75rem 0.25rem;
+}
+
+.carouselContainer {
+  display: flex;
+  margin-left: -1.25rem;
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+  align-items: stretch;
+}
+
+.carouselContainer:active {
+  cursor: grabbing;
+}
+
+/* 3 in a row on desktop (>= 1024px), 2 on tablet (>= 680px), 1 on mobile */
+.carouselSlide {
+  min-width: 0;
+  flex: 0 0 100%;
+  padding-left: 1.25rem;
+  box-sizing: border-box;
+  display: flex;
+}
+
+@media (min-width: 680px) {
+  .carouselSlide {
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carouselSlide {
+    flex: 0 0 33.333333%;
+  }
+}
+
+/* Navigation Buttons (Desktop: Floating on sides; Mobile/Tablet: Inside padding) */
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px !important;
+  height: 46px !important;
+  min-width: 46px !important;
+  min-height: 46px !important;
+  max-width: 46px !important;
+  max-height: 46px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50%;
+  background: rgba(22, 17, 38, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(108, 43, 217, 0.4);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFFFFF;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  box-sizing: border-box;
+}
+
+:global([data-theme="light"]) .navBtn {
+  background: #FFFFFF;
+  border-color: rgba(108, 43, 217, 0.25);
+  color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(108, 43, 217, 0.12);
+}
+
+.navBtn:hover:not(:disabled) {
+  background: rgba(108, 43, 217, 0.35);
+  border-color: #C6FF3D;
+  color: #C6FF3D;
+  box-shadow: 0 0 16px rgba(198, 255, 61, 0.35);
+  transform: translateY(-50%) scale(1.08);
+}
+
+:global([data-theme="light"]) .navBtn:hover:not(:disabled) {
+  background: rgba(108, 43, 217, 0.08);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 6px 24px rgba(108, 43, 217, 0.2);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.navBtnDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.navBtnPrev {
+  left: -58px;
+}
+
+.navBtnNext {
+  right: -58px;
+}
+
+.navBtnIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* Bottom Pagination Dots */
+.paginationBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(108, 43, 217, 0.3);
+  border: none;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+:global([data-theme="light"]) .dot {
+  background: rgba(108, 43, 217, 0.2);
+}
+
+.dotActive {
+  width: 26px;
+  border-radius: 9999px;
+  background: #C6FF3D;
+  box-shadow: 0 0 12px rgba(198, 255, 61, 0.65);
+}
+
+:global([data-theme="light"]) .dotActive {
+  background: var(--color-primary);
+  box-shadow: 0 0 12px rgba(108, 43, 217, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1360px) {
+  .navBtnPrev {
+    left: -14px;
+  }
+  .navBtnNext {
+    right: -14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navBtn {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+  }
+  .navBtnPrev {
+    left: -6px;
+  }
+  .navBtnNext {
+    right: -6px;
+  }
+}

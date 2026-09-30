@@ -1,17 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Hero2 } from "@/components/ui/hero-2";
+import { LogoCloud } from "@/components/ui/logo-cloud";
 import { PositioningQuiz } from "@/components/ui/positioning-quiz";
 import { WhatWeDo } from "@/components/ui/what-we-do";
 import { ProcessSection } from "@/components/ui/process-section";
 import { SocialProof } from "@/components/ui/social-proof";
 import { SplashScreen } from "@/components/splash-screen";
+import { NavModals } from "@/components/ui/nav-modals";
+import { ThemeToggle, AnimatedThemeToggler } from "@/components/ui/theme-toggle";
 import styles from "./page.module.css";
 
 export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleScrollLink = useCallback((e, targetId) => {
+    if (e && e.preventDefault) e.preventDefault();
+    setMobileMenuOpen(false);
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <SplashScreen onComplete={() => setHeroReady(true)}>
@@ -38,38 +52,170 @@ export default function Home() {
           <nav className={styles.navCenter}>
             <ul className={styles.navLinks}>
               <li>
-                <a href="#how-it-works" className={styles.navLink}>
-                  How It Works
+                <a
+                  href="#what-we-do"
+                  className={styles.navLink}
+                  onClick={(e) => handleScrollLink(e, "what-we-do")}
+                >
+                  What we do
                 </a>
               </li>
               <li>
-                <a href="#case-studies" className={styles.navLink}>
-                  Case Studies
+                <a
+                  href="#services"
+                  className={styles.navLink}
+                  onClick={(e) => handleScrollLink(e, "services")}
+                >
+                  Services
                 </a>
               </li>
               <li>
-                <a href="#pricing" className={styles.navLink}>
-                  Pricing
-                </a>
+                <button
+                  type="button"
+                  className={styles.navLink}
+                  onClick={() => setActiveModal("rev-labs")}
+                >
+                  Rev Labs
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.navLink}
+                  onClick={() => setActiveModal("contact")}
+                >
+                  Contact
+                </button>
               </li>
             </ul>
           </nav>
 
           <div className={styles.navRight}>
-            <a href="#audit" className={`btn btn-primary ${styles.navCta}`}>
-              Get Free Audit
-            </a>
+            <AnimatedThemeToggler className={styles.desktopThemeToggle} />
+
+            <button
+              type="button"
+              className={`btn btn-primary ${styles.navCta}`}
+              onClick={() => setActiveModal("book-a-call")}
+            >
+              Book a call
+            </button>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              type="button"
+              className={styles.mobileMenuToggle}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              )}
+            </button>
           </div>
         </header>
 
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <nav className={styles.mobileDrawer} aria-label="Mobile Navigation">
+            <ThemeToggle variant="drawer" />
+
+            <ul className={styles.mobileDrawerLinks}>
+              <li>
+                <button
+                  type="button"
+                  className={styles.mobileDrawerLink}
+                  onClick={(e) => handleScrollLink(e, "what-we-do")}
+                >
+                  <span>What we do</span>
+                  <span className={styles.mobileDrawerArrow}>→</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.mobileDrawerLink}
+                  onClick={(e) => handleScrollLink(e, "services")}
+                >
+                  <span>Services</span>
+                  <span className={styles.mobileDrawerArrow}>→</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.mobileDrawerLink}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveModal("rev-labs");
+                  }}
+                >
+                  <span>Rev Labs</span>
+                  <span className={styles.mobileDrawerArrow}>→</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.mobileDrawerLink}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveModal("contact");
+                  }}
+                >
+                  <span>Contact</span>
+                  <span className={styles.mobileDrawerArrow}>→</span>
+                </button>
+              </li>
+            </ul>
+
+            <button
+              type="button"
+              className={styles.mobileDrawerCta}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setActiveModal("book-a-call");
+              }}
+            >
+              <span>Book a call</span>
+              <span>→</span>
+            </button>
+          </nav>
+        )}
+
         {/* Sections */}
         <main>
-          <Hero2 isReady={heroReady} />
-          <PositioningQuiz />
+          <Hero2
+            isReady={heroReady}
+            onAuditClick={(e) => {
+              if (e && e.preventDefault) e.preventDefault();
+              setActiveModal("book-a-call");
+            }}
+            onHowItWorksClick={(e) => handleScrollLink(e, "what-we-do")}
+          />
+          <LogoCloud />
           <WhatWeDo />
+          <PositioningQuiz onCtaClick={() => setActiveModal("book-a-call")} />
           <ProcessSection />
           <SocialProof />
         </main>
+
+        {/* Interactive Modals for Book a Call, Contact, and Rev Labs */}
+        <NavModals
+          activeModal={activeModal}
+          onClose={() => setActiveModal(null)}
+          onSwitchModal={(modal) => setActiveModal(modal)}
+        />
       </div>
     </SplashScreen>
   );

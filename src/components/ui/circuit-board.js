@@ -221,6 +221,9 @@ export function CircuitBoard({
                   {node.duration && (
                     <span className={styles.nodeDuration}>{node.duration}</span>
                   )}
+                  {node.subNote && (
+                    <span className={styles.nodeDuration}>{node.subNote}</span>
+                  )}
                 </div>
               )}
             </div>
