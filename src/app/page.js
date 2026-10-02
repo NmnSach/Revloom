@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Hero2 } from "@/components/ui/hero-2";
 import { LogoCloud } from "@/components/ui/logo-cloud";
@@ -17,6 +17,27 @@ export default function Home() {
   const [heroReady, setHeroReady] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  // Close mobile drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const handleScrollLink = useCallback((e, targetId) => {
     if (e && e.preventDefault) e.preventDefault();
@@ -125,9 +146,15 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation Drawer & Backdrop */}
         {mobileMenuOpen && (
-          <nav className={styles.mobileDrawer} aria-label="Mobile Navigation">
+          <>
+            <div
+              className={styles.mobileBackdrop}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <nav className={styles.mobileDrawer} aria-label="Mobile Navigation">
             <ThemeToggle variant="drawer" />
 
             <ul className={styles.mobileDrawerLinks}>
@@ -191,7 +218,8 @@ export default function Home() {
               <span>→</span>
             </button>
           </nav>
-        )}
+        </>
+      )}
 
         {/* Sections */}
         <main>

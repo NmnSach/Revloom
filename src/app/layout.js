@@ -1,6 +1,17 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B0813" },
+  ],
+};
+
 export const metadata = {
   title: "Revloom — Supercharge Your LinkedIn Reach & Content",
   description:

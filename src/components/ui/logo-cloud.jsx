@@ -311,8 +311,8 @@ export function LogoCloud() {
           </p>
         </div>
 
-        {/* 5x2 Borderless Swap Grid */}
-        <div className={styles.logoGrid}>
+        {/* Desktop 5x2 Borderless Swap Grid */}
+        <div className={styles.desktopLogoGrid}>
           {currentLogos.map((logo, index) => {
             const col = index % 5;
             const row = Math.floor(index / 5);
@@ -356,6 +356,35 @@ export function LogoCloud() {
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile Dual-Row Continuous Infinite Marquee */}
+        <div className={styles.mobileMarqueeContainer} aria-hidden="true">
+          <div className={styles.marqueeRow}>
+            <div className={styles.marqueeTrack}>
+              {[...LOGO_BATCHES[0], ...LOGO_BATCHES[0]].map((logo, idx) => (
+                <div key={`m1-${logo.id}-${idx}`} className={styles.marqueeItem}>
+                  <div className={styles.logoIcon}>
+                    <BrandIcon name={logo.name} />
+                  </div>
+                  <span className={styles.logoText}>{logo.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.marqueeRow}>
+            <div className={styles.marqueeTrackReverse}>
+              {[...LOGO_BATCHES[1], ...LOGO_BATCHES[1]].map((logo, idx) => (
+                <div key={`m2-${logo.id}-${idx}`} className={styles.marqueeItem}>
+                  <div className={styles.logoIcon}>
+                    <BrandIcon name={logo.name} />
+                  </div>
+                  <span className={styles.logoText}>{logo.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

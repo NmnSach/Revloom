@@ -162,20 +162,43 @@
   display: none;
   background: transparent;
   border: 1px solid var(--color-card-border);
-  border-radius: 10px;
-  width: 42px;
-  height: 42px;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--nav-text);
   padding: 0;
   transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.mobileMenuToggle:hover {
+.mobileMenuToggle:hover,
+.mobileMenuToggle:active {
   background: rgba(108, 43, 217, 0.08);
   border-color: var(--color-primary);
+}
+
+/* Mobile Drawer Overlay Backdrop */
+.mobileBackdrop {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 8, 16, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 48;
+  animation: backdropFadeIn 0.25s ease forwards;
+}
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Mobile Drawer Overlay & Content */
@@ -185,16 +208,28 @@
   left: 0;
   right: 0;
   background: var(--color-card-bg-elevated);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--color-card-border);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.35);
   z-index: 49;
-  padding: 1.25rem 1.5rem 1.75rem;
+  padding: 1.25rem 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  animation: drawerSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+
+@keyframes drawerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobileDrawerLinks {

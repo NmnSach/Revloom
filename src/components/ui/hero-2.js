@@ -264,6 +264,28 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
           ))}
         </div>
 
+        {/* Mobile Founder Social Proof Stack (Replaces floating avatars on mobile) */}
+        <div className={styles.mobileFounderProof}>
+          <div className={styles.mobileAvatarStack}>
+            {FLOATING_AVATARS.slice(0, 4).map((f) => (
+              <div key={f.id} className={styles.mobileAvatarThumb}>
+                <Image
+                  src={f.avatarImg}
+                  alt={f.name}
+                  width={34}
+                  height={34}
+                  className={styles.avatarImg}
+                  style={f.objectPosition ? { objectPosition: f.objectPosition } : undefined}
+                />
+              </div>
+            ))}
+          </div>
+          <div className={styles.mobileProofText}>
+            <span className={styles.mobileStars}>★★★★★</span>
+            <span className={styles.mobileProofCount}>70+ Founders trust Revloom</span>
+          </div>
+        </div>
+
         {/* Pill Eyebrow */}
         <div className={styles.pillBadge}>
           <span className={styles.pulseDot} />

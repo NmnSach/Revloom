@@ -180,15 +180,28 @@
 
 @media (max-width: 768px) {
   .navBtn {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
+    display: none !important; /* Mobile devices use swipe gestures; floating side arrows block card text */
   }
-  .navBtnPrev {
-    left: -6px;
+
+  .carouselViewport {
+    border-radius: 20px;
+    padding: 0.5rem 0.15rem;
   }
-  .navBtnNext {
-    right: -6px;
+
+  .paginationBar {
+    margin-top: 1.25rem;
+    gap: 0.65rem;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    padding: 6px !important;
+    background-clip: content-box;
+    box-sizing: content-box;
+  }
+
+  .dotActive {
+    width: 24px;
   }
 }

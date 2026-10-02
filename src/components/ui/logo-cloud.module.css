@@ -124,12 +124,16 @@
 }
 
 /* 5x2 Clean Borderless Logo Grid */
-.logoGrid {
+.desktopLogoGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   row-gap: 2.75rem;
   column-gap: 2rem;
   width: 100%;
+}
+
+.mobileMarqueeContainer {
+  display: none;
 }
 
 /* Individual Slot (Borderless & Containerless) */
@@ -192,40 +196,109 @@
   color: var(--color-primary);
 }
 
-/* Responsive Breakpoints */
+/* Responsive Breakpoints & Mobile Marquee */
 @media (max-width: 1024px) {
-  .logoGrid {
+  .desktopLogoGrid {
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 2.25rem;
+    row-gap: 2rem;
     column-gap: 1.5rem;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .sectionWrapper {
-    padding: 3.5rem 1rem 4rem;
+    padding: 3.25rem 0 3.75rem;
   }
 
   .headerArea {
-    margin-bottom: 2.25rem;
+    margin-bottom: 2rem;
+    padding: 0 1.25rem;
   }
 
-  .logoGrid {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 1.75rem;
-    column-gap: 1.25rem;
+  .heading {
+    font-size: clamp(1.6rem, 6.2vw, 2.1rem);
   }
 
-  .slotItem {
-    height: 56px;
+  .subHeading {
+    font-size: 0.92rem;
   }
 
-  .logoIcon {
-    width: 28px;
-    height: 28px;
+  .desktopLogoGrid {
+    display: none;
   }
 
-  .logoText {
-    font-size: 1.08rem;
+  .mobileMarqueeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 0.25rem 0;
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+
+  .marqueeRow {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    user-select: none;
+  }
+
+  .marqueeTrack {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    animation: scrollMarquee 30s linear infinite;
+    will-change: transform;
+  }
+
+  .marqueeTrackReverse {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    animation: scrollMarqueeReverse 30s linear infinite;
+    will-change: transform;
+  }
+
+  .marqueeItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 12px;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex-shrink: 0;
+    min-height: 44px;
+  }
+
+  .marqueeItem .logoIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .marqueeItem .logoText {
+    font-size: 0.95rem;
+  }
+}
+
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollMarqueeReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

@@ -430,47 +430,110 @@
 @media (max-width: 900px) {
   .quizLayout {
     grid-template-columns: 1fr;
-    gap: 2.25rem;
+    gap: 1.75rem;
   }
 
   .emojiCard {
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
   }
 
   .emojiViewport {
-    width: 96px;
-    height: 96px;
+    width: 88px;
+    height: 88px;
+    margin-bottom: 1rem;
   }
 }
 
 @media (max-width: 640px) {
   .sectionContainer {
-    padding: 4.5rem 1rem 5rem;
+    padding: 3.5rem 1rem 4rem;
+  }
+
+  .headerArea {
+    margin-bottom: 2rem;
+  }
+
+  .pillBadge {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 0.85rem;
   }
 
   .sectionHeading {
-    font-size: 1.85rem;
+    font-size: clamp(1.75rem, 6.5vw, 2.15rem);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .subText {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .optionsList {
+    gap: 0.65rem;
   }
 
   .optionRow {
-    padding: 1rem 1.15rem;
-    gap: 0.9rem;
+    padding: 0.9rem 1rem;
+    gap: 0.75rem;
+    border-radius: 14px;
+    min-height: 52px; /* Apple 44px+ touch target */
+  }
+
+  .optionCheckbox {
+    width: 22px;
+    height: 22px;
+  }
+
+  .optionIcon {
+    font-size: 1.1rem;
   }
 
   .optionText {
-    font-size: 0.92rem;
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+
+  .emojiCard {
+    padding: 1.75rem 1.15rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .emojiViewport {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 0.85rem;
+  }
+
+  .suggestionBadge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 0.85rem;
   }
 
   .channelTitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .channelLogo {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
   .operator {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+  }
+
+  .ctaWrapper {
+    max-width: 100%;
+  }
+
+  .ctaButton {
+    min-height: 48px;
+    font-size: 0.94rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 12px;
   }
 }

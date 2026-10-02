@@ -9,6 +9,7 @@ const OFFERINGS = [
   {
     id: "01",
     tabLabel: "01. LINKEDIN POSITIONING",
+    shortLabel: "01. Positioning",
     category: "Pillar 01 • Brand Authority",
     title: "LinkedIn Positioning",
     taglinePrefix: "Become the name ",
@@ -31,6 +32,7 @@ const OFFERINGS = [
   {
     id: "02",
     tabLabel: "02. LINKEDIN LEAD GENERATION",
+    shortLabel: "02. Lead Gen",
     category: "Pillar 02 • High-Intent Outbound",
     title: "LinkedIn Lead Generation",
     taglinePrefix: "The 1st pitstop for ",
@@ -64,6 +66,7 @@ const OFFERINGS = [
   {
     id: "03",
     tabLabel: "03. EMAIL + LINKEDIN LEAD GEN",
+    shortLabel: "03. Email + LI",
     category: "Pillar 03 • Multi-Channel Scale",
     title: "Email + LinkedIn Lead Generation",
     taglinePrefix: "Build a pipeline ",
@@ -94,178 +97,96 @@ const OFFERINGS = [
 export function WhatWeDo() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
-  const cardRefs = useRef([]);
+  const sectionRef = useRef(null);
   const isTransitioning = useRef(false);
   const lastTransitionTime = useRef(0);
   const wheelAccumulator = useRef(0);
   const wheelTimer = useRef(null);
 
+  // Touch gesture support for mobile swipe
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const isSwiping = useRef(false);
+
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  const hasEnteredFromTop = useRef(false);
-  const entryTopTime = useRef(0);
-  const hasEnteredFromBottom = useRef(false);
-  const entryBottomTime = useRef(0);
-
-  const scrollToCard = useCallback((index) => {
-    const targetEl = cardRefs.current[index];
-    if (targetEl) {
-      const rect = targetEl.getBoundingClientRect();
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      const targetY = Math.round(currentScroll + rect.top - 108);
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-    }
+  const handleTabClick = useCallback((index) => {
+    setActiveIndex(index);
+    isTransitioning.current = true;
+    lastTransitionTime.current = Date.now();
+    setTimeout(() => {
+      isTransitioning.current = false;
+      wheelAccumulator.current = 0;
+    }, 450);
   }, []);
 
-  const handleTabClick = useCallback(
-    (index) => {
-      setActiveIndex(index);
-      isTransitioning.current = true;
-      lastTransitionTime.current = Date.now();
-      scrollToCard(index);
-
-      setTimeout(() => {
-        isTransitioning.current = false;
-        wheelAccumulator.current = 0;
-      }, 850);
-    },
-    [scrollToCard]
-  );
-
-  // Set up scroll-spy observation on the right-side cards
-  useEffect(() => {
-    const handleObserver = (entries) => {
-      if (isTransitioning.current) return;
-
-      let bestEntry = null;
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!bestEntry || entry.intersectionRatio > bestEntry.intersectionRatio) {
-            bestEntry = entry;
-          }
-        }
-      });
-
-      if (bestEntry) {
-        const index = Number(bestEntry.target.getAttribute("data-index"));
-        if (!isNaN(index)) {
-          setActiveIndex(index);
-        }
-      }
-    };
-
-    const observer = new IntersectionObserver(handleObserver, {
-      threshold: [0.2, 0.4, 0.6, 0.8],
-      rootMargin: "-10% 0px -20% 0px",
-    });
-
-    cardRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
+  const handleNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % OFFERINGS.length);
   }, []);
 
-  // Smart smooth step advancement on scroll wheel
+  const handlePrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + OFFERINGS.length) % OFFERINGS.length);
+  }, []);
+
+  // Desktop Mouse Wheel Step Navigation (fits in 1 viewport without overflowing)
   useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
+
     const handleWheel = (e) => {
-      // Only active on desktop / laptop viewports where the split layout is active
       if (window.innerWidth <= 1024) return;
 
-      const card0 = cardRefs.current[0];
-      const cardLast = cardRefs.current[OFFERINGS.length - 1];
-      if (!card0 || !cardLast) return;
-
-      const card0Rect = card0.getBoundingClientRect();
-      const cardLastRect = cardLast.getBoundingClientRect();
-
-      // Track entry into the section from above
-      if (card0Rect.top > 130) {
-        hasEnteredFromTop.current = false;
-      } else if (!hasEnteredFromTop.current) {
-        hasEnteredFromTop.current = true;
-        entryTopTime.current = Date.now();
-      }
-
-      // Track entry into the section from below
-      if (cardLastRect.top < 60) {
-        hasEnteredFromBottom.current = false;
-      } else if (!hasEnteredFromBottom.current) {
-        hasEnteredFromBottom.current = true;
-        entryBottomTime.current = Date.now();
-      }
-
-      // Interactive zone: Card 0 is pinned or passing, and last card hasn't scrolled off
-      const inZone = card0Rect.top <= 130 && cardLastRect.top >= 60;
-      if (!inZone) return;
+      const rect = sectionEl.getBoundingClientRect();
+      // Only capture when section is prominent in viewport
+      const inView = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
+      if (!inView) return;
 
       const delta = e.deltaY;
       const now = Date.now();
+      const currentIndex = activeIndexRef.current;
 
-      // Suppress native wheel while animating
-      if (isTransitioning.current || now - lastTransitionTime.current < 750) {
+      // When transitioning, suppress native scroll so steps advance cleanly
+      if (isTransitioning.current || now - lastTransitionTime.current < 550) {
         if (e.cancelable) e.preventDefault();
         return;
       }
 
-      const currentIndex = activeIndexRef.current;
-
-      // Scrolling Down (advance to next card)
+      // Scrolling Down
       if (delta > 0) {
-        // If at the last card, let user scroll down naturally to next sections
+        // If already at last item (03), allow standard page scroll down to Positioning Quiz
         if (currentIndex >= OFFERINGS.length - 1) {
           return;
         }
 
-        // Buffer: if user just entered from top, absorb incoming momentum on Card 0
-        if (now - entryTopTime.current < 350) {
-          if (e.cancelable) e.preventDefault();
-          return;
-        }
-
-        // Accumulate delta to ensure deliberate user intent
         wheelAccumulator.current += delta;
         clearTimeout(wheelTimer.current);
         wheelTimer.current = setTimeout(() => {
           wheelAccumulator.current = 0;
         }, 180);
 
-        if (wheelAccumulator.current < 20) {
+        if (wheelAccumulator.current < 25) {
           if (e.cancelable) e.preventDefault();
           return;
         }
 
-        // Trigger smooth glide to next card
         if (e.cancelable) e.preventDefault();
         wheelAccumulator.current = 0;
         isTransitioning.current = true;
         lastTransitionTime.current = now;
 
-        const nextIndex = currentIndex + 1;
-        setActiveIndex(nextIndex);
-        scrollToCard(nextIndex);
+        setActiveIndex((prev) => Math.min(OFFERINGS.length - 1, prev + 1));
 
         setTimeout(() => {
           isTransitioning.current = false;
           wheelAccumulator.current = 0;
-        }, 800);
+        }, 500);
       }
-      // Scrolling Up (return to previous card)
+      // Scrolling Up
       else if (delta < 0) {
-        // If at the first card and it's near/at the top, let user scroll up naturally to Logo Cloud
+        // If already at first item (01), allow standard page scroll up to Logo Cloud
         if (currentIndex <= 0) {
-          if (card0Rect.top >= 95) {
-            return;
-          }
-        }
-
-        // Buffer: if user just entered from bottom, absorb incoming momentum on Card 2
-        if (now - entryBottomTime.current < 350) {
-          if (e.cancelable) e.preventDefault();
           return;
         }
 
@@ -275,25 +196,22 @@ export function WhatWeDo() {
           wheelAccumulator.current = 0;
         }, 180);
 
-        if (wheelAccumulator.current > -20) {
+        if (wheelAccumulator.current > -25) {
           if (e.cancelable) e.preventDefault();
           return;
         }
 
-        // Trigger smooth glide to previous card
         if (e.cancelable) e.preventDefault();
         wheelAccumulator.current = 0;
         isTransitioning.current = true;
         lastTransitionTime.current = now;
 
-        const prevIndex = Math.max(0, currentIndex - 1);
-        setActiveIndex(prevIndex);
-        scrollToCard(prevIndex);
+        setActiveIndex((prev) => Math.max(0, prev - 1));
 
         setTimeout(() => {
           isTransitioning.current = false;
           wheelAccumulator.current = 0;
-        }, 800);
+        }, 500);
       }
     };
 
@@ -301,43 +219,28 @@ export function WhatWeDo() {
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [scrollToCard]);
+  }, []);
 
-  // Keyboard navigation support (ArrowDown, ArrowUp, PageDown, PageUp)
+  // Keyboard Navigation Support
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (window.innerWidth <= 1024) return;
-      if (
-        e.key !== "ArrowDown" &&
-        e.key !== "ArrowUp" &&
-        e.key !== "PageDown" &&
-        e.key !== "PageUp"
-      ) {
-        return;
-      }
+      if (!sectionRef.current) return;
 
-      const card0 = cardRefs.current[0];
-      const cardLast = cardRefs.current[OFFERINGS.length - 1];
-      if (!card0 || !cardLast) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const inView = rect.top <= 120 && rect.bottom >= 200;
+      if (!inView) return;
 
-      const card0Rect = card0.getBoundingClientRect();
-      const cardLastRect = cardLast.getBoundingClientRect();
-      const inZone = card0Rect.top <= 130 && cardLastRect.top >= 60;
-      if (!inZone) return;
-
-      const isDown = e.key === "ArrowDown" || e.key === "PageDown";
-      const currentIndex = activeIndexRef.current;
-
-      if (isDown && currentIndex < OFFERINGS.length - 1) {
-        e.preventDefault();
-        const nextIndex = currentIndex + 1;
-        setActiveIndex(nextIndex);
-        scrollToCard(nextIndex);
-      } else if (!isDown && currentIndex > 0) {
-        e.preventDefault();
-        const prevIndex = currentIndex - 1;
-        setActiveIndex(prevIndex);
-        scrollToCard(prevIndex);
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        if (activeIndexRef.current < OFFERINGS.length - 1) {
+          e.preventDefault();
+          setActiveIndex((prev) => prev + 1);
+        }
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        if (activeIndexRef.current > 0) {
+          e.preventDefault();
+          setActiveIndex((prev) => prev - 1);
+        }
       }
     };
 
@@ -345,25 +248,102 @@ export function WhatWeDo() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [scrollToCard]);
+  }, []);
+
+  // Touch Swipe Handlers for Mobile Devices
+  const handleTouchStart = (e) => {
+    if (e.touches && e.touches.length === 1) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+      isSwiping.current = true;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!isSwiping.current || !e.changedTouches || e.changedTouches.length === 0) return;
+    isSwiping.current = false;
+
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+
+    // Only trigger if horizontal swipe is intentional and exceeds vertical movement
+    if (Math.abs(diffX) > 48 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
+      if (diffX > 0) {
+        // Swiped Left -> Next Tab
+        handleNext();
+      } else {
+        // Swiped Right -> Prev Tab
+        handlePrev();
+      }
+    }
+  };
 
   const activeOffering = OFFERINGS[activeIndex];
 
   return (
-    <section id="what-we-do" className={styles.sectionContainer}>
+    <section
+      id="what-we-do"
+      ref={sectionRef}
+      className={styles.sectionContainer}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <span id="how-it-works" style={{ position: "absolute", top: 0, pointerEvents: "none" }} aria-hidden="true" />
+      
       {/* Background Architectural Grid & Ambient Aura */}
       <div className={styles.backgroundGrid} />
       <div className={styles.ambientAura} />
 
       <div className={styles.contentWrapper}>
+        {/* =========================================================
+            MOBILE/TABLET HEADER & SEGMENTED PILL TAB BAR
+            ========================================================= */}
+        <div className={styles.mobileHeaderArea}>
+          <div className={styles.pillBadge}>
+            <span className={styles.pulseDot} />
+            <span>Capabilities</span>
+          </div>
+
+          <h2 className={styles.sectionHeading}>
+            What we do.{" "}
+            <span className={styles.headingAccent}>Engineered for growth.</span>
+          </h2>
+
+          <p className={styles.subText}>
+            Three tailored outbound engines designed to position your brand, start qualified conversations, and scale predictable B2B pipeline.
+          </p>
+
+          {/* Mobile Horizontal Pill Selector */}
+          <div className={styles.mobileTabBar} role="tablist" aria-label="Capabilities tabs">
+            {OFFERINGS.map((item, index) => {
+              const isActive = activeIndex === index;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`${styles.mobileTabButton} ${isActive ? styles.mobileTabActive : ""}`}
+                  onClick={() => handleTabClick(index)}
+                >
+                  <span className={`${styles.mobileTabDot} ${styles[`tabSquare_${item.color}`]}`} />
+                  <span className={styles.mobileTabLabel}>{item.shortLabel}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* =========================================================
+            DESKTOP SPLIT LAYOUT (Both Columns Fit in One Viewport)
+            ========================================================= */}
         <div className={styles.splitLayout}>
           {/* =========================================================
-              LEFT COLUMN: Sticky Static Navigation & Dynamic Details
+              LEFT COLUMN: Header, Tabs, Active Offering Details
               ========================================================= */}
-          <div className={styles.stickyColumn}>
-            {/* Header Block */}
-            <div className={styles.stickyHeader}>
+          <div className={styles.leftColumn}>
+            {/* Desktop Header */}
+            <div className={styles.desktopHeader}>
               <div className={styles.pillBadge}>
                 <span className={styles.pulseDot} />
                 <span>Capabilities</span>
@@ -379,34 +359,39 @@ export function WhatWeDo() {
               </p>
             </div>
 
-            {/* Interactive Vertical Tabs (Reference Pattern) */}
-            <div className={styles.tabNavList}>
+            {/* Desktop Vertical Tab Navigation */}
+            <div className={styles.tabNavList} role="tablist" aria-label="Capabilities tabs">
               {OFFERINGS.map((item, index) => {
                 const isActive = activeIndex === index;
                 return (
                   <button
                     key={item.id}
                     type="button"
+                    role="tab"
+                    aria-selected={isActive}
                     className={`${styles.tabNavItem} ${isActive ? styles.tabNavActive : ""}`}
                     onClick={() => handleTabClick(index)}
                     aria-label={`View ${item.title}`}
                   >
                     <span className={`${styles.tabSquare} ${styles[`tabSquare_${item.color}`]}`} />
                     <span className={styles.tabLabel}>{item.tabLabel}</span>
+                    {isActive && (
+                      <span className={styles.tabActiveIndicator}>●</span>
+                    )}
                   </button>
                 );
               })}
             </div>
 
-            {/* Dynamic Content Card that updates as right images scroll */}
+            {/* Dynamic Content Card */}
             <div className={styles.activeDetailsWrapper}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeOffering.id}
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                   className={styles.activeDetailsCard}
                 >
                   <h3 className={styles.activeTitle}>
@@ -471,40 +456,105 @@ export function WhatWeDo() {
           </div>
 
           {/* =========================================================
-              RIGHT COLUMN: Scrolling High-Resolution Image Cards
+              RIGHT COLUMN: High-Resolution Mockup Showcase Card
               ========================================================= */}
-          <div className={styles.scrollColumn}>
-            {OFFERINGS.map((item, index) => {
-              const isActive = activeIndex === index;
-              return (
-                <div
-                  key={item.id}
-                  ref={(el) => (cardRefs.current[index] = el)}
-                  data-index={index}
-                  className={`${styles.imageShowcaseCard} ${isActive ? styles.imageCardActive : ""}`}
-                >
-                  <div className={styles.imageCardHeader}>
-                    <div className={styles.imageCardBadge}>
-                      <span className={`${styles.badgeDot} ${styles[`badgeDot_${item.color}`]}`} />
-                      <span>{item.tabLabel}</span>
-                    </div>
-                    <span className={styles.imageCardMeta}>{item.cardBadge}</span>
+          <div className={styles.rightColumn}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeOffering.id}
+                initial={{ opacity: 0, scale: 0.98, y: 12 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98, y: -12 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className={styles.imageShowcaseCard}
+              >
+                <div className={styles.imageCardHeader}>
+                  <div className={styles.imageCardBadge}>
+                    <span className={`${styles.badgeDot} ${styles[`badgeDot_${activeOffering.color}`]}`} />
+                    <span>{activeOffering.tabLabel}</span>
+                  </div>
+                  <span className={styles.imageCardMeta}>{activeOffering.cardBadge}</span>
+                </div>
+
+                <div className={styles.imageCardBody}>
+                  <Image
+                    src={activeOffering.image}
+                    alt={activeOffering.imageAlt}
+                    width={900}
+                    height={675}
+                    priority
+                    className={styles.cardImage}
+                  />
+                </div>
+
+                {/* Desktop Mini Stepper Controls */}
+                <div className={styles.cardFooterBar}>
+                  <div className={styles.stepperDots}>
+                    {OFFERINGS.map((item, idx) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        aria-label={`Jump to ${item.title}`}
+                        className={`${styles.stepDot} ${activeIndex === idx ? styles.stepDotActive : ""}`}
+                        onClick={() => handleTabClick(idx)}
+                      />
+                    ))}
                   </div>
 
-                  <div className={styles.imageCardBody}>
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      width={900}
-                      height={675}
-                      priority={index === 0}
-                      className={styles.cardImage}
-                    />
+                  <div className={styles.stepperArrows}>
+                    <button
+                      type="button"
+                      aria-label="Previous capability"
+                      className={styles.arrowButton}
+                      onClick={handlePrev}
+                    >
+                      ←
+                    </button>
+                    <span className={styles.stepperCount}>
+                      0{activeIndex + 1} / 0{OFFERINGS.length}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Next capability"
+                      className={styles.arrowButton}
+                      onClick={handleNext}
+                    >
+                      →
+                    </button>
                   </div>
                 </div>
-              );
-            })}
+              </motion.div>
+            </AnimatePresence>
           </div>
+        </div>
+
+        {/* Mobile Swipe / Tap Navigation Hint */}
+        <div className={styles.mobileNavHint}>
+          <button
+            type="button"
+            className={styles.mobileNavBtn}
+            onClick={handlePrev}
+            aria-label="Previous plan"
+          >
+            ← Prev
+          </button>
+          <div className={styles.mobileStepIndicator}>
+            {OFFERINGS.map((item, idx) => (
+              <span
+                key={item.id}
+                className={`${styles.mobileDot} ${activeIndex === idx ? styles.mobileDotActive : ""}`}
+                onClick={() => handleTabClick(idx)}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className={styles.mobileNavBtn}
+            onClick={handleNext}
+            aria-label="Next plan"
+          >
+            Next →
+          </button>
         </div>
       </div>
     </section>
