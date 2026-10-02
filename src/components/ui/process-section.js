@@ -2,7 +2,90 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { PhoneCall, Sliders, FileText, Zap, BarChart3 } from "lucide-react";
+import { CircuitBoard } from "./circuit-board";
 import styles from "./process-section.module.css";
+
+const CIRCUIT_NODES = [
+  {
+    id: "discovery",
+    x: 95,
+    y: 135,
+    label: "Discovery Call",
+    timeline: "Week 1",
+    stepNumber: "01",
+    size: "lg",
+    labelPosition: "below",
+    icon: <PhoneCall className="w-5 h-5" />,
+  },
+  {
+    id: "technical_setup",
+    x: 278,
+    y: 65,
+    label: "Technical Setup",
+    timeline: "Week 2",
+    stepNumber: "02",
+    size: "lg",
+    labelPosition: "above",
+    icon: <Sliders className="w-5 h-5" />,
+  },
+  {
+    id: "research_content",
+    x: 461,
+    y: 195,
+    label: "Research & Content",
+    timeline: "Week 3",
+    stepNumber: "03",
+    size: "lg",
+    labelPosition: "below",
+    icon: <FileText className="w-5 h-5" />,
+  },
+  {
+    id: "campaign_launch",
+    x: 644,
+    y: 65,
+    label: "Campaign Launch",
+    timeline: "From Day 15",
+    stepNumber: "04",
+    size: "lg",
+    labelPosition: "above",
+    icon: <Zap className="w-5 h-5" />,
+  },
+  {
+    id: "analytics_optimisation",
+    x: 827,
+    y: 135,
+    label: "Analytics & Optimisation",
+    timeline: "Ongoing",
+    stepNumber: "05",
+    size: "lg",
+    labelPosition: "below",
+    icon: <BarChart3 className="w-5 h-5" />,
+  },
+];
+
+const CIRCUIT_CONNECTIONS = [
+  {
+    from: "discovery",
+    to: "technical_setup",
+    animated: true,
+  },
+  {
+    from: "technical_setup",
+    to: "research_content",
+    animated: true,
+  },
+  {
+    from: "research_content",
+    to: "campaign_launch",
+    animated: true,
+  },
+  {
+    from: "campaign_launch",
+    to: "analytics_optimisation",
+    animated: true,
+  },
+];
 
 const PROCESS_STEPS = [
   {
@@ -200,131 +283,28 @@ export function ProcessSection() {
           </p>
         </div>
 
-        {/* System Pipeline Architecture // Live Traces Header */}
-        <div className={styles.pipelineHeader}>
-          <span className={styles.pipelineTitle}>
-            <span className={styles.pipelineIndicator} />
-            SYSTEM PIPELINE ARCHITECTURE // LIVE TRACES
-          </span>
-          <span className={styles.pipelineHint}>
-            Click any node to inspect phase deliverables
-          </span>
-        </div>
-
-        {/* Horizontal Pipeline Diagram with Animated Central Circuit Trace */}
-        <div className={styles.pipelineDiagramWrapper}>
-          {/* Animated Circuit Board SVG Canvas */}
-          <div className={styles.traceLineContainer}>
-            <svg
-              className={styles.traceSvg}
-              preserveAspectRatio="none"
-              viewBox="0 0 1000 64"
-            >
-              <defs>
-                <filter id="circuitElectricGlow" x="-30%" y="-100%" width="160%" height="300%">
-                  <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Static Central Base Line strictly through all 5 Nodes */}
-              <line
-                x1="100"
-                y1="32"
-                x2="900"
-                y2="32"
-                stroke="rgba(108, 43, 217, 0.35)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-
-              {/* Primary Electric Neon Signal Traveling strictly from Step 1 (100) to Step 5 (900) */}
-              <motion.line
-                x1="100"
-                y1="32"
-                x2="900"
-                y2="32"
-                stroke="#C6FF3D"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                filter="url(#circuitElectricGlow)"
-                strokeDasharray="100 700"
-                animate={{ strokeDashoffset: [0, -800] }}
-                transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
-              />
-
-              {/* Circuit Solder Pad Points at each of the 5 nodes */}
-              <circle cx="100" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-              <circle cx="300" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-              <circle cx="500" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-              <circle cx="700" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-              <circle cx="900" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-            </svg>
-          </div>
-
-          {/* 5 Nodes Row */}
-          <div className={styles.nodesRow}>
-            {PROCESS_STEPS.map((step, idx) => {
-              const isActive = activeIndex === idx;
-
-              return (
-                <div
-                  key={step.id}
-                  className={`${styles.nodeItem} ${isActive ? styles.nodeItemActive : ""}`}
-                  onClick={() => setActiveIndex(idx)}
-                >
-                  <button
-                    type="button"
-                    className={`${styles.nodeButton} ${isActive ? styles.nodeButtonActive : ""}`}
-                    aria-label={`${step.stepNumber} — ${step.nodeTitle}`}
-                    aria-pressed={isActive}
-                  >
-                    {/* Electric halo when active */}
-                    {isActive && (
-                      <motion.div
-                        className={styles.nodeActiveHalo}
-                        initial={{ scale: 0.85, opacity: 0 }}
-                        animate={{ scale: [1, 1.28, 1], opacity: [0.7, 0.2, 0.7] }}
-                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                    )}
-
-                    <span
-                      className={`${styles.nodeBadge} ${
-                        isActive ? styles.nodeBadgeActive : ""
-                      }`}
-                    >
-                      {step.stepNumber}
-                    </span>
-
-                    <span className={styles.nodeIcon}>
-                      <StepIcon type={step.iconType} />
-                    </span>
-                  </button>
-
-                  <div className={styles.nodeLabelGroup}>
-                    <span className={styles.nodeTitle}>{step.nodeTitle}</span>
-                    <span className={styles.nodeTimeline}>{step.nodeTimeline}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Master Detail Inspection Card Below with Active Node Caret (Fixed Rock-Solid Height) */}
-        <div className={styles.inspectionCard}>
-          {/* Animated Caret on Top Border pointing to the active node */}
-          <motion.div
-            className={styles.cardCaret}
-            animate={{ left: `${10 + activeIndex * 20}%` }}
-            transition={{ type: "spring", stiffness: 360, damping: 30 }}
+        {/* Unified Container: Circuit Board + Inspection Card */}
+        <div className={styles.desktopCircuitWrapper}>
+          {/* Circuit Board */}
+          <CircuitBoard
+            nodes={CIRCUIT_NODES.map((node, idx) => ({
+              ...node,
+              status: activeIndex === idx ? "active" : "inactive",
+            }))}
+            connections={CIRCUIT_CONNECTIONS}
+            width={922}
+            height={290}
+            gridSize={20}
+            showGrid={true}
+            activeNodeId={currentStep.id}
+            onNodeClick={(node, index) => setActiveIndex(index)}
+            style={{ height: "290px" }}
           />
 
+          {/* Divider */}
+          <div className={styles.circuitCardDivider} />
+
+          {/* Inspection Card (inline, no separate wrapper) */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep.id}
@@ -334,24 +314,22 @@ export function ProcessSection() {
               transition={{ duration: 0.2 }}
               className={styles.inspectionContent}
             >
-              {/* Left Column: Phase Badge, Title, Subtitle, Description */}
+              {/* Left Column */}
               <div className={styles.inspectionLeft}>
                 <div className={styles.phaseHeaderRow}>
                   <span className={styles.phaseBadge}>{currentStep.phaseBadge}</span>
                   <span className={styles.phaseTimeline}>{currentStep.phaseTimeline}</span>
                 </div>
-
                 <h3 className={styles.phaseTitle}>{currentStep.title}</h3>
                 <div className={styles.phaseSubtitle}>{currentStep.subtitle}</div>
                 <p className={styles.phaseDescription}>{currentStep.description}</p>
               </div>
 
-              {/* Right Column: Deliverables Card */}
+              {/* Right Column: Deliverables */}
               <div className={styles.deliverablesCard}>
                 <div className={styles.deliverablesHeader}>
                   <span className={styles.deliverablesTitle}>Deliverables</span>
                 </div>
-
                 <ul className={styles.deliverablesList}>
                   {currentStep.deliverables.map((item, idx) => (
                     <li key={idx} className={styles.deliverableItem}>
@@ -366,49 +344,14 @@ export function ProcessSection() {
                     </li>
                   ))}
                 </ul>
-
-                {/* Bottom-right Navigation Arrows (Stationary across all phases) */}
                 <div className={styles.navControls}>
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    className={styles.navBtn}
-                    aria-label="Previous Phase"
-                  >
-                    <svg
-                      className={styles.navSvg}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
+                  <button type="button" onClick={handlePrev} className={styles.navBtn} aria-label="Previous Phase">
+                    <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="15 18 9 12 15 6" />
                     </svg>
                   </button>
-
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className={styles.navBtn}
-                    aria-label="Next Phase"
-                  >
-                    <svg
-                      className={styles.navSvg}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
+                  <button type="button" onClick={handleNext} className={styles.navBtn} aria-label="Next Phase">
+                    <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <polyline points="9 18 15 12 9 6" />
                     </svg>
                   </button>
@@ -416,6 +359,122 @@ export function ProcessSection() {
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Mobile View: Preserved Touch Stepper for Phone (as requested) */}
+        <div className={styles.mobilePipelineWrapper}>
+          <div className={styles.pipelineHeader}>
+            <span className={styles.pipelineTitle}>
+              <span className={styles.pipelineIndicator} />
+              SYSTEM PIPELINE ARCHITECTURE // LIVE TRACES
+            </span>
+            <span className={styles.pipelineHint}>
+              Tap node to inspect
+            </span>
+          </div>
+
+          <div className={styles.pipelineDiagramWrapper}>
+            {/* Animated Circuit Board SVG Canvas */}
+            <div className={styles.traceLineContainer}>
+              <svg
+                className={styles.traceSvg}
+                preserveAspectRatio="none"
+                viewBox="0 0 1000 64"
+              >
+                <defs>
+                  <filter id="circuitElectricGlowMobile" x="-30%" y="-100%" width="160%" height="300%">
+                    <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+                    <feMerge>
+                      <feMergeNode in="coloredBlur" />
+                      <feMergeNode in="coloredBlur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                {/* Static Central Base Line strictly through all 5 Nodes */}
+                <line
+                  x1="100"
+                  y1="32"
+                  x2="900"
+                  y2="32"
+                  stroke="rgba(108, 43, 217, 0.35)"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+
+                {/* Primary Electric Neon Signal Traveling strictly from Step 1 (100) to Step 5 (900) */}
+                <motion.line
+                  x1="100"
+                  y1="32"
+                  x2="900"
+                  y2="32"
+                  stroke="#C6FF3D"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  filter="url(#circuitElectricGlowMobile)"
+                  strokeDasharray="100 700"
+                  animate={{ strokeDashoffset: [0, -800] }}
+                  transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Circuit Solder Pad Points at each of the 5 nodes */}
+                <circle cx="100" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="300" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="500" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="700" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="900" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+              </svg>
+            </div>
+
+            {/* 5 Nodes Row for Mobile */}
+            <div className={styles.nodesRow}>
+              {PROCESS_STEPS.map((step, idx) => {
+                const isActive = activeIndex === idx;
+
+                return (
+                  <div
+                    key={step.id}
+                    className={`${styles.nodeItem} ${isActive ? styles.nodeItemActive : ""}`}
+                    onClick={() => setActiveIndex(idx)}
+                  >
+                    <button
+                      type="button"
+                      className={`${styles.nodeButton} ${isActive ? styles.nodeButtonActive : ""}`}
+                      aria-label={`${step.stepNumber} — ${step.nodeTitle}`}
+                      aria-pressed={isActive}
+                    >
+                      {isActive && (
+                        <motion.div
+                          className={styles.nodeActiveHalo}
+                          initial={{ scale: 0.85, opacity: 0 }}
+                          animate={{ scale: [1, 1.28, 1], opacity: [0.7, 0.2, 0.7] }}
+                          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                      )}
+
+                      <span
+                        className={`${styles.nodeBadge} ${
+                          isActive ? styles.nodeBadgeActive : ""
+                        }`}
+                      >
+                        {step.stepNumber}
+                      </span>
+
+                      <span className={styles.nodeIcon}>
+                        <StepIcon type={step.iconType} />
+                      </span>
+                    </button>
+
+                    <div className={styles.nodeLabelGroup}>
+                      <span className={styles.nodeTitle}>{step.nodeTitle}</span>
+                      <span className={styles.nodeTimeline}>{step.nodeTimeline}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

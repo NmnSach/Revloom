@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselDots,
 } from "./carousel";
+import { VideoTestimonials } from "./video-testimonials";
 import styles from "./social-proof.module.css";
 
 // Vector Client Company Logos
@@ -114,86 +115,15 @@ function CompanyLogo({ id, size = 26 }) {
   }
 }
 
-const CLIENT_TESTIMONIALS = [
-  {
-    company: "Hyperplane AI",
-    logoId: "hyperplane",
-    stage: "Series A • Enterprise AI",
-    founder: "Julian Vance",
-    role: "Co-Founder & CEO",
-    avatarImg: "/avatars/julian-vance.jpg",
-    coreMetric: "+380% Inbound",
-    metricLabel: "Inbound Deal Flow",
-    hoverImpact: "$120k ACV Inbound",
-    quote:
-      "Revloom turned my profile into an inbound engine. We closed two $60k ACV enterprise contracts directly from founder DMs in our second month.",
-  },
-  {
-    company: "Koyeb Metrics",
-    logoId: "koyeb",
-    stage: "Series B • Cloud Infra",
-    founder: "Elena Rostova",
-    role: "Founder & CTO",
-    avatarImg: "/avatars/elena-rostova.jpg",
-    coreMetric: "2.4M+ Reach",
-    metricLabel: "Organic Impressions",
-    hoverImpact: "0 Hrs/Wk Required",
-    quote:
-      "I hate writing social posts. Revloom captured my technical voice with surgical precision—0 hours required from me, but massive C-level reach.",
-  },
-  {
-    company: "OmniFlow",
-    logoId: "omniflow",
-    stage: "Seed • Workflow SaaS",
-    founder: "Marcus Chen",
-    role: "Founder & CEO",
-    avatarImg: "/avatars/marcus-chen.jpg",
-    coreMetric: "42 Demos",
-    metricLabel: "Qualified Inbound Calls",
-    hoverImpact: "Closing Before Zoom",
-    quote:
-      "Positioning First changed everything. We stopped competing on price and started closing enterprise buyers before the demo even started.",
-  },
-  {
-    company: "Veloce Security",
-    logoId: "veloce",
-    stage: "Series A • Cybersecurity",
-    founder: "Sarah Jenkins",
-    role: "Co-Founder & CPO",
-    avatarImg: "/avatars/sarah-jenkins.jpg",
-    coreMetric: "-21 Days Velocity",
-    metricLabel: "Sales Cycle Velocity",
-    hoverImpact: "-3 Wks Deal Velocity",
-    quote:
-      "Our sales cycle dropped by 3 weeks because enterprise buyers already trusted our category perspective before we got on Zoom.",
-  },
-  {
-    company: "StackPulse",
-    logoId: "stackpulse",
-    stage: "Series A • DevTools",
-    founder: "Devon Pierce",
-    role: "CEO & Co-Founder",
-    avatarImg: "/avatars/devon-pierce.jpg",
-    coreMetric: "Top 1% Creator",
-    metricLabel: "Creator Benchmark",
-    hoverImpact: "Compounding Pipeline",
-    quote:
-      "No freelancers or black box guesswork. The weekly workflow is seamless and the compounding pipeline ROI is undeniable.",
-  },
-  {
-    company: "Loominate",
-    logoId: "loominate",
-    stage: "Seed • B2B Fintech",
-    founder: "Nadia Patel",
-    role: "Founder & CEO",
-    avatarImg: "/avatars/nadia-patel.jpg",
-    coreMetric: "$240k Pipeline",
-    metricLabel: "Pipeline Influenced",
-    hoverImpact: "$240k Pipeline Created",
-    quote:
-      "The highest-leverage personal brand investment I've made as a founder. Revloom is our secret weapon for building category trust.",
-  },
-];
+import { TESTIMONIALS } from "@/data/testimonials";
+
+const CLIENT_TESTIMONIALS = TESTIMONIALS.map((t, idx) => ({
+  ...t,
+  founder: t.name,
+  stage: t.relationship,
+  logoId: ["hyperplane", "koyeb", "omniflow", "veloce", "stackpulse", "loominate"][idx % 6],
+}));
+
 
 export function SocialProof() {
   const autoplayPlugin = useMemo(
@@ -224,6 +154,17 @@ export function SocialProof() {
             From Series A pioneers to venture-backed SaaS operators — here’s how
             executive positioning transformed their personal authority into predictable pipeline.
           </p>
+        </div>
+
+        {/* 9:16 Vertical Reel Video Testimonials Carousel */}
+        <VideoTestimonials />
+
+        {/* Written Recommendations Sub-Header */}
+        <div className={styles.writtenSubHeader}>
+          <div className={styles.writtenPill}>
+            <span>Endorsements & Recommendations</span>
+          </div>
+          <h3 className={styles.writtenTitle}>What Clients Say in Their Own Words</h3>
         </div>
 
         {/* Shadcn Carousel with Testimonial Cards (3 in a Row, Auto-scrolling every 3.5s) */}
@@ -284,7 +225,22 @@ export function SocialProof() {
                       </div>
 
                       <div className={styles.founderDetails}>
-                        <h4 className={styles.founderName}>{item.founder}</h4>
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <h4 className={styles.founderName}>{item.founder}</h4>
+                          {item.linkedinUrl && (
+                            <a
+                              href={item.linkedinUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`${item.founder} LinkedIn Profile`}
+                              style={{ color: "#0A66C2", display: "inline-flex", alignItems: "center", opacity: 0.85 }}
+                            >
+                              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                              </svg>
+                            </a>
+                          )}
+                        </div>
                         <p className={styles.founderRole}>{item.role}</p>
                       </div>
                     </div>

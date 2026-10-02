@@ -128,6 +128,91 @@
   color: var(--color-primary);
 }
 
+/* Desktop Circuit Board Wrapper */
+.desktopCircuitWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.25rem;
+  background: var(--color-card-subtle);
+  border: 1.5px solid var(--color-card-border);
+  border-radius: 28px;
+  padding: 1.75rem 2.25rem 2.5rem;
+  box-shadow: 0 16px 40px -12px rgba(108, 43, 217, 0.16);
+  overflow: visible;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.circuitCardDivider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-card-border);
+  margin: 1.5rem 0;
+  flex-shrink: 0;
+}
+
+.circuitHudBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--color-card-border);
+  margin-bottom: 1.25rem;
+}
+
+.circuitHudBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.circuitHudPulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #C6FF3D;
+  box-shadow: 0 0 8px #C6FF3D;
+  animation: hudPulseAnim 2s infinite ease-in-out;
+}
+
+@keyframes hudPulseAnim {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+.circuitHudHint {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #A78BFA;
+  font-weight: 600;
+}
+
+:global([data-theme="light"]) .circuitHudHint {
+  color: var(--color-primary);
+}
+
+/* Mobile Pipeline Diagram Wrapper */
+.mobilePipelineWrapper {
+  display: none;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
 /* Horizontal Pipeline Diagram with Animated Circuit Board Traces */
 .pipelineDiagramWrapper {
   position: relative;
@@ -632,6 +717,14 @@
   .subText {
     font-size: 0.92rem;
     line-height: 1.5;
+  }
+
+  .desktopCircuitWrapper {
+    display: none !important;
+  }
+
+  .mobilePipelineWrapper {
+    display: block !important;
   }
 
   .pipelineHeader {

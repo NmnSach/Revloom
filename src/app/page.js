@@ -6,8 +6,11 @@ import { Hero2 } from "@/components/ui/hero-2";
 import { LogoCloud } from "@/components/ui/logo-cloud";
 import { PositioningQuiz } from "@/components/ui/positioning-quiz";
 import { WhatWeDo } from "@/components/ui/what-we-do";
+import { AboutSection } from "@/components/ui/about-section";
 import { ProcessSection } from "@/components/ui/process-section";
 import { SocialProof } from "@/components/ui/social-proof";
+import { FaqSection } from "@/components/ui/faq-section";
+import { Footer } from "@/components/ui/footer";
 import { SplashScreen } from "@/components/splash-screen";
 import { NavModals } from "@/components/ui/nav-modals";
 import { ThemeToggle, AnimatedThemeToggler } from "@/components/ui/theme-toggle";
@@ -88,6 +91,15 @@ export default function Home() {
                   onClick={(e) => handleScrollLink(e, "services")}
                 >
                   Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  className={styles.navLink}
+                  onClick={(e) => handleScrollLink(e, "about")}
+                >
+                  About
                 </a>
               </li>
               <li>
@@ -182,6 +194,16 @@ export default function Home() {
                 <button
                   type="button"
                   className={styles.mobileDrawerLink}
+                  onClick={(e) => handleScrollLink(e, "about")}
+                >
+                  <span>About</span>
+                  <span className={styles.mobileDrawerArrow}>→</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.mobileDrawerLink}
                   onClick={() => {
                     setMobileMenuOpen(false);
                     setActiveModal("rev-labs");
@@ -233,10 +255,23 @@ export default function Home() {
           />
           <LogoCloud />
           <WhatWeDo />
+          <AboutSection />
           <PositioningQuiz onCtaClick={() => setActiveModal("book-a-call")} />
           <ProcessSection />
           <SocialProof />
+          <FaqSection
+            onBookCallClick={() => setActiveModal("book-a-call")}
+            onContactClick={() => setActiveModal("contact")}
+          />
         </main>
+
+        {/* Retool-inspired Rich Footer */}
+        <Footer
+          onBookCallClick={() => setActiveModal("book-a-call")}
+          onContactClick={() => setActiveModal("contact")}
+          onRevLabsClick={() => setActiveModal("rev-labs")}
+          onScrollLink={handleScrollLink}
+        />
 
         {/* Interactive Modals for Book a Call, Contact, and Rev Labs */}
         <NavModals

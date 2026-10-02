@@ -1,0 +1,308 @@
+/* ==========================================================================
+   Frequently Asked Questions (FAQ) Section Styles
+   - Simple, elegant centered heading
+   - High-contrast card accordions with smooth micro-interactions
+   - Seamless Light & Dark mode adaptation
+   ========================================================================== */
+
+.sectionContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--color-base);
+  padding: clamp(5rem, 7.5vw, 7.5rem) clamp(1.5rem, 4vw, 4rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: background-color 0.35s ease;
+}
+
+/* Background Ambient Radiance & Architectural Grid */
+.backgroundGrid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at center, var(--grid-radial) 0%, transparent 70%),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambientAura {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(108, 43, 217, 0.08) 0%, rgba(255, 79, 206, 0.03) 40%, transparent 70%);
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content Wrapper */
+.contentWrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==========================================================================
+   HEADER AREA
+   ========================================================================== */
+.headerArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 4vw, 3.75rem);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--color-card-bg-elevated);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.32rem 0.9rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1.15rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+  animation: pulseDotAnim 2s infinite ease-in-out;
+}
+
+@keyframes pulseDotAnim {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+.sectionHeading {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 3.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--text-headline-dark);
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  transition: color 0.35s ease;
+}
+
+/* ==========================================================================
+   ACCORDION LIST
+   ========================================================================== */
+.accordionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.accordionItem {
+  background: var(--color-card-bg);
+  border: 1.5px solid var(--color-card-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.35s ease;
+}
+
+.accordionItem:hover {
+  border-color: rgba(108, 43, 217, 0.3);
+}
+
+.accordionItemOpen {
+  border-color: rgba(108, 43, 217, 0.45);
+  box-shadow: var(--shadow-card);
+}
+
+[data-theme="dark"] .accordionItemOpen,
+:global(html.dark) .accordionItemOpen {
+  border-color: rgba(167, 139, 250, 0.45);
+}
+
+/* Question Header Button */
+.questionButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.35rem 1.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  gap: 1.25rem;
+}
+
+.questionText {
+  font-family: var(--font-headline);
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  font-weight: 700;
+  color: var(--text-headline-dark);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+.questionButton:hover .questionText {
+  color: var(--color-primary);
+}
+
+/* Animated Plus / Minus Icon Pill */
+.iconPill {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-neutral);
+  border: 1px solid var(--color-neutral-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  transition: all 0.25s ease;
+}
+
+.questionButton:hover .iconPill {
+  border-color: var(--color-primary);
+  transform: scale(1.06);
+}
+
+.iconPillOpen {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+[data-theme="dark"] .iconPillOpen,
+:global(html.dark) .iconPillOpen {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.chevronIcon {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+}
+
+.verticalLine {
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.iconPillOpen .verticalLine {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+/* Answer Content */
+.answerWrapper {
+  overflow: hidden;
+}
+
+.answerContent {
+  padding: 0 1.6rem 1.5rem;
+}
+
+.answerText {
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 1.05vw, 1rem);
+  line-height: 1.68;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ==========================================================================
+   SUPPORT PROMPT
+   ========================================================================== */
+.supportPrompt {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.supportLink {
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.supportLink:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ==========================================================================
+   RESPONSIVENESS (<= 900px & <= 640px)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .sectionHeading {
+    font-size: clamp(1.85rem, 7.5vw, 2.4rem);
+  }
+
+  .questionButton {
+    padding: 1.15rem 1.25rem;
+  }
+
+  .answerContent {
+    padding: 0 1.25rem 1.35rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .supportPrompt {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.25rem;
+  }
+}
