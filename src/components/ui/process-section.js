@@ -250,6 +250,65 @@ function CheckIcon({ className }) {
   );
 }
 
+function PhaseInspectionContent({ currentStep, handlePrev, handleNext }) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={currentStep.id}
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -6 }}
+        transition={{ duration: 0.2 }}
+        className={styles.inspectionContent}
+      >
+        {/* Left Column */}
+        <div className={styles.inspectionLeft}>
+          <div className={styles.phaseHeaderRow}>
+            <span className={styles.phaseBadge}>{currentStep.phaseBadge}</span>
+            <span className={styles.phaseTimeline}>{currentStep.phaseTimeline}</span>
+          </div>
+          <h3 className={styles.phaseTitle}>{currentStep.title}</h3>
+          <div className={styles.phaseSubtitle}>{currentStep.subtitle}</div>
+          <p className={styles.phaseDescription}>{currentStep.description}</p>
+        </div>
+
+        {/* Right Column: Deliverables */}
+        <div className={styles.deliverablesCard}>
+          <div className={styles.deliverablesHeader}>
+            <span className={styles.deliverablesTitle}>Deliverables</span>
+          </div>
+          <ul className={styles.deliverablesList}>
+            {currentStep.deliverables.map((item, idx) => (
+              <li key={idx} className={styles.deliverableItem}>
+                <span className={styles.deliverableIconWrapper}>
+                  {item.icon === "clock" ? (
+                    <ClockIcon className={styles.deliverableIcon} />
+                  ) : (
+                    <CheckIcon className={styles.deliverableIcon} />
+                  )}
+                </span>
+                <span className={styles.deliverableText}>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.navControls}>
+            <button type="button" onClick={handlePrev} className={styles.navBtn} aria-label="Previous Phase">
+              <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button type="button" onClick={handleNext} className={styles.navBtn} aria-label="Next Phase">
+              <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export function ProcessSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -304,61 +363,12 @@ export function ProcessSection() {
           {/* Divider */}
           <div className={styles.circuitCardDivider} />
 
-          {/* Inspection Card (inline, no separate wrapper) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep.id}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.2 }}
-              className={styles.inspectionContent}
-            >
-              {/* Left Column */}
-              <div className={styles.inspectionLeft}>
-                <div className={styles.phaseHeaderRow}>
-                  <span className={styles.phaseBadge}>{currentStep.phaseBadge}</span>
-                  <span className={styles.phaseTimeline}>{currentStep.phaseTimeline}</span>
-                </div>
-                <h3 className={styles.phaseTitle}>{currentStep.title}</h3>
-                <div className={styles.phaseSubtitle}>{currentStep.subtitle}</div>
-                <p className={styles.phaseDescription}>{currentStep.description}</p>
-              </div>
-
-              {/* Right Column: Deliverables */}
-              <div className={styles.deliverablesCard}>
-                <div className={styles.deliverablesHeader}>
-                  <span className={styles.deliverablesTitle}>Deliverables</span>
-                </div>
-                <ul className={styles.deliverablesList}>
-                  {currentStep.deliverables.map((item, idx) => (
-                    <li key={idx} className={styles.deliverableItem}>
-                      <span className={styles.deliverableIconWrapper}>
-                        {item.icon === "clock" ? (
-                          <ClockIcon className={styles.deliverableIcon} />
-                        ) : (
-                          <CheckIcon className={styles.deliverableIcon} />
-                        )}
-                      </span>
-                      <span className={styles.deliverableText}>{item.text}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className={styles.navControls}>
-                  <button type="button" onClick={handlePrev} className={styles.navBtn} aria-label="Previous Phase">
-                    <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                  </button>
-                  <button type="button" onClick={handleNext} className={styles.navBtn} aria-label="Next Phase">
-                    <svg className={styles.navSvg} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          {/* Inspection Card Content */}
+          <PhaseInspectionContent
+            currentStep={currentStep}
+            handlePrev={handlePrev}
+            handleNext={handleNext}
+          />
         </div>
 
         {/* Mobile View: Preserved Touch Stepper for Phone (as requested) */}
@@ -466,6 +476,15 @@ export function ProcessSection() {
                 );
               })}
             </div>
+          </div>
+
+          {/* Inspection Card for Mobile */}
+          <div className={styles.inspectionCard}>
+            <PhaseInspectionContent
+              currentStep={currentStep}
+              handlePrev={handlePrev}
+              handleNext={handleNext}
+            />
           </div>
         </div>
       </div>

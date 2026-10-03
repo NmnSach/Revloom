@@ -812,14 +812,23 @@
   }
 
   .inspectionCard {
-    min-height: auto;
+    height: auto !important;
+    min-height: auto !important;
     padding: 1.65rem 1.15rem 1.5rem;
     border-radius: 20px;
+    margin-top: 1.5rem;
+  }
+
+  .inspectionContent {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    height: auto;
   }
 
   .phaseTitle {
     font-size: 1.55rem;
     line-height: 1.18;
+    min-height: auto;
   }
 
   .phaseSubtitle {
@@ -834,13 +843,19 @@
   .deliverablesCard {
     padding: 1.35rem 1.15rem;
     border-radius: 16px;
+    height: auto;
   }
 
-  .cardNavigation {
-    margin-top: 1.25rem;
-    width: 100%;
+  .deliverablesList {
+    min-height: auto;
+    gap: 0.75rem;
+  }
+
+  .navControls {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 
   .navBtn {

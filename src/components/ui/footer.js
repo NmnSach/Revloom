@@ -147,8 +147,8 @@ export function Footer({
                 </button>
               </li>
               <li>
-                <a href="mailto:naman@revloom.in" className={styles.contactEmail}>
-                  naman@revloom.in
+                <a href="mailto:help@revloom.in" className={styles.contactEmail}>
+                  help@revloom.in
                 </a>
               </li>
             </ul>
