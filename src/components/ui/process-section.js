@@ -363,23 +363,13 @@ export function ProcessSection() {
 
         {/* Mobile View: Preserved Touch Stepper for Phone (as requested) */}
         <div className={styles.mobilePipelineWrapper}>
-          <div className={styles.pipelineHeader}>
-            <span className={styles.pipelineTitle}>
-              <span className={styles.pipelineIndicator} />
-              SYSTEM PIPELINE ARCHITECTURE // LIVE TRACES
-            </span>
-            <span className={styles.pipelineHint}>
-              Tap node to inspect
-            </span>
-          </div>
-
           <div className={styles.pipelineDiagramWrapper}>
             {/* Animated Circuit Board SVG Canvas */}
             <div className={styles.traceLineContainer}>
               <svg
                 className={styles.traceSvg}
                 preserveAspectRatio="none"
-                viewBox="0 0 1000 64"
+                viewBox="0 0 1000 44"
               >
                 <defs>
                   <filter id="circuitElectricGlowMobile" x="-30%" y="-100%" width="160%" height="300%">
@@ -395,20 +385,21 @@ export function ProcessSection() {
                 {/* Static Central Base Line strictly through all 5 Nodes */}
                 <line
                   x1="100"
-                  y1="32"
+                  y1="22"
                   x2="900"
-                  y2="32"
+                  y2="22"
                   stroke="rgba(108, 43, 217, 0.35)"
                   strokeWidth="2.5"
                   strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
                 />
 
                 {/* Primary Electric Neon Signal Traveling strictly from Step 1 (100) to Step 5 (900) */}
                 <motion.line
                   x1="100"
-                  y1="32"
+                  y1="22"
                   x2="900"
-                  y2="32"
+                  y2="22"
                   stroke="#C6FF3D"
                   strokeWidth="3.5"
                   strokeLinecap="round"
@@ -416,14 +407,15 @@ export function ProcessSection() {
                   strokeDasharray="100 700"
                   animate={{ strokeDashoffset: [0, -800] }}
                   transition={{ duration: 2.6, repeat: Infinity, ease: "linear" }}
+                  vectorEffect="non-scaling-stroke"
                 />
 
                 {/* Circuit Solder Pad Points at each of the 5 nodes */}
-                <circle cx="100" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-                <circle cx="300" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-                <circle cx="500" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-                <circle cx="700" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
-                <circle cx="900" cy="32" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="100" cy="22" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="300" cy="22" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="500" cy="22" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="700" cy="22" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
+                <circle cx="900" cy="22" r="4.5" fill="#6C2BD9" stroke="#C6FF3D" strokeWidth="1.5" />
               </svg>
             </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import { Play, Check } from "lucide-react";
@@ -169,6 +169,18 @@ export function VideoTestimonials() {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
   const scrollTo = useCallback((idx) => emblaApi && emblaApi.scrollTo(idx), [emblaApi]);
 
+  const visibleDots = useMemo(() => {
+    const maxDots = 6;
+    const count = scrollSnaps.length;
+    if (count <= maxDots) {
+      return scrollSnaps.map((_, i) => i);
+    }
+    let start = selectedIndex - Math.floor((maxDots - 1) / 2);
+    if (start < 0) start = 0;
+    if (start > count - maxDots) start = count - maxDots;
+    return Array.from({ length: maxDots }, (_, i) => start + i);
+  }, [scrollSnaps, selectedIndex]);
+
   // Handle ESC key for modal
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -184,18 +196,6 @@ export function VideoTestimonials() {
 
   return (
     <div className={styles.videoSectionWrapper}>
-      {/* Sub-header for the Reel Carousel */}
-      <div className={styles.subHeader}>
-        <div className={styles.subPill}>
-          <span className={styles.recordDot} />
-          <span>Founder Video Stories</span>
-        </div>
-        <h3 className={styles.subTitle}>Executive Proof In Motion</h3>
-        <p className={styles.subDesc}>
-          Watch how positioning-first strategies created predictable inbound deal flow for these operators.
-        </p>
-      </div>
-
       {/* Reel Carousel Track */}
       <div className={styles.carouselRoot}>
         <div className={styles.viewport} ref={emblaRef}>
@@ -281,7 +281,7 @@ export function VideoTestimonials() {
 
         {/* Carousel Pagination Dots */}
         <div className={styles.dotsWrapper}>
-          {scrollSnaps.map((_, idx) => (
+          {visibleDots.map((idx) => (
             <button
               key={idx}
               type="button"

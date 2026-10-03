@@ -221,14 +221,29 @@ export const CarouselNext = React.forwardRef(
 );
 CarouselNext.displayName = "CarouselNext";
 
-export function CarouselDots({ className }) {
+export function CarouselDots({ className, maxDots = 6 }) {
   const { scrollSnaps, selectedIndex, scrollTo } = useCarousel();
 
   if (!scrollSnaps || scrollSnaps.length <= 1) return null;
 
+  const count = scrollSnaps.length;
+  let visibleIndices = [];
+
+  if (count <= maxDots) {
+    visibleIndices = scrollSnaps.map((_, i) => i);
+  } else {
+    let start = selectedIndex - Math.floor((maxDots - 1) / 2);
+    if (start < 0) {
+      start = 0;
+    } else if (start > count - maxDots) {
+      start = count - maxDots;
+    }
+    visibleIndices = Array.from({ length: maxDots }, (_, i) => start + i);
+  }
+
   return (
     <div className={cn(styles.paginationBar, className)} aria-label="Slide pagination">
-      {scrollSnaps.map((_, index) => (
+      {visibleIndices.map((index) => (
         <button
           key={index}
           type="button"
