@@ -38,6 +38,9 @@ export const WheelCarousel = forwardRef(function WheelCarousel(
     photoSide = "left",
     photoWidth = 32,
     photoAspect = "3/4",
+    photoContainer = true,
+    photoShadow = true,
+    photoBorder = false,
     contentWidth = 1080,
     gap = 48,
     photoRadius = 18,
@@ -429,7 +432,7 @@ export const WheelCarousel = forwardRef(function WheelCarousel(
         onPointerCancel={handlePointerEnd}
         onKeyDown={handleKeyDown}
       >
-        {/* On mobile: Ambient backdrop card that crossfades with the services */}
+        {/* On mobile: Ambient backdrop that crossfades with the services */}
         {hasMobileBgPhoto && (
           <div
             aria-hidden="true"
@@ -447,43 +450,57 @@ export const WheelCarousel = forwardRef(function WheelCarousel(
             <div
               style={{
                 position: "relative",
-                width: "70vw",
-                height: "70dvh",
-                borderRadius: 0,
+                width: photoContainer ? "70vw" : "100%",
+                height: photoContainer ? "70dvh" : "100%",
+                maxWidth: "85vw",
+                maxHeight: "65dvh",
                 overflow: "hidden",
-                opacity: 0.16,
-                border: "1px solid rgba(108, 43, 217, 0.12)",
-                boxShadow: "0 20px 48px rgba(108, 43, 217, 0.18)",
+                opacity: 0.14,
+                border: photoContainer ? "1px solid rgba(108, 43, 217, 0.12)" : "none",
+                boxShadow: photoContainer ? "0 20px 48px rgba(108, 43, 217, 0.18)" : "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <AnimatePresence initial={false} mode="sync">
-                <motion.img
+                <motion.div
                   key={`mob-bg-${safeSelectedIndex}-${selectedItem.image}`}
-                  src={selectedItem.image}
-                  alt=""
-                  initial={reduceMotion ? false : { opacity: 0, scale: 1.06 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
+                  initial={reduceMotion ? false : { opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{
-                    duration: reduceMotion ? 0 : crossfadeDuration,
-                    ease: [0.16, 1, 0.3, 1],
+                    duration: isSpinningRef.current ? 0.2 : (reduceMotion ? 0 : 0.28),
+                    ease: "easeInOut",
                   }}
                   style={{
                     position: "absolute",
                     inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    borderRadius: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                  draggable={false}
-                />
+                >
+                  <motion.img
+                    src={selectedItem.image}
+                    alt=""
+                    style={{
+                      maxWidth: "85vw",
+                      maxHeight: "65dvh",
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                      borderRadius: photoRadius ? `${photoRadius}px` : "12px",
+                    }}
+                    draggable={false}
+                  />
+                </motion.div>
               </AnimatePresence>
             </div>
           </div>
         )}
 
-        {/* Desktop Photo Column on the left (Componentry styled) */}
+        {/* Desktop Photo Column on the left */}
         {hasDesktopPhoto && (
           <div
             className="flex h-full shrink-0 items-center justify-center"
@@ -494,51 +511,122 @@ export const WheelCarousel = forwardRef(function WheelCarousel(
               alignItems: "center",
               justifyContent: "center",
               width: `${photoWidth}%`,
-              backgroundColor: palette.background,
+              backgroundColor: "transparent",
             }}
           >
-            <div
-              className={cn(
-                "relative w-full max-h-[75vh] overflow-hidden",
-                photoClassName
-              )}
-              style={{
-                position: "relative",
-                width: "100%",
-                maxHeight: "75vh",
-                overflow: "hidden",
-                aspectRatio: aspectRatios[photoAspect] || "3 / 4",
-                borderRadius: photoRadius,
-                backgroundColor: palette.panel,
-                border: "1px solid rgba(108, 43, 217, 0.14)",
-                boxShadow:
-                  "0 24px 48px -12px rgba(108, 43, 217, 0.2), 0 8px 24px -4px rgba(26, 22, 37, 0.08)",
-              }}
-            >
-              <AnimatePresence initial={false} mode="sync">
-                <motion.img
-                  key={`${safeSelectedIndex}-${selectedItem.image}`}
-                  src={selectedItem.image}
-                  alt={selectedItem.imageAlt || selectedItem.label}
-                  initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{
-                    duration: reduceMotion ? 0 : crossfadeDuration,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                  draggable={false}
-                />
-              </AnimatePresence>
-            </div>
+            {!photoContainer ? (
+              <div
+                className={cn(
+                  "relative w-full h-full flex items-center justify-center",
+                  photoClassName
+                )}
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "100%",
+                  maxWidth: "520px",
+                  maxHeight: "min(560px, 70vh)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "auto",
+                }}
+              >
+                <AnimatePresence initial={false} mode="sync">
+                  <motion.div
+                    key={`${safeSelectedIndex}-${selectedItem.image}`}
+                    initial={reduceMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: isSpinningRef.current ? 0.2 : (reduceMotion ? 0 : 0.28),
+                      ease: "easeInOut",
+                    }}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    <motion.img
+                      src={selectedItem.image}
+                      alt={selectedItem.imageAlt || selectedItem.label}
+                      initial={reduceMotion ? false : { scale: 0.98 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0.98 }}
+                      transition={{
+                        duration: isSpinningRef.current ? 0.2 : (reduceMotion ? 0 : 0.28),
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        width: "auto",
+                        height: "auto",
+                        objectFit: "contain",
+                        borderRadius: photoRadius ? `${photoRadius}px` : "14px",
+                        boxShadow: photoShadow
+                          ? "0 20px 48px -12px rgba(108, 43, 217, 0.16), 0 8px 24px -4px rgba(26, 22, 37, 0.08)"
+                          : undefined,
+                        border: photoBorder
+                          ? "1px solid rgba(108, 43, 217, 0.1)"
+                          : undefined,
+                      }}
+                      draggable={false}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  "relative w-full max-h-[75vh] overflow-hidden",
+                  photoClassName
+                )}
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  maxHeight: "75vh",
+                  overflow: "hidden",
+                  aspectRatio: aspectRatios[photoAspect] || "3 / 4",
+                  borderRadius: photoRadius,
+                  backgroundColor: palette.panel,
+                  border: "1px solid rgba(108, 43, 217, 0.14)",
+                  boxShadow:
+                    "0 24px 48px -12px rgba(108, 43, 217, 0.2), 0 8px 24px -4px rgba(26, 22, 37, 0.08)",
+                }}
+              >
+                <AnimatePresence initial={false} mode="sync">
+                  <motion.img
+                    key={`${safeSelectedIndex}-${selectedItem.image}`}
+                    src={selectedItem.image}
+                    alt={selectedItem.imageAlt || selectedItem.label}
+                    initial={reduceMotion ? false : { opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{
+                      duration: reduceMotion ? 0 : crossfadeDuration,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    className="absolute inset-0 h-full w-full"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: selectedItem.objectFit || "cover",
+                      objectPosition: selectedItem.objectPosition || "center",
+                      padding: selectedItem.objectFit === "contain" ? "12px" : undefined,
+                      boxSizing: "border-box",
+                    }}
+                    draggable={false}
+                  />
+                </AnimatePresence>
+              </div>
+            )}
           </div>
         )}
 

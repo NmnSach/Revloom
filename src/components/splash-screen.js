@@ -7,70 +7,54 @@ import { WheelCarousel } from "@/components/ui/wheel-carousel";
 
 const SERVICES = [
   {
-    label: "Sales Funnel",
-    image:
-      "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "LinkedIn Ghostwriting & Content Strategy",
-  },
-  {
-    label: "Lead Generation",
-    image:
-      "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Personal Brand Strategy & Market Positioning",
-  },
-  {
     label: "Founder Positioning",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1200&q=80&auto=format&fit=crop",
+    image: "/Splash_screen images/Founder Positioning.png",
     imageAlt: "Founder Positioning & Authority Building",
   },
   {
-    label: "Business Growth",
-    image:
-      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Content Calendar & Editorial Scheduling",
-  },
-  {
-    label: "PR & Brand Authority",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Community Engagement & Dynamic Comment Strategy",
+    label: "Content Strategy",
+    image: "/Splash_screen images/Content strategy.png",
+    imageAlt: "Content Strategy & Follower Growth",
   },
   {
     label: "Demand Generation",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Executive LinkedIn Profile & Banner Optimization",
+    image: "/Splash_screen images/Demand Generation.png",
+    imageAlt: "Demand Generation & Impressions Performance",
   },
   {
-    label: "Thought Leadership",
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Visual Carousel Slide Design & Assets",
+    label: "Market Strategy",
+    image: "/Splash_screen images/Market strategy.png",
+    imageAlt: "Market Strategy & Multi-Channel Content Flywheel",
+  },
+  {
+    label: "PR & Brand Authority",
+    image: "/Splash_screen images/brand authorty and PR.jpg",
+    imageAlt: "Executive PR & Brand Authority",
+  },
+  {
+    label: "Lead Generation",
+    image: "/Splash_screen images/Lead Generation.png",
+    imageAlt: "Lead Generation & High-Ticket Inbound Revenue",
+  },
+  {
+    label: "Sales Funnel",
+    image: "/Splash_screen images/extraaaahh.png",
+    imageAlt: "Sales Funnel - Content to Booked Meetings",
   },
   {
     label: "Client Acquisition",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "High-Converting LinkedIn Lead Outreach & Inbound",
-  },
-  {
-    label: "Market Positioning",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Analytics, Reach Tracking & Performance Reports",
-  },
-  {
-    label: "Content Strategy",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Analytics, Reach Tracking & Performance Reports",
+    image: "/Splash_screen images/Some extra image that you can use for whatever.png",
+    imageAlt: "Client Acquisition & LinkedIn InMail Prospecting",
   },
   {
     label: "Customer Acquisition",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Analytics, Reach Tracking & Performance Reports",
+    image: "/Splash_screen images/Some extra images again.png",
+    imageAlt: "Customer Acquisition & CRM Pipeline Opportunities",
+  },
+  {
+    label: "Business Growth",
+    image: "/Splash_screen images/Extra images again.png",
+    imageAlt: "Business Growth - 356k+ Impressions & Audience Scaling",
   },
 ];
 
@@ -138,8 +122,10 @@ export function SplashScreen({ onComplete, children }) {
       };
     }
 
-    // Respect prefers-reduced-motion: if enabled, show a quick logo and smooth open
+    // Respect prefers-reduced-motion: if enabled in prod, show a quick logo and smooth open
     const prefersReducedMotion =
+      !isDev &&
+      !forceSplash &&
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -349,13 +335,13 @@ export function SplashScreen({ onComplete, children }) {
                     selectedColor="var(--color-primary, #6C2BD9)"
                     textColor="var(--text-muted, rgba(26, 22, 37, 0.35))"
                     markerColor="#C6FF3D"
-                    panelColor="var(--color-card-subtle, #F1EEF7)"
                     photoSide="left"
-                    photoWidth={34}
-                    photoAspect="3/4"
-                    photoRadius={18}
-                    contentWidth={1100}
-                    gap={48}
+                    photoContainer={false}
+                    photoWidth={42}
+                    photoRadius={16}
+                    photoShadow={true}
+                    contentWidth={1180}
+                    gap={44}
                     radius={350}
                     spacing={15}
                     visibleItems={7}

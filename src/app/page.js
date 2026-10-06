@@ -8,6 +8,7 @@ import { PositioningQuiz } from "@/components/ui/positioning-quiz";
 import { WhatWeDo } from "@/components/ui/what-we-do";
 import { AboutSection } from "@/components/ui/about-section";
 import { ProcessSection } from "@/components/ui/process-section";
+import { RevLabsSection } from "@/components/ui/rev-labs-section";
 import { SocialProof } from "@/components/ui/social-proof";
 import { FaqSection } from "@/components/ui/faq-section";
 import { Footer } from "@/components/ui/footer";
@@ -40,6 +41,18 @@ export default function Home() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Support direct deep-linking to #book-a-call or opening on hash
+  useEffect(() => {
+    const checkHash = () => {
+      if (typeof window !== "undefined" && (window.location.hash === "#book-a-call" || window.location.hash === "#calendly")) {
+        setActiveModal("book-a-call");
+      }
+    };
+    checkHash();
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
   }, []);
 
   const handleScrollLink = useCallback((e, targetId) => {
@@ -103,13 +116,13 @@ export default function Home() {
                 </a>
               </li>
               <li>
-                <button
-                  type="button"
+                <a
+                  href="#rev-labs"
                   className={styles.navLink}
-                  onClick={() => setActiveModal("rev-labs")}
+                  onClick={(e) => handleScrollLink(e, "rev-labs")}
                 >
                   Rev Labs
-                </button>
+                </a>
               </li>
               <li>
                 <button
@@ -204,10 +217,7 @@ export default function Home() {
                 <button
                   type="button"
                   className={styles.mobileDrawerLink}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setActiveModal("rev-labs");
-                  }}
+                  onClick={(e) => handleScrollLink(e, "rev-labs")}
                 >
                   <span>Rev Labs</span>
                   <span className={styles.mobileDrawerArrow}>→</span>
@@ -257,7 +267,8 @@ export default function Home() {
           <WhatWeDo />
           <AboutSection />
           <PositioningQuiz onCtaClick={() => setActiveModal("book-a-call")} />
-          <ProcessSection />
+          <ProcessSection onBookCallClick={() => setActiveModal("book-a-call")} />
+          <RevLabsSection onBookCallClick={() => setActiveModal("book-a-call")} />
           <SocialProof />
           <FaqSection
             onBookCallClick={() => setActiveModal("book-a-call")}
@@ -269,7 +280,7 @@ export default function Home() {
         <Footer
           onBookCallClick={() => setActiveModal("book-a-call")}
           onContactClick={() => setActiveModal("contact")}
-          onRevLabsClick={() => setActiveModal("rev-labs")}
+          onRevLabsClick={(e) => handleScrollLink(e, "rev-labs")}
           onScrollLink={handleScrollLink}
         />
 

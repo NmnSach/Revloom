@@ -119,14 +119,24 @@ export function FaqSection({ onBookCallClick, onContactClick }) {
 
         {/* Subtle Support Prompt */}
         <div className={styles.supportPrompt}>
-          <span className={styles.supportText}>Still have a question?</span>
-          <button
-            type="button"
-            className={styles.supportLink}
-            onClick={onContactClick || onBookCallClick}
-          >
-            Chat with our team directly →
-          </button>
+          <span className={styles.supportText}>Still have a question or ready to scale?</span>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
+            <button
+              type="button"
+              className={styles.supportLink}
+              onClick={onBookCallClick}
+            >
+              Book a call →
+            </button>
+            <span style={{ opacity: 0.4 }}>•</span>
+            <button
+              type="button"
+              className={styles.supportLink}
+              onClick={onContactClick}
+            >
+              Chat with our team directly →
+            </button>
+          </div>
         </div>
       </div>
     </section>

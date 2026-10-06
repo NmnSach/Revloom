@@ -235,6 +235,28 @@
   transition: color 0.35s ease;
 }
 
+.modelCredit {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--text-light);
+  line-height: 1.4;
+  transition: color 0.35s ease;
+}
+
+.modelCredit a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.modelCredit a:hover {
+  color: var(--color-primary);
+}
+
 /* ==========================================================================
    GIANT BRAND SECTION (Bottom Logo + Huge Wordmark)
    ========================================================================== */
@@ -454,6 +476,18 @@
 
   :root:not([data-theme="light"]) .copyright {
     color: #6A627B;
+  }
+
+  :root:not([data-theme="light"]) .modelCredit {
+    color: #6A627B;
+  }
+
+  :root:not([data-theme="light"]) .modelCredit a {
+    color: #8C84A0;
+  }
+
+  :root:not([data-theme="light"]) .modelCredit a:hover {
+    color: #C6FF3D;
   }
 
   :root:not([data-theme="light"]) .giantBrandRow {

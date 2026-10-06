@@ -1,0 +1,145 @@
+.orbViewerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.orbCanvas {
+  position: relative;
+  z-index: 1;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.orbCanvas:active {
+  cursor: grabbing;
+}
+
+.orbCanvasVisible {
+  opacity: 1;
+}
+
+/* Subtle purple glow around the orb (matching logo color #6C2BD9) */
+.orbGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(108, 43, 217, 0.45) 0%,
+    rgba(108, 43, 217, 0.28) 42%,
+    rgba(108, 43, 217, 0.1) 68%,
+    transparent 85%
+  );
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root:not([data-theme="light"]) .orbGlow {
+  background: radial-gradient(
+    circle,
+    rgba(108, 43, 217, 0.6) 0%,
+    rgba(108, 43, 217, 0.38) 44%,
+    rgba(108, 43, 217, 0.14) 70%,
+    transparent 86%
+  );
+  filter: blur(32px);
+}
+
+.orbGlowVisible {
+  opacity: 1;
+  animation: orbGlowPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes orbGlowPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.88;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .orbGlow {
+    width: 290px;
+    height: 290px;
+    filter: blur(22px);
+  }
+}
+
+/* Cybernetic Loading Indicator */
+.loaderWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.spinnerCore {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid rgba(198, 255, 61, 0.15);
+  border-top-color: #C6FF3D;
+  border-right-color: #A78BFA;
+  box-shadow: 0 0 20px rgba(198, 255, 61, 0.3);
+  animation: spinCore 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes spinCore {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderText {
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.errorWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #FF5A5A;
+  z-index: 2;
+  text-align: center;
+  padding: 1rem;
+}

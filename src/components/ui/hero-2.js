@@ -49,91 +49,103 @@ function BentoCard({ children, className = "", style = {} }) {
   );
 }
 
-// Floating Founder Avatars around the Hero Section (Real Founder Photos)
+// Floating Founder Avatars around the Hero Section (Real Founder Photos from public/avatars/color)
 const FLOATING_AVATARS = [
   {
-    id: "founder-1",
-    name: "Julian Vance",
-    role: "Co-Founder & CEO, Hyperplane",
-    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.25.00 PM.png",
+    id: "founder-ankur",
+    name: "Ankur Bhatia",
+    role: "CEO, Pivot Health",
+    avatarImg: "/avatars/color/Ankur Bhatia.png",
     objectPosition: "center 20%",
     size: 74,
     top: "5%",
-    left: "28%",
+    left: "27%",
     animClass: styles.floatA,
     tooltipPos: "left",
   },
   {
-    id: "founder-2",
-    name: "Nadia Patel",
-    role: "Founder & CEO, FinFlow",
-    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.23.58 PM.png",
+    id: "founder-nitu",
+    name: "Nitu Singh",
+    role: "Founder, Nika World",
+    avatarImg: "/avatars/color/Nitu SIngh.jpeg",
     objectPosition: "center 22%",
-    size: 56,
-    top: "7%",
-    right: "28%",
+    size: 60,
+    top: "6%",
+    right: "27%",
     animClass: styles.floatC,
     tooltipPos: "right",
   },
   {
-    id: "founder-3",
-    name: "Marcus Chen",
-    role: "Founder, OmniFlow",
-    avatarImg: "/avatars/color/y7y7y.jpeg",
+    id: "founder-anirudh",
+    name: "Anirudh Ganesh",
+    role: "Founder, Hotelzify",
+    avatarImg: "/avatars/color/Anirudh Ganesh.jpeg",
     objectPosition: "center 20%",
     size: 72,
-    top: "17%",
+    top: "18%",
     left: "3%",
     animClass: styles.floatB,
     tooltipPos: "right",
   },
   {
-    id: "founder-4",
-    name: "Elena Rostova",
-    role: "CTO, Koyeb Metrics",
-    avatarImg: "/avatars/color/azsc.jpeg",
-    objectPosition: "center 28%",
-    size: 66,
-    top: "16%",
+    id: "founder-mukunt",
+    name: "Mukunt Surya",
+    role: "GTM Expert",
+    avatarImg: "/avatars/color/Mukunt Surya, GTM Expert_.jpg",
+    objectPosition: "center 20%",
+    size: 68,
+    top: "17%",
     right: "3%",
     animClass: styles.floatB,
     tooltipPos: "left",
   },
   {
-    id: "founder-5",
-    name: "Devon Pierce",
-    role: "CEO, StackPulse",
-    avatarImg: "/avatars/color/Screenshot 2026-09-27 at 8.23.22 PM.png",
+    id: "founder-karanveer",
+    name: "Karanveer Singh",
+    role: "CEO, Kamp1",
+    avatarImg: "/avatars/color/Karanveer Singh.png",
     objectPosition: "center 25%",
     size: 70,
-    top: "48%",
-    left: "5%",
+    top: "47%",
+    left: "4%",
     animClass: styles.floatC,
     tooltipPos: "right",
   },
   {
-    id: "founder-6",
-    name: "Sarah Jenkins",
-    role: "Co-Founder, Synthetix",
-    avatarImg: "/avatars/color/s.jpeg",
-    objectPosition: "center 25%",
-    size: 60,
-    top: "47%",
-    right: "5%",
+    id: "founder-sruthi",
+    name: "Sruthi Ravinder",
+    role: "Luxury Fashion Consultant",
+    avatarImg: "/avatars/color/Sruthi Ravinder, Luxury Fashion Consultant.jpg",
+    objectPosition: "center 20%",
+    size: 66,
+    top: "46%",
+    right: "4%",
     animClass: styles.floatA,
     tooltipPos: "left",
   },
   {
-    id: "founder-7",
-    name: "Liam Foster",
-    role: "Managing Director, Veloce",
-    avatarImg: "/avatars/color/ertfss.jpeg",
-    objectPosition: "center 28%",
+    id: "founder-waaz",
+    name: "Waaz Ali",
+    role: "CEO, Xenox AI",
+    avatarImg: "/avatars/color/Waaz Ali.jpeg",
+    objectPosition: "center 25%",
     size: 72,
-    top: "67%",
+    top: "68%",
     left: "3%",
     animClass: styles.floatA,
     tooltipPos: "right",
+  },
+  {
+    id: "founder-gaurav",
+    name: "Gaurav Agrawal",
+    role: "CEO, Linnseed",
+    avatarImg: "/avatars/color/Gaurav Agrawal, CEO Linnseed.jpeg",
+    objectPosition: "center 20%",
+    size: 70,
+    top: "68%",
+    right: "3%",
+    animClass: styles.floatC,
+    tooltipPos: "left",
   },
 ];
 
@@ -382,475 +394,475 @@ export function Hero2({ onAuditClick, onHowItWorksClick, isReady = true }) {
       {/* ======================================================================== */}
       {false && (
         <div id="explore-architecture" className={styles.bentoGridWrapper}>
-        {/* Bento Card 1: Done-For-You Content Engine (Span 7) */}
-        <BentoCard className={styles.card1}>
-          {/* Top Visual: 3 Connected Tiles with Circuit Trace */}
-          <div className={styles.pipelineGraphicWrapper}>
-            <svg
-              className={styles.circuitSvg}
-              viewBox="0 0 600 430"
-              preserveAspectRatio="none"
-              fill="none"
-            >
-              <defs>
-                <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8" />
-                  <stop offset="50%" stopColor="#6C2BD9" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#C6FF3D" stopOpacity="0.8" />
-                </linearGradient>
-                <filter id="circuitGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Circuit Trace Path linking tiles */}
-              <path
-                d="M 30 110 H 130 V 215 C 190 215 220 120 300 215 C 380 310 410 215 470 215 H 570"
-                stroke="url(#circuitGrad)"
-                strokeWidth="2"
-                filter="url(#circuitGlow)"
-              />
-              <path
-                d="M 30 110 H 130 V 215 C 190 215 220 120 300 215 C 380 310 410 215 470 215 H 570"
-                stroke="#FFFFFF"
-                strokeWidth="1"
-                strokeDasharray="4 8"
-                opacity="0.6"
-              />
-            </svg>
-
-          {/* 3 Connected Pipeline Tiles */}
-          <div className={styles.pipelineTilesRow}>
-            {/* Tile 1: 15-Min Voice Memo */}
-            <div className={styles.pipelineTile}>
-              <div className={styles.terminalHeader}>
-                <span className={styles.termDotRed} />
-                <span className={styles.termDotYellow} />
-                <span className={styles.termDotGreen} />
-              </div>
-              <div className={styles.terminalCode}>
-                <p><span className={styles.codeDim}>input:</span> <span className={styles.codeWhite}>15-min memo</span></p>
-                <p><span className={styles.codeDim}>topic:</span> <span className={styles.codeLime}>&quot;Pricing error&quot;</span></p>
-                <p><span className={styles.codeDim}>voice:</span> <span className={styles.codeCyan}>captured ✓</span></p>
-              </div>
-              <div className={styles.waveBarContainer}>
-                <span className={styles.waveBar} />
-                <span className={styles.waveBar} />
-                <span className={styles.waveBar} />
-                <span className={styles.waveBar} />
-                <span className={styles.waveBar} />
-              </div>
-            </div>
-
-            {/* Tile 2: Revloom Strategy / LinkedIn Core Tile */}
-            <div className={`${styles.pipelineTile} ${styles.pipelineTileCenter}`}>
-              <div className={styles.brandCenterGlow} />
-              <svg className={styles.tileLinkedinIcon} viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-              </svg>
-              <span className={styles.brandCenterLabel}>Strategic Core</span>
-            </div>
-
-            {/* Tile 3: Live Authority Post Tile */}
-            <div className={styles.pipelineTile}>
-              <div className={styles.tileLiveHeader}>
-                <span className={styles.livePulseDot} />
-                <span className={styles.liveText}>live post ✨</span>
-              </div>
-              <div className={styles.livePostContent}>
-                <div className={styles.livePostAuthor}>
-                  <span className={styles.liveAuthorDot} />
-                  <span>Nadia P. • CEO</span>
-                </div>
-                <p className={styles.livePostQuote}>&quot;3 rules to 10x pipeline...&quot;</p>
-                <div className={styles.livePostStats}>
-                  <span className={styles.codeLime}>48.2k views</span>
-                  <span className={styles.codePink}>840 reposts</span>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-
-      {/* Bottom Content */}
-      <div className={styles.cardBottomText}>
-        <h3 className={styles.bentoTitleDark}>Content, Fully Managed</h3>
-        <p className={styles.bentoSubDark}>
-          Captions, comments, hooks — your presence stays active and on-brand without you touching a keyboard. From a 15-minute voice note to viral LinkedIn authority.
-        </p>
-      </div>
-    </BentoCard>
-
-        {/* Bento Card 2: Data-Driven Iteration (Span 5) */ }
-  <BentoCard className={styles.card2}>
-    {/* Top Content */}
-    <div className={styles.cardTopText}>
-      <h3 className={styles.bentoTitleDark}>Data-Driven Iteration</h3>
-      <p className={styles.bentoSubDark}>
-        We don&apos;t guess. Every post is a test; every result shapes the next one. Real-time visibility into compounding impressions and warm inbound pipeline.
-      </p>
-    </div>
-
-    {/* Bottom Visual: Overflowing White Dashboard Mockup */}
-    <div className={styles.dashboardMockupCard2}>
-      {/* Header bar of mockup */}
-      <div className={styles.mockupHeaderRow}>
-        <div className={styles.mockupBrand}>
-          <div className={styles.mockupLogoCircle}>R</div>
-          <span className={styles.mockupTitleText}>Growth Dashboard</span>
-        </div>
-        <div className={styles.mockupFilterPills}>
-          <span className={styles.filterPill}>Day</span>
-          <span className={styles.filterPill}>Week</span>
-          <span className={`${styles.filterPill} ${styles.filterPillActive}`}>Month</span>
-        </div>
-      </div>
-
-      {/* Split Content Grid */}
-      <div className={styles.mockupGrid2}>
-        {/* Left Column: Your Posts & Reach */}
-        <div className={styles.mockupCol}>
-          <div className={styles.statMiniCard}>
-            <div className={styles.statMiniHeader}>
-              <span className={styles.statMiniLabel}>Your Reach</span>
-              <span className={styles.statGrowthBadge}>+48.2%</span>
-            </div>
-            <div className={styles.statBigNumber}>242,000</div>
-            <span className={styles.statMiniSub}>Total impressions</span>
-
-            {/* Spline Area Chart */}
-            <div className={styles.splineGraphWrap}>
-              <svg viewBox="0 0 160 65" className={styles.splineSvg} preserveAspectRatio="none">
+          {/* Bento Card 1: Done-For-You Content Engine (Span 7) */}
+          <BentoCard className={styles.card1}>
+            {/* Top Visual: 3 Connected Tiles with Circuit Trace */}
+            <div className={styles.pipelineGraphicWrapper}>
+              <svg
+                className={styles.circuitSvg}
+                viewBox="0 0 600 430"
+                preserveAspectRatio="none"
+                fill="none"
+              >
                 <defs>
-                  <linearGradient id="splineArea" x1="0%" y1="0%" x2="0%" y2="1">
-                    <stop offset="0%" stopColor="#6C2BD9" stopOpacity="0.28" />
-                    <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                  <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.8" />
+                    <stop offset="50%" stopColor="#6C2BD9" stopOpacity="0.8" />
+                    <stop offset="100%" stopColor="#C6FF3D" stopOpacity="0.8" />
                   </linearGradient>
+                  <filter id="circuitGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
                 </defs>
-                <path d="M 0 55 Q 35 48, 60 30 T 115 15 T 160 5 L 160 65 L 0 65 Z" fill="url(#splineArea)" />
-                <path d="M 0 55 Q 35 48, 60 30 T 115 15 T 160 5" fill="none" stroke="#6C2BD9" strokeWidth="2.5" />
-                <circle cx="115" cy="15" r="4" fill="#6C2BD9" stroke="#FFFFFF" strokeWidth="2" />
+                {/* Circuit Trace Path linking tiles */}
+                <path
+                  d="M 30 110 H 130 V 215 C 190 215 220 120 300 215 C 380 310 410 215 470 215 H 570"
+                  stroke="url(#circuitGrad)"
+                  strokeWidth="2"
+                  filter="url(#circuitGlow)"
+                />
+                <path
+                  d="M 30 110 H 130 V 215 C 190 215 220 120 300 215 C 380 310 410 215 470 215 H 570"
+                  stroke="#FFFFFF"
+                  strokeWidth="1"
+                  strokeDasharray="4 8"
+                  opacity="0.6"
+                />
               </svg>
-              <div className={styles.splineTooltip}>
-                <span>March</span>
-                <strong>40,200 Engagements</strong>
+
+              {/* 3 Connected Pipeline Tiles */}
+              <div className={styles.pipelineTilesRow}>
+                {/* Tile 1: 15-Min Voice Memo */}
+                <div className={styles.pipelineTile}>
+                  <div className={styles.terminalHeader}>
+                    <span className={styles.termDotRed} />
+                    <span className={styles.termDotYellow} />
+                    <span className={styles.termDotGreen} />
+                  </div>
+                  <div className={styles.terminalCode}>
+                    <p><span className={styles.codeDim}>input:</span> <span className={styles.codeWhite}>15-min memo</span></p>
+                    <p><span className={styles.codeDim}>topic:</span> <span className={styles.codeLime}>&quot;Pricing error&quot;</span></p>
+                    <p><span className={styles.codeDim}>voice:</span> <span className={styles.codeCyan}>captured ✓</span></p>
+                  </div>
+                  <div className={styles.waveBarContainer}>
+                    <span className={styles.waveBar} />
+                    <span className={styles.waveBar} />
+                    <span className={styles.waveBar} />
+                    <span className={styles.waveBar} />
+                    <span className={styles.waveBar} />
+                  </div>
+                </div>
+
+                {/* Tile 2: Revloom Strategy / LinkedIn Core Tile */}
+                <div className={`${styles.pipelineTile} ${styles.pipelineTileCenter}`}>
+                  <div className={styles.brandCenterGlow} />
+                  <svg className={styles.tileLinkedinIcon} viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                  <span className={styles.brandCenterLabel}>Strategic Core</span>
+                </div>
+
+                {/* Tile 3: Live Authority Post Tile */}
+                <div className={styles.pipelineTile}>
+                  <div className={styles.tileLiveHeader}>
+                    <span className={styles.livePulseDot} />
+                    <span className={styles.liveText}>live post ✨</span>
+                  </div>
+                  <div className={styles.livePostContent}>
+                    <div className={styles.livePostAuthor}>
+                      <span className={styles.liveAuthorDot} />
+                      <span>Nadia P. • CEO</span>
+                    </div>
+                    <p className={styles.livePostQuote}>&quot;3 rules to 10x pipeline...&quot;</p>
+                    <div className={styles.livePostStats}>
+                      <span className={styles.codeLime}>48.2k views</span>
+                      <span className={styles.codePink}>840 reposts</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Donut Chart: Posts Breakdown */}
-          <div className={styles.donutCardMini}>
-            <div className={styles.donutHeader}>
-              <span className={styles.statMiniLabel}>Posts Breakdown</span>
+            {/* Bottom Content */}
+            <div className={styles.cardBottomText}>
+              <h3 className={styles.bentoTitleDark}>Content, Fully Managed</h3>
+              <p className={styles.bentoSubDark}>
+                Captions, comments, hooks — your presence stays active and on-brand without you touching a keyboard. From a 15-minute voice note to viral LinkedIn authority.
+              </p>
             </div>
-            <div className={styles.donutGraphicWrap}>
-              <svg viewBox="0 0 80 80" className={styles.donutSvg}>
-                {/* Ring segments */}
-                <circle cx="40" cy="40" r="30" fill="none" stroke="var(--color-card-border, #E2E8F0)" strokeWidth="10" />
-                <circle cx="40" cy="40" r="30" fill="none" stroke="#6C2BD9" strokeWidth="10" strokeDasharray="95 188" strokeDashoffset="0" />
-                <circle cx="40" cy="40" r="30" fill="none" stroke="#FF4FCE" strokeWidth="10" strokeDasharray="42 188" strokeDashoffset="-95" />
-                <circle cx="40" cy="40" r="30" fill="none" stroke="#C6FF3D" strokeWidth="10" strokeDasharray="30 188" strokeDashoffset="-137" />
-                <circle cx="40" cy="40" r="30" fill="none" stroke="#38BDF8" strokeWidth="10" strokeDasharray="21 188" strokeDashoffset="-167" />
+          </BentoCard>
+
+          {/* Bento Card 2: Data-Driven Iteration (Span 5) */}
+          <BentoCard className={styles.card2}>
+            {/* Top Content */}
+            <div className={styles.cardTopText}>
+              <h3 className={styles.bentoTitleDark}>Data-Driven Iteration</h3>
+              <p className={styles.bentoSubDark}>
+                We don&apos;t guess. Every post is a test; every result shapes the next one. Real-time visibility into compounding impressions and warm inbound pipeline.
+              </p>
+            </div>
+
+            {/* Bottom Visual: Overflowing White Dashboard Mockup */}
+            <div className={styles.dashboardMockupCard2}>
+              {/* Header bar of mockup */}
+              <div className={styles.mockupHeaderRow}>
+                <div className={styles.mockupBrand}>
+                  <div className={styles.mockupLogoCircle}>R</div>
+                  <span className={styles.mockupTitleText}>Growth Dashboard</span>
+                </div>
+                <div className={styles.mockupFilterPills}>
+                  <span className={styles.filterPill}>Day</span>
+                  <span className={styles.filterPill}>Week</span>
+                  <span className={`${styles.filterPill} ${styles.filterPillActive}`}>Month</span>
+                </div>
+              </div>
+
+              {/* Split Content Grid */}
+              <div className={styles.mockupGrid2}>
+                {/* Left Column: Your Posts & Reach */}
+                <div className={styles.mockupCol}>
+                  <div className={styles.statMiniCard}>
+                    <div className={styles.statMiniHeader}>
+                      <span className={styles.statMiniLabel}>Your Reach</span>
+                      <span className={styles.statGrowthBadge}>+48.2%</span>
+                    </div>
+                    <div className={styles.statBigNumber}>242,000</div>
+                    <span className={styles.statMiniSub}>Total impressions</span>
+
+                    {/* Spline Area Chart */}
+                    <div className={styles.splineGraphWrap}>
+                      <svg viewBox="0 0 160 65" className={styles.splineSvg} preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="splineArea" x1="0%" y1="0%" x2="0%" y2="1">
+                            <stop offset="0%" stopColor="#6C2BD9" stopOpacity="0.28" />
+                            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M 0 55 Q 35 48, 60 30 T 115 15 T 160 5 L 160 65 L 0 65 Z" fill="url(#splineArea)" />
+                        <path d="M 0 55 Q 35 48, 60 30 T 115 15 T 160 5" fill="none" stroke="#6C2BD9" strokeWidth="2.5" />
+                        <circle cx="115" cy="15" r="4" fill="#6C2BD9" stroke="#FFFFFF" strokeWidth="2" />
+                      </svg>
+                      <div className={styles.splineTooltip}>
+                        <span>March</span>
+                        <strong>40,200 Engagements</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Donut Chart: Posts Breakdown */}
+                  <div className={styles.donutCardMini}>
+                    <div className={styles.donutHeader}>
+                      <span className={styles.statMiniLabel}>Posts Breakdown</span>
+                    </div>
+                    <div className={styles.donutGraphicWrap}>
+                      <svg viewBox="0 0 80 80" className={styles.donutSvg}>
+                        {/* Ring segments */}
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="var(--color-card-border, #E2E8F0)" strokeWidth="10" />
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#6C2BD9" strokeWidth="10" strokeDasharray="95 188" strokeDashoffset="0" />
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#FF4FCE" strokeWidth="10" strokeDasharray="42 188" strokeDashoffset="-95" />
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#C6FF3D" strokeWidth="10" strokeDasharray="30 188" strokeDashoffset="-137" />
+                        <circle cx="40" cy="40" r="30" fill="none" stroke="#38BDF8" strokeWidth="10" strokeDasharray="21 188" strokeDashoffset="-167" />
+                      </svg>
+                      <div className={styles.donutCenterText}>
+                        <span className={styles.donutCenterVal}>$85k</span>
+                      </div>
+                    </div>
+                    <div className={styles.donutLegend}>
+                      <span><i style={{ background: "#6C2BD9" }} /> Carousels</span>
+                      <span><i style={{ background: "#FF4FCE" }} /> Hot Takes</span>
+                      <span><i style={{ background: "#C6FF3D" }} /> Case Studies</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Inbound Deals & Pipeline */}
+                <div className={styles.mockupCol}>
+                  {/* Transactions / Deals List */}
+                  <div className={styles.transactionsMini}>
+                    <div className={styles.txHeader}>
+                      <span className={styles.statMiniLabel}>Latest Inbound Deals</span>
+                      <span className={styles.viewAllLink}>View all</span>
+                    </div>
+                    <div className={styles.txList}>
+                      <div className={styles.txItem}>
+                        <div className={`${styles.txIcon} ${styles.txIconBlue}`}>📄</div>
+                        <div className={styles.txDetails}>
+                          <div className={styles.txTitle}>Series B SaaS Lead</div>
+                          <div className={styles.txSub}>Inbound Discovery Call</div>
+                        </div>
+                        <div className={styles.txAmount}>$48,000</div>
+                      </div>
+                      <div className={styles.txItem}>
+                        <div className={`${styles.txIcon} ${styles.txIconPurple}`}>🎙️</div>
+                        <div className={styles.txDetails}>
+                          <div className={styles.txTitle}>Keynote Speaker Invite</div>
+                          <div className={styles.txSub}>Fintech Summit 2026</div>
+                        </div>
+                        <div className={styles.txAmount}>Confirmed</div>
+                      </div>
+                      <div className={styles.txItem}>
+                        <div className={`${styles.txIcon} ${styles.txIconLime}`}>🤝</div>
+                        <div className={styles.txDetails}>
+                          <div className={styles.txTitle}>Enterprise Advisory</div>
+                          <div className={styles.txSub}>Managing Director, VC</div>
+                        </div>
+                        <div className={styles.txAmount}>$120,000</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Monetisation Details */}
+                  <div className={styles.monetisationMini}>
+                    <div className={styles.txHeader}>
+                      <span className={styles.statMiniLabel}>Pipeline Influenced</span>
+                      <span className={styles.growthGreen}>+18.4%</span>
+                    </div>
+                    <div className={styles.monetisationVal}>$142,000</div>
+                    <span className={styles.statMiniSub}>Total pipeline influenced</span>
+                    {/* Mini sparkline */}
+                    <svg viewBox="0 0 120 28" className={styles.sparklineSvg}>
+                      <path d="M 0 24 Q 30 18, 50 12 T 90 6 T 120 2" fill="none" stroke="#10B981" strokeWidth="2.5" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </BentoCard>
+
+          {/* Bento Card 3: Positioning First (Span 5) */}
+          <BentoCard className={styles.card3}>
+            {/* Top Content */}
+            <div className={styles.cardTopText}>
+              <h3 className={styles.bentoTitleDark}>Positioning First</h3>
+              <p className={styles.bentoSubDark}>
+                Before we write a word, we nail down what makes you different and who needs to hear it — positioning your brand across global tech and investment hubs.
+              </p>
+            </div>
+
+            {/* Bottom Visual: Dotted Earth Sphere */}
+            <div className={styles.globeGraphicContainer}>
+              {/* Ambient Atmosphere Rim Glow */}
+              <div className={styles.globeAtmosphereGlow} />
+
+              <svg viewBox="0 0 450 360" className={styles.globeSvg}>
+                <defs>
+                  <linearGradient id="crescentRim" x1="0%" y1="100%" x2="70%" y2="0%">
+                    <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                    <stop offset="40%" stopColor="#38BDF8" stopOpacity="0.8" />
+                    <stop offset="80%" stopColor="#6C2BD9" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#6C2BD9" stopOpacity="0" />
+                  </linearGradient>
+                  <filter id="rimBloom" x="-20%" y="-20%" width="150%" height="150%">
+                    <feGaussianBlur stdDeviation="8" result="blur1" />
+                    <feGaussianBlur stdDeviation="3" result="blur2" />
+                    <feMerge>
+                      <feMergeNode in="blur1" />
+                      <feMergeNode in="blur2" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                {/* Sphere Background Dark Body */}
+                <circle cx="310" cy="250" r="210" fill="#0C0A15" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+
+                {/* Crescent Atmosphere Light Edge */}
+                <path
+                  d="M 102 274 A 210 210 0 0 1 424 81"
+                  fill="none"
+                  stroke="url(#crescentRim)"
+                  strokeWidth="3.5"
+                  filter="url(#rimBloom)"
+                />
+
+                {/* Precomputed Orthographic Globe Dots */}
+                {GLOBE_DOTS.map(([x, y, o, r, c], i) => (
+                  <circle
+                    key={i}
+                    cx={x}
+                    cy={y}
+                    r={r}
+                    fill={c === 1 ? "#38BDF8" : c === 2 ? "#60A5FA" : c === 0 ? "rgba(148, 163, 184, 0.45)" : "#818CF8"}
+                    opacity={o}
+                  />
+                ))}
+
+                {/* Glowing Distribution Hub Beacon */}
+                <g className={styles.beaconGroup}>
+                  <circle cx="273" cy="237" r="18" fill="none" stroke="#38BDF8" strokeWidth="1.5" opacity="0.6" className={styles.beaconRing} />
+                  <circle cx="273" cy="237" r="9" fill="#38BDF8" opacity="0.35" />
+                  <circle cx="273" cy="237" r="4.5" fill="#FFFFFF" />
+                </g>
+
+                {/* Secondary Beacon & Connection Beam */}
+                <g>
+                  <circle cx="176" cy="183" r="3.5" fill="#C6FF3D" />
+                  <path d="M 176 183 Q 220 190 273 237" fill="none" stroke="#C6FF3D" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.75" />
+                </g>
               </svg>
-              <div className={styles.donutCenterText}>
-                <span className={styles.donutCenterVal}>$85k</span>
+
+              {/* Floating edge badges */}
+              <div className={styles.globeBadgesOverlay}>
+                <span className={styles.globePill}>⚡️ 6.6M+ Impressions Generated</span>
+                <span className={styles.globePill}>🌐 50+ Global Founders Scaled</span>
               </div>
             </div>
-            <div className={styles.donutLegend}>
-              <span><i style={{ background: "#6C2BD9" }} /> Carousels</span>
-              <span><i style={{ background: "#FF4FCE" }} /> Hot Takes</span>
-              <span><i style={{ background: "#C6FF3D" }} /> Case Studies</span>
-            </div>
-          </div>
-        </div>
+          </BentoCard>
 
-        {/* Right Column: Inbound Deals & Pipeline */}
-        <div className={styles.mockupCol}>
-          {/* Transactions / Deals List */}
-          <div className={styles.transactionsMini}>
-            <div className={styles.txHeader}>
-              <span className={styles.statMiniLabel}>Latest Inbound Deals</span>
-              <span className={styles.viewAllLink}>View all</span>
+          {/* Bento Card 4: A Profile That Sells (Span 7) */}
+          <BentoCard className={styles.card4}>
+            {/* Top Content */}
+            <div className={styles.cardTopText}>
+              <h3 className={styles.bentoTitleDark}>A Profile That Sells</h3>
+              <p className={styles.bentoSubDark}>
+                Your LinkedIn page becomes a high-converting landing page. Built to turn casual profile visitors into inbound DMs, investor calls, and enterprise pipeline.
+              </p>
             </div>
-            <div className={styles.txList}>
-              <div className={styles.txItem}>
-                <div className={`${styles.txIcon} ${styles.txIconBlue}`}>📄</div>
-                <div className={styles.txDetails}>
-                  <div className={styles.txTitle}>Series B SaaS Lead</div>
-                  <div className={styles.txSub}>Inbound Discovery Call</div>
+
+            {/* Bottom Visual: Wide Desktop Dashboard Mockup */}
+            <div className={styles.dashboardMockupCard4}>
+              {/* Sidebar + Main App Split */}
+              <div className={styles.card4DashboardInner}>
+                {/* Mini Icon Sidebar */}
+                <div className={styles.card4Sidebar}>
+                  <div className={styles.card4LogoBadge}>R</div>
+                  <div className={styles.card4NavIcons}>
+                    <button className={`${styles.card4NavBtn} ${styles.card4NavBtnActive}`} aria-label="Overview">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                    </button>
+                    <button className={styles.card4NavBtn} aria-label="Analytics">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
+                    </button>
+                    <button className={styles.card4NavBtn} aria-label="Messages">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+                    </button>
+                    <button className={styles.card4NavBtn} aria-label="Settings">
+                      <svg viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>
+                    </button>
+                  </div>
                 </div>
-                <div className={styles.txAmount}>$48,000</div>
-              </div>
-              <div className={styles.txItem}>
-                <div className={`${styles.txIcon} ${styles.txIconPurple}`}>🎙️</div>
-                <div className={styles.txDetails}>
-                  <div className={styles.txTitle}>Keynote Speaker Invite</div>
-                  <div className={styles.txSub}>Fintech Summit 2026</div>
-                </div>
-                <div className={styles.txAmount}>Confirmed</div>
-              </div>
-              <div className={styles.txItem}>
-                <div className={`${styles.txIcon} ${styles.txIconLime}`}>🤝</div>
-                <div className={styles.txDetails}>
-                  <div className={styles.txTitle}>Enterprise Advisory</div>
-                  <div className={styles.txSub}>Managing Director, VC</div>
-                </div>
-                <div className={styles.txAmount}>$120,000</div>
-              </div>
-            </div>
-          </div>
 
-          {/* Monetisation Details */}
-          <div className={styles.monetisationMini}>
-            <div className={styles.txHeader}>
-              <span className={styles.statMiniLabel}>Pipeline Influenced</span>
-              <span className={styles.growthGreen}>+18.4%</span>
-            </div>
-            <div className={styles.monetisationVal}>$142,000</div>
-            <span className={styles.statMiniSub}>Total pipeline influenced</span>
-            {/* Mini sparkline */}
-            <svg viewBox="0 0 120 28" className={styles.sparklineSvg}>
-              <path d="M 0 24 Q 30 18, 50 12 T 90 6 T 120 2" fill="none" stroke="#10B981" strokeWidth="2.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </BentoCard>
+                {/* Main Content Area */}
+                <div className={styles.card4Main}>
+                  {/* Header */}
+                  <div className={styles.card4HeaderBar}>
+                    <div className={styles.card4Breadcrumb}>
+                      <span className={styles.card4BreadcrumbParent}>Workspace</span>
+                      <span className={styles.card4BreadcrumbSlash}>/</span>
+                      <span className={styles.card4BreadcrumbActive}>Inbound Pipeline Engine</span>
+                    </div>
+                    <div className={styles.card4SearchBox}>
+                      <span className={styles.card4SearchIcon}>🔍</span>
+                      <span className={styles.card4SearchPlaceholder}>Search hooks, topics, transcripts...</span>
+                    </div>
+                    <div className={styles.card4UserPill}>
+                      <span className={styles.card4AvatarDot} />
+                      <span>Active Sprint</span>
+                    </div>
+                  </div>
 
-  {/* Bento Card 3: Positioning First (Span 5) */ }
-  <BentoCard className={styles.card3}>
-    {/* Top Content */}
-    <div className={styles.cardTopText}>
-      <h3 className={styles.bentoTitleDark}>Positioning First</h3>
-      <p className={styles.bentoSubDark}>
-        Before we write a word, we nail down what makes you different and who needs to hear it — positioning your brand across global tech and investment hubs.
-      </p>
-    </div>
-
-    {/* Bottom Visual: Dotted Earth Sphere */}
-    <div className={styles.globeGraphicContainer}>
-      {/* Ambient Atmosphere Rim Glow */}
-      <div className={styles.globeAtmosphereGlow} />
-
-      <svg viewBox="0 0 450 360" className={styles.globeSvg}>
-        <defs>
-          <linearGradient id="crescentRim" x1="0%" y1="100%" x2="70%" y2="0%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-            <stop offset="40%" stopColor="#38BDF8" stopOpacity="0.8" />
-            <stop offset="80%" stopColor="#6C2BD9" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#6C2BD9" stopOpacity="0" />
-          </linearGradient>
-          <filter id="rimBloom" x="-20%" y="-20%" width="150%" height="150%">
-            <feGaussianBlur stdDeviation="8" result="blur1" />
-            <feGaussianBlur stdDeviation="3" result="blur2" />
-            <feMerge>
-              <feMergeNode in="blur1" />
-              <feMergeNode in="blur2" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {/* Sphere Background Dark Body */}
-        <circle cx="310" cy="250" r="210" fill="#0C0A15" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-
-        {/* Crescent Atmosphere Light Edge */}
-        <path
-          d="M 102 274 A 210 210 0 0 1 424 81"
-          fill="none"
-          stroke="url(#crescentRim)"
-          strokeWidth="3.5"
-          filter="url(#rimBloom)"
-        />
-
-        {/* Precomputed Orthographic Globe Dots */}
-        {GLOBE_DOTS.map(([x, y, o, r, c], i) => (
-          <circle
-            key={i}
-            cx={x}
-            cy={y}
-            r={r}
-            fill={c === 1 ? "#38BDF8" : c === 2 ? "#60A5FA" : c === 0 ? "rgba(148, 163, 184, 0.45)" : "#818CF8"}
-            opacity={o}
-          />
-        ))}
-
-        {/* Glowing Distribution Hub Beacon */}
-        <g className={styles.beaconGroup}>
-          <circle cx="273" cy="237" r="18" fill="none" stroke="#38BDF8" strokeWidth="1.5" opacity="0.6" className={styles.beaconRing} />
-          <circle cx="273" cy="237" r="9" fill="#38BDF8" opacity="0.35" />
-          <circle cx="273" cy="237" r="4.5" fill="#FFFFFF" />
-        </g>
-
-        {/* Secondary Beacon & Connection Beam */}
-        <g>
-          <circle cx="176" cy="183" r="3.5" fill="#C6FF3D" />
-          <path d="M 176 183 Q 220 190 273 237" fill="none" stroke="#C6FF3D" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.75" />
-        </g>
-      </svg>
-
-      {/* Floating edge badges */}
-      <div className={styles.globeBadgesOverlay}>
-        <span className={styles.globePill}>⚡️ 6.6M+ Impressions Generated</span>
-        <span className={styles.globePill}>🌐 50+ Global Founders Scaled</span>
-      </div>
-    </div>
-  </BentoCard>
-
-  {/* Bento Card 4: A Profile That Sells (Span 7) */ }
-  <BentoCard className={styles.card4}>
-    {/* Top Content */}
-    <div className={styles.cardTopText}>
-      <h3 className={styles.bentoTitleDark}>A Profile That Sells</h3>
-      <p className={styles.bentoSubDark}>
-        Your LinkedIn page becomes a high-converting landing page. Built to turn casual profile visitors into inbound DMs, investor calls, and enterprise pipeline.
-      </p>
-    </div>
-
-    {/* Bottom Visual: Wide Desktop Dashboard Mockup */}
-    <div className={styles.dashboardMockupCard4}>
-      {/* Sidebar + Main App Split */}
-      <div className={styles.card4DashboardInner}>
-        {/* Mini Icon Sidebar */}
-        <div className={styles.card4Sidebar}>
-          <div className={styles.card4LogoBadge}>R</div>
-          <div className={styles.card4NavIcons}>
-            <button className={`${styles.card4NavBtn} ${styles.card4NavBtnActive}`} aria-label="Overview">
-              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
-            </button>
-            <button className={styles.card4NavBtn} aria-label="Analytics">
-              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
-            </button>
-            <button className={styles.card4NavBtn} aria-label="Messages">
-              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-            </button>
-            <button className={styles.card4NavBtn} aria-label="Settings">
-              <svg viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Main Content Area */}
-        <div className={styles.card4Main}>
-          {/* Header */}
-          <div className={styles.card4HeaderBar}>
-            <div className={styles.card4Breadcrumb}>
-              <span className={styles.card4BreadcrumbParent}>Workspace</span>
-              <span className={styles.card4BreadcrumbSlash}>/</span>
-              <span className={styles.card4BreadcrumbActive}>Inbound Pipeline Engine</span>
-            </div>
-            <div className={styles.card4SearchBox}>
-              <span className={styles.card4SearchIcon}>🔍</span>
-              <span className={styles.card4SearchPlaceholder}>Search hooks, topics, transcripts...</span>
-            </div>
-            <div className={styles.card4UserPill}>
-              <span className={styles.card4AvatarDot} />
-              <span>Active Sprint</span>
-            </div>
-          </div>
-
-          {/* 4 Metric Stats Cards */}
-          <div className={styles.card4MetricsRow}>
-            <div className={styles.card4MetricCard}>
-              <span className={styles.card4MetricLabel}>Hook Score</span>
-              <div className={styles.card4MetricNumWrap}>
-                <span className={styles.card4MetricVal}>98.4%</span>
-                <span className={styles.badgeLime}>Top 1%</span>
-              </div>
-            </div>
-            <div className={styles.card4MetricCard}>
-              <span className={styles.card4MetricLabel}>Avg Reposts</span>
-              <div className={styles.card4MetricNumWrap}>
-                <span className={styles.card4MetricVal}>2,480</span>
-                <span className={styles.badgePurple}>+34%</span>
-              </div>
-            </div>
-            <div className={styles.card4MetricCard}>
-              <span className={styles.card4MetricLabel}>Inbound Calls</span>
-              <div className={styles.card4MetricNumWrap}>
-                <span className={styles.card4MetricVal}>42 Calls</span>
-                <span className={styles.badgePink}>Qualified</span>
-              </div>
-            </div>
-            <div className={styles.card4MetricCard}>
-              <span className={styles.card4MetricLabel}>Closed Pipeline</span>
-              <div className={styles.card4MetricNumWrap}>
-                <span className={styles.card4MetricVal}>$340k</span>
-                <span className={styles.badgeBlue}>Q3 Record</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Inbound Deals / Transactions Table */}
-          <div className={styles.card4TableContainer}>
-            <div className={styles.card4TableHeader}>
-              <span>Inbound Deals & Speaking Pipeline</span>
-              <span className={styles.card4TableCount}>4 Deals this month</span>
-            </div>
-            <table className={styles.card4Table}>
-              <thead>
-                <tr>
-                  <th>LEAD / FOUNDER</th>
-                  <th>COMPANY</th>
-                  <th>DEAL VALUE</th>
-                  <th>STAGE</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div className={styles.tableUser}>
-                      <div className={`${styles.tableAvatar} ${styles.tableAvatar1}`}>MC</div>
-                      <div>
-                        <div className={styles.tableName}>Marcus Chen</div>
-                        <div className={styles.tableSub}>VP Growth</div>
+                  {/* 4 Metric Stats Cards */}
+                  <div className={styles.card4MetricsRow}>
+                    <div className={styles.card4MetricCard}>
+                      <span className={styles.card4MetricLabel}>Hook Score</span>
+                      <div className={styles.card4MetricNumWrap}>
+                        <span className={styles.card4MetricVal}>98.4%</span>
+                        <span className={styles.badgeLime}>Top 1%</span>
                       </div>
                     </div>
-                  </td>
-                  <td><span className={styles.companyBadge}>Series B SaaS</span></td>
-                  <td><strong className={styles.dealVal}>$48,000</strong></td>
-                  <td><span className={styles.stageTagGreen}>Call Booked ✓</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className={styles.tableUser}>
-                      <div className={`${styles.tableAvatar} ${styles.tableAvatar2}`}>ER</div>
-                      <div>
-                        <div className={styles.tableName}>Elena Rostova</div>
-                        <div className={styles.tableSub}>Managing Partner</div>
+                    <div className={styles.card4MetricCard}>
+                      <span className={styles.card4MetricLabel}>Avg Reposts</span>
+                      <div className={styles.card4MetricNumWrap}>
+                        <span className={styles.card4MetricVal}>2,480</span>
+                        <span className={styles.badgePurple}>+34%</span>
                       </div>
                     </div>
-                  </td>
-                  <td><span className={styles.companyBadge}>Horizon Capital VC</span></td>
-                  <td><strong className={styles.dealVal}>$120,000</strong></td>
-                  <td><span className={styles.stageTagPurple}>Inbound DM ✓</span></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className={styles.tableUser}>
-                      <div className={`${styles.tableAvatar} ${styles.tableAvatar3}`}>JV</div>
-                      <div>
-                        <div className={styles.tableName}>Julian Vance</div>
-                        <div className={styles.tableSub}>Co-Founder & CEO</div>
+                    <div className={styles.card4MetricCard}>
+                      <span className={styles.card4MetricLabel}>Inbound Calls</span>
+                      <div className={styles.card4MetricNumWrap}>
+                        <span className={styles.card4MetricVal}>42 Calls</span>
+                        <span className={styles.badgePink}>Qualified</span>
                       </div>
                     </div>
-                  </td>
-                  <td><span className={styles.companyBadge}>Omnistack Cloud</span></td>
-                  <td><strong className={styles.dealVal}>$60,000</strong></td>
-                  <td><span className={styles.stageTagLime}>Contract Sent ✓</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    <div className={styles.card4MetricCard}>
+                      <span className={styles.card4MetricLabel}>Closed Pipeline</span>
+                      <div className={styles.card4MetricNumWrap}>
+                        <span className={styles.card4MetricVal}>$340k</span>
+                        <span className={styles.badgeBlue}>Q3 Record</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Inbound Deals / Transactions Table */}
+                  <div className={styles.card4TableContainer}>
+                    <div className={styles.card4TableHeader}>
+                      <span>Inbound Deals & Speaking Pipeline</span>
+                      <span className={styles.card4TableCount}>4 Deals this month</span>
+                    </div>
+                    <table className={styles.card4Table}>
+                      <thead>
+                        <tr>
+                          <th>LEAD / FOUNDER</th>
+                          <th>COMPANY</th>
+                          <th>DEAL VALUE</th>
+                          <th>STAGE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <div className={styles.tableUser}>
+                              <div className={`${styles.tableAvatar} ${styles.tableAvatar1}`}>MC</div>
+                              <div>
+                                <div className={styles.tableName}>Marcus Chen</div>
+                                <div className={styles.tableSub}>VP Growth</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span className={styles.companyBadge}>Series B SaaS</span></td>
+                          <td><strong className={styles.dealVal}>$48,000</strong></td>
+                          <td><span className={styles.stageTagGreen}>Call Booked ✓</span></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className={styles.tableUser}>
+                              <div className={`${styles.tableAvatar} ${styles.tableAvatar2}`}>ER</div>
+                              <div>
+                                <div className={styles.tableName}>Elena Rostova</div>
+                                <div className={styles.tableSub}>Managing Partner</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span className={styles.companyBadge}>Horizon Capital VC</span></td>
+                          <td><strong className={styles.dealVal}>$120,000</strong></td>
+                          <td><span className={styles.stageTagPurple}>Inbound DM ✓</span></td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div className={styles.tableUser}>
+                              <div className={`${styles.tableAvatar} ${styles.tableAvatar3}`}>JV</div>
+                              <div>
+                                <div className={styles.tableName}>Julian Vance</div>
+                                <div className={styles.tableSub}>Co-Founder & CEO</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td><span className={styles.companyBadge}>Omnistack Cloud</span></td>
+                          <td><strong className={styles.dealVal}>$60,000</strong></td>
+                          <td><span className={styles.stageTagLime}>Contract Sent ✓</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </BentoCard>
         </div>
-      </div>
-    </div>
-  </BentoCard>
-</div>
       )}
       {/* ======================================================================== */}
       {/* END COMMENTED OUT BENTO GRID                                             */}

@@ -141,6 +141,15 @@ export function Footer({
                 <button
                   type="button"
                   className={styles.textButton}
+                  onClick={onBookCallClick}
+                >
+                  Book a Discovery Call
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className={styles.textButton}
                   onClick={onContactClick}
                 >
                   Direct Inquiry
@@ -180,6 +189,32 @@ export function Footer({
             </div>
 
             <span className={styles.copyright}>© Revloom 2026</span>
+            <span className={styles.modelCredit}>
+              <a
+                href="https://skfb.ly/6voow"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                &ldquo;Orb&rdquo;
+              </a>{" "}
+              by{" "}
+              <a
+                href="https://sketchfab.com/End3r"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                End3r
+              </a>{" "}
+              (
+              <a
+                href="http://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                CC BY 4.0
+              </a>
+              )
+            </span>
           </div>
         </div>
 

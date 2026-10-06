@@ -250,7 +250,7 @@ function CheckIcon({ className }) {
   );
 }
 
-function PhaseInspectionContent({ currentStep, handlePrev, handleNext }) {
+function PhaseInspectionContent({ currentStep, handlePrev, handleNext, onBookCallClick }) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -270,6 +270,16 @@ function PhaseInspectionContent({ currentStep, handlePrev, handleNext }) {
           <h3 className={styles.phaseTitle}>{currentStep.title}</h3>
           <div className={styles.phaseSubtitle}>{currentStep.subtitle}</div>
           <p className={styles.phaseDescription}>{currentStep.description}</p>
+          {currentStep.id === "discovery" && onBookCallClick && (
+            <button
+              type="button"
+              className={styles.phaseDiscoveryBtn}
+              onClick={onBookCallClick}
+            >
+              <span>Book Discovery Call</span>
+              <span className={styles.phaseDiscoveryArrow}>→</span>
+            </button>
+          )}
         </div>
 
         {/* Right Column: Deliverables */}
@@ -309,7 +319,7 @@ function PhaseInspectionContent({ currentStep, handlePrev, handleNext }) {
   );
 }
 
-export function ProcessSection() {
+export function ProcessSection({ onBookCallClick }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const currentStep = PROCESS_STEPS[activeIndex];
@@ -368,6 +378,7 @@ export function ProcessSection() {
             currentStep={currentStep}
             handlePrev={handlePrev}
             handleNext={handleNext}
+            onBookCallClick={onBookCallClick}
           />
         </div>
 
@@ -484,6 +495,7 @@ export function ProcessSection() {
               currentStep={currentStep}
               handlePrev={handlePrev}
               handleNext={handleNext}
+              onBookCallClick={onBookCallClick}
             />
           </div>
         </div>

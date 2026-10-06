@@ -17,9 +17,12 @@ export const metadata = {
   description:
     "Revloom helps founders, creators, and leaders scale their LinkedIn reach and craft high-performing content.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.jpeg", type: "image/jpeg" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.jpeg",
+    apple: "/favicon.jpeg",
   },
 };
 
@@ -28,8 +31,9 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
-        <link rel="icon" href="/logo.png" type="image/png" sizes="any" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" href="/favicon.jpeg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/favicon.jpeg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/favicon.jpeg" />
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link
           rel="stylesheet"
